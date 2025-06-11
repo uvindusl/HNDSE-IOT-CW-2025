@@ -35,9 +35,10 @@ database and data relaying infrastructure.
 - Automatic accident detection:  The proposed helmet/ helmets will continuously monitor for sudden deacceleration, impact, change of angle or combine of them to detect accidents. 
 - Distress signal transmitting: When helmet monitors that accident occurred, after a set time period if there is not any override actionperformed, it will send distress information to central database. Central infrastructure will then relay the incident to authorities. 
 - Location transmitting: simultaneously to the transmitting distress signal, helmet will transmit the location data, by using the riders mobile GPS/ inbuilt GPRS through mobile phones cellular connection. 
-- Vital information transmitting: After the distress signal transmission, the helmet will transmit vital signals(heart rate, blood infused O2 level) of rider 
+- Vital information collecting and transmitting: After the distress signal transmission, the helmet will collect vital signal using heart rate senser and transmit(heart rate, blood infused O2 level) of rider 
 - Transmitting rider details: When the distress signal being sent to emergency services, with it the basic information like riders name, NIC, vehicle number plate, vehicle model and color of vehicle  will be attached and sent. These information will be stored in central database and in case of emergency will be accessed using the special unique identification number given to each helmet. 
-- Manual cancelation button: The helmet will be equipped with an manual override button that can be use by rider to cancel any false alarms happens due to mistakes like dropping the helmet accidently while it is active.  
+- Manual cancelation button: The helmet will be equipped with an manual override button that can be use by rider to cancel any false alarms happens due to mistakes like dropping the helmet accidently while it is active.
+- The smart breaklight: When a deacceleration detected by the accellerometer the breaklight which attached to the helmet will turn on.   
 
 
 ## Project Objectives
