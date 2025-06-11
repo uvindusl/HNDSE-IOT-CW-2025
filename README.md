@@ -36,8 +36,7 @@ database and data relaying infrastructure.
 - Distress signal transmitting: When helmet monitors that accident occurred, after a set time period if there is not any override actionperformed, it will send distress information to central database. Central infrastructure will then relay the incident to authorities. 
 - Location transmitting: simultaneously to the transmitting distress signal, helmet will transmit the location data, by using the riders mobile GPS/ inbuilt GPRS through mobile phones cellular connection. 
 - Vital information transmitting: After the distress signal transmission, the helmet will transmit vital signals(heart rate, blood infused O2 level) of rider 
-- Internet connection through mobile phone: Helmet will connect to mobiles hotspot and use it to transmit data to the central database system. 
-- Rider identification: When the distress signal being sent to emergency services, with it the basic information like riders name, NIC, vehicle number plate, vehicle model will be attached and sent. These information will be stored in central database and in case of emergency will be accessed using the special unique identification number given to each helmet. 
+- Transmitting rider details: When the distress signal being sent to emergency services, with it the basic information like riders name, NIC, vehicle number plate, vehicle model and color of vehicle  will be attached and sent. These information will be stored in central database and in case of emergency will be accessed using the special unique identification number given to each helmet. 
 - Manual cancelation button: The helmet will be equipped with an manual override button that can be use by rider to cancel any false alarms happens due to mistakes like dropping the helmet accidently while it is active.  
 
 
