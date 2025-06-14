@@ -10,8 +10,10 @@ function App() {
     <>
       <NavBar />
       <RiderDetailsCard />
-      <HeartBeatLineChart />
-      <SpeedMeter />
+      <div className="graph-container">
+        <HeartBeatLineChart />
+        <SpeedMeter />
+      </div>
       <AccidentDetailsCard />
     </>
   );
