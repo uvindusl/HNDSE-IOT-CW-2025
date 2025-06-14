@@ -7,11 +7,11 @@
   padding: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin: 20px auto;
-  width: 75%;
+  width: 65%;
   max-width: 1400px;
 }
 
-.container {
+.navbar-content {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,4 +20,17 @@
 .name {
   font-size: 30px;
   color: red;
+}
+
+/* Rider Details Card Css */
+.details-container {
+  border-radius: 40px;
+  background-color: rgba(255, 254, 254, 0.212);
+  border-radius: 10px solid #ffffff;
+  backdrop-filter: blur(10px);
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  width: 80%;
+  height: 200px;
 }
