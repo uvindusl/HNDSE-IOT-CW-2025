@@ -1,6 +1,6 @@
 function RiderDetailsCard() {
   return (
-    <div className="details-container">
+    <div className="rider-details-container">
       <div className="rider-card">
         <span className="rider-txt">Rider Name: </span>
         <br></br>
