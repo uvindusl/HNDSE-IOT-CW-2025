@@ -86,3 +86,20 @@
   border-radius: 25px;
   padding: 10px;
 }
+
+/* Speed Meter Css */
+.speed-meter-container {
+  border-radius: 40px;
+  background-color: rgba(255, 254, 254, 0.212);
+  border-radius: 10px solid #ffffff;
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  width: fit-content;
+  height: fit-content;
+  font-size: 25px;
+  border: 1px solid rgb(255, 255, 255);
+  background-image: radial-gradient(transparent, rgba(0, 0, 0, 0.575));
+  line-height: 35px;
+}
