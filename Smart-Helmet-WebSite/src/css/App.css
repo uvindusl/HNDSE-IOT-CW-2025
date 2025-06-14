@@ -103,3 +103,11 @@
   background-image: radial-gradient(transparent, rgba(0, 0, 0, 0.575));
   line-height: 35px;
 }
+
+/*Graph container*/
+.graph-container {
+  display: flex;
+  justify-content: space-evenly;
+  width: 85%;
+  margin: auto;
+}
