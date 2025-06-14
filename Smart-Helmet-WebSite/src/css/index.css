@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Alumni+Sans+SC:ital,wght@0,100..900;1,100..900&display=swap");
+
+body {
+  margin: 0;
+}
+
+#root {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: Alumni Sans SC;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  perspective: 1000px;
+  overflow-x: hidden;
+  background-image: url(../assets/bike-black-and-white-pic.jpg);
+  /* background: linear-gradient(black, white); */
+}

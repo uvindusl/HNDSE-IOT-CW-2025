@@ -1,0 +1,115 @@
+/* NavBar CSS */
+.rounded-header {
+  border-radius: 40px;
+  background-color: rgba(255, 254, 254, 0.212);
+  background-image: radial-gradient(transparent, rgba(0, 0, 0, 0.575));
+  border-radius: 10px solid #ffffff;
+  backdrop-filter: blur(10px);
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  width: 55%;
+  border: 1px solid rgb(255, 255, 255);
+}
+
+.navbar-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.name {
+  font-size: 30px;
+  color: rgb(0, 0, 0);
+}
+
+/* Rider Details Card Css */
+.rider-details-container {
+  border-radius: 40px;
+  background-color: rgba(255, 254, 254, 0.212);
+  border-radius: 10px solid #ffffff;
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  width: 80%;
+  height: fit-content;
+  font-size: 25px;
+  border: 1px solid rgb(255, 255, 255);
+  background-image: radial-gradient(transparent, rgba(0, 0, 0, 0.575));
+  line-height: 35px;
+}
+
+.rider-card {
+  border: 1px solid white;
+  border-radius: 25px;
+  padding: 10px;
+}
+
+/* Heart Beat Container*/
+.heart-beat-container {
+  border-radius: 40px;
+  background-color: rgba(255, 254, 254, 0.212);
+  border-radius: 10px solid #ffffff;
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  width: 80%;
+  height: fit-content;
+  font-size: 25px;
+  border: 1px solid rgb(255, 255, 255);
+  background-image: radial-gradient(transparent, rgba(0, 0, 0, 0.575));
+  line-height: 35px;
+  margin: 5px;
+}
+
+/* Accident Detail Card css */
+.accident-detail-container {
+  border-radius: 40px;
+  background-color: rgba(255, 254, 254, 0.212);
+  border-radius: 10px solid #ffffff;
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  width: 80%;
+  height: fit-content;
+  font-size: 25px;
+  border: 1px solid rgb(255, 255, 255);
+  background-image: radial-gradient(transparent, rgba(0, 0, 0, 0.575));
+  line-height: 35px;
+}
+
+.accident-card {
+  background-color: #ffffff8e;
+  border: 1px solid white;
+  border-radius: 25px;
+  padding: 10px;
+}
+
+/* Speed Meter Css */
+.speed-meter-container {
+  border-radius: 40px;
+  background-color: rgba(255, 254, 254, 0.212);
+  border-radius: 10px solid #ffffff;
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  width: fit-content;
+  height: fit-content;
+  font-size: 25px;
+  border: 1px solid rgb(255, 255, 255);
+  background-image: radial-gradient(transparent, rgba(0, 0, 0, 0.575));
+  line-height: 35px;
+  margin: 5px;
+}
+
+/*Graph container*/
+.graph-container {
+  display: flex;
+  justify-content: space-evenly;
+  width: 87%;
+  margin: auto;
+}
