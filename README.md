@@ -38,7 +38,8 @@ database and data relaying infrastructure.
 - Vital information collecting and transmitting: After the distress signal transmission, the helmet will collect vital signal using heart rate senser and transmit(heart rate, blood infused O2 level) of rider 
 - Transmitting rider details: When the distress signal being sent to emergency services, with it the basic information like riders name, NIC, vehicle number plate, vehicle model and color of vehicle  will be attached and sent. These information will be stored in central database and in case of emergency will be accessed using the special unique identification number given to each helmet. 
 - Manual cancelation button: The helmet will be equipped with an manual override button that can be use by rider to cancel any false alarms happens due to mistakes like dropping the helmet accidently while it is active.
-- The smart breaklight: When a deacceleration detected by the accellerometer the breaklight which attached to the helmet will turn on.   
+- The smart breaklight: When a deacceleration detected by the accellerometer the breaklight which attached to the helmet will turn on.
+- Battery charging level monitor: Monitor the battery charging percentage using the output valtage. 
 
 
 ## Project Objectives
