@@ -61,6 +61,7 @@
   border: 1px solid rgb(255, 255, 255);
   background-image: radial-gradient(transparent, rgba(0, 0, 0, 0.575));
   line-height: 35px;
+  margin: 5px;
 }
 
 /* Accident Detail Card css */
@@ -102,12 +103,13 @@
   border: 1px solid rgb(255, 255, 255);
   background-image: radial-gradient(transparent, rgba(0, 0, 0, 0.575));
   line-height: 35px;
+  margin: 5px;
 }
 
 /*Graph container*/
 .graph-container {
   display: flex;
   justify-content: space-evenly;
-  width: 85%;
+  width: 87%;
   margin: auto;
 }
