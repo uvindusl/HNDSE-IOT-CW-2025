@@ -2,13 +2,14 @@
 .rounded-header {
   border-radius: 40px;
   background-color: rgba(255, 254, 254, 0.212);
-  /* background-image: radial-gradient(transparent, black); */
+  background-image: radial-gradient(transparent, rgba(0, 0, 0, 0.575));
   border-radius: 10px solid #ffffff;
   backdrop-filter: blur(10px);
   padding: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin: 20px auto;
-  width: 75%;
+  width: 55%;
+  border: 1px solid rgb(255, 255, 255);
 }
 
 .navbar-content {
@@ -23,14 +24,17 @@
 }
 
 /* Rider Details Card Css */
-.details-container {
+.rider-details-container {
   border-radius: 40px;
   background-color: rgba(255, 254, 254, 0.212);
   border-radius: 10px solid #ffffff;
   backdrop-filter: blur(10px);
-  padding: 15px;
+  padding: 40px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin: 20px auto;
   width: 80%;
   height: 200px;
+  font-size: 25px;
+  border: 1px solid rgb(255, 255, 255);
+  background-image: radial-gradient(transparent, rgba(0, 0, 0, 0.575));
 }
