@@ -17,8 +17,11 @@ function App() {
   //use State for add data
   const [activation, setActivation] = useState("");
 
+  //add data function
   const addActivationData = async (e) => {
     e.preventDefault();
+
+    //data array
     const data = [
       {
         Activated_Day: "25-06-24",
@@ -27,14 +30,18 @@ function App() {
       },
     ];
 
+    //set data in to setactivation useState
     setActivation(data);
 
     try {
+      //add data into firebase
       const docRef = await addDoc(collection(db, "Activation"), {
         activation: activation,
       });
+      //if data is successfully added this msg print and show the id
       console.log("Document Written with ID", docRef.id);
     } catch (e) {
+      //showing the error
       console.error("Error adding document", e);
     }
   };
