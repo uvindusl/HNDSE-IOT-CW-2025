@@ -3,6 +3,7 @@ import HeartBeatLineChart from "./Components/HeartBeatLineChart";
 import NavBar from "./Components/NavBar";
 import RiderDetailsCard from "./Components/RiderDetailsCard";
 import SpeedMeter from "./Components/SpeedMeter";
+import AngleMeter from "./Components/AngleMeter";
 import "./css/App.css";
 
 function App() {
@@ -12,7 +13,10 @@ function App() {
       <RiderDetailsCard />
       <div className="graph-container">
         <HeartBeatLineChart />
-        <SpeedMeter />
+        <div>
+          <SpeedMeter />
+          <AngleMeter />
+        </div>
       </div>
       <AccidentDetailsCard />
     </>
