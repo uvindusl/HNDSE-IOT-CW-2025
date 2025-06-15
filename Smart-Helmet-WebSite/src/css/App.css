@@ -72,6 +72,31 @@
   margin: 5px;
 }
 
+.heart-beat-card {
+  background-color: #ffffff8e;
+  border: 1px solid white;
+  border-radius: 25px;
+  padding: 10px;
+}
+
+.heart-rate-title {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  translate: -50%;
+}
+.heart-rate {
+  position: absolute;
+  top: 0;
+}
+
+.heart-rate-time {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding-right: 50px;
+}
+
 /* Accident Detail Card css */
 .accident-detail-container {
   border-radius: 40px;
@@ -112,6 +137,14 @@
   background-image: radial-gradient(transparent, rgba(0, 0, 0, 0.575));
   line-height: 35px;
   margin: 5px;
+}
+
+.meter-title {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%);
+  margin: 0;
 }
 
 .angle-meter-container {

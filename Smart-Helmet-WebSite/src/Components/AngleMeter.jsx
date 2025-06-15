@@ -33,6 +33,7 @@ function GaugePointer() {
 export default function AngleMeter() {
   return (
     <div className="angle-meter-container">
+      <p className="meter-title">Angle</p>
       <GaugeContainer
         width={100}
         height={100}
