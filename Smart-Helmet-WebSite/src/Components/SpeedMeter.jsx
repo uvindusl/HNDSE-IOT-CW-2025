@@ -10,6 +10,7 @@ const settings = {
 function SpeedMeter() {
   return (
     <div className="speed-meter-container">
+      <p className="meter-title">Speed</p>
       <Gauge
         {...settings}
         cornerRadius="50%"
