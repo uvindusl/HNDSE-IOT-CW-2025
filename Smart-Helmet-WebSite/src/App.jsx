@@ -14,7 +14,6 @@ import { useState, useEffect } from "react";
 function App() {
   //use State for get data and set data to array
   const [datas, setData] = useState([]);
-
   //async function to get data from firebase
   const fetchPost = async () => {
     await getDocs(collection(db, "Activation")).then((querySnapshot) => {
