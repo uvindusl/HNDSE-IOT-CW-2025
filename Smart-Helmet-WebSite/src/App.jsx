@@ -14,38 +14,6 @@ import { useState, useEffect } from "react";
 function App() {
   //use State for get data and set data to array
   const [datas, setData] = useState([]);
-  //use State for add data
-  const [activation, setActivation] = useState("");
-
-  //add data function
-  const addActivationData = async (e) => {
-    e.preventDefault();
-
-    //data array
-    const data = [
-      {
-        Activated_Day: "25-06-25",
-        H_Id: "h00006",
-        User_ID: "u00008",
-      },
-    ];
-
-    //set data in to setactivation useState
-    setActivation(data);
-
-    try {
-      //add data into firebase
-      const docRef = await addDoc(collection(db, "Activation"), {
-        activation: activation,
-      });
-      //if data is successfully added this msg print and show the id
-      console.log("Document Written with ID", docRef.id);
-    } catch (e) {
-      //showing the error
-      console.error("Error adding document", e);
-    }
-  };
-
   //async function to get data from firebase
   const fetchPost = async () => {
     await getDocs(collection(db, "Activation")).then((querySnapshot) => {
@@ -76,10 +44,6 @@ function App() {
         </div>
       </div>
       <AccidentDetailsCard />
-      {/* test addActivationData function working correctly */}
-      <button type="submit" className="btn" onClick={addActivationData}>
-        Add
-      </button>
     </>
   );
 }
