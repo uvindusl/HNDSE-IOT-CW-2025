@@ -2,36 +2,27 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import secrets
 import time
+import firebase_admin
+from firebase_admin import credentials, firestore
+
 
 app = Flask(__name__)
-tokens = {}  # temporary token storage
-CORS("http://localhost:5173/")
+CORS(app)
+cred = credentials.Certificate("key.json")
+firebase_admin.initialize_app(cred)
+db= firestore.client()
 
-@app.route('/')
-def generate_token():
-    token = secrets.token_urlsafe(32)
-    expiration_time = time.time() + 3600
-    tokens[token] = expiration_time
-    return jsonify({'token' : token})
+@app.route('/users/data', methods=['GET'])
+def get_users():
+    users_ref = db.collection('Activation')
+    docs = users_ref.get()
 
-@app.route('/validate_token/<token>', methods=['GET'])
-def validate_token(token):
-    if token in tokens:
-        if tokens[token] > time.time():
-            del tokens[token]
-            return jsonify({'message': 'Token valid'})
-        else:
-            del tokens[token]
-            return jsonify({'message': 'Token expired'}), 401
-    else:
-        return jsonify({'message': 'Invalid token'}), 401
+    user_list = []
+    for doc in docs:
+        user_list.append(doc.to_dict())
+    return jsonify(user_list)
 
-@app.route('/dashboard_data', methods=['GET'])
-def dashboard_data():
-    # Fetch dashboard data
-    data = {'message': 'Dashboard data fetched'}
-    return jsonify(data)
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True , port=5000)

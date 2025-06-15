@@ -32,6 +32,17 @@ function App() {
     fetchPost();
   }, []);
 
+  // function for get data from flask backend
+  const [activation, setActivation] = useState([]);
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:5000/users/data")
+      .then((response) => response.json())
+      .then((activation) => setActivation(activation));
+  });
+
+  // console.log(activation);
+
   return (
     <>
       <NavBar />
