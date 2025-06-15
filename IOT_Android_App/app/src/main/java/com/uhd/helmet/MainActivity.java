@@ -1,21 +1,33 @@
 package com.uhd.helmet;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Firebase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class MainActivity extends AppCompatActivity {
+    TextView t2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,20 +39,31 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Map<String, Object> data = new HashMap<>();
-        data.put("H_ID", "h0222");
-        data.put("User_ID", "u003");
-        data.put("Activated_Day", "25-06-18");
-        db.collection("Activation")
-                .add(data)
-                .addOnSuccessListener(documentReference -> {
-                    Toast.makeText(MainActivity.this, "Message added with ID: " + documentReference.getId(), Toast.LENGTH_SHORT).show();
+        DBhelper dbhelper = new DBhelper();
+        dbhelper.addData("uvindu");
+        t2 = findViewById(R.id.textView2);
 
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(MainActivity.this, "Error adding message: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                });
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference docRef = db.collection("Activation").document("QGOaZFtEjDLncNu9IXoS");
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        t2.setText(document.getData().toString());
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+
+
+
 
     }
 }
