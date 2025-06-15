@@ -7,13 +7,37 @@ import AngleMeter from "./Components/AngleMeter";
 import "./css/App.css";
 
 // testing prepose
-import { collection, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
 import { useState, useEffect } from "react";
 
 function App() {
   //use State for get data and set data to array
   const [datas, setData] = useState([]);
+  //use State for add data
+  const [activation, setActivation] = useState("");
+
+  const addActivationData = async (e) => {
+    e.preventDefault();
+    const data = [
+      {
+        Activated_Day: "25-06-24",
+        H_Id: "h00002",
+        User_ID: "u00002",
+      },
+    ];
+
+    setActivation(data);
+
+    try {
+      const docRef = await addDoc(collection(db, "Activation"), {
+        activation: activation,
+      });
+      console.log("Document Written with ID", docRef.id);
+    } catch (e) {
+      console.error("Error adding document", e);
+    }
+  };
 
   //async function to get data from firebase
   const fetchPost = async () => {
@@ -45,6 +69,10 @@ function App() {
         </div>
       </div>
       <AccidentDetailsCard />
+      {/* test addActivationData function working correctly */}
+      {/* <button type="submit" className="btn" onClick={addActivationData}>
+        Add
+      </button> */}
     </>
   );
 }
