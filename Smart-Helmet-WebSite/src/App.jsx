@@ -24,9 +24,9 @@ function App() {
     //data array
     const data = [
       {
-        Activated_Day: "25-06-24",
-        H_Id: "h00002",
-        User_ID: "u00002",
+        Activated_Day: "25-06-25",
+        H_Id: "h00006",
+        User_ID: "u00008",
       },
     ];
 
@@ -77,9 +77,9 @@ function App() {
       </div>
       <AccidentDetailsCard />
       {/* test addActivationData function working correctly */}
-      {/* <button type="submit" className="btn" onClick={addActivationData}>
+      <button type="submit" className="btn" onClick={addActivationData}>
         Add
-      </button> */}
+      </button>
     </>
   );
 }
