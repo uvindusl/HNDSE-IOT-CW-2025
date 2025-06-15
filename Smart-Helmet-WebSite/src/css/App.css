@@ -163,3 +163,28 @@
   line-height: 35px;
   margin: 5px;
 }
+
+/*responsive*/
+
+@media (max-width: 800px) {
+  * {
+    font-size: 20px;
+  }
+  .name {
+    font-size: 22px;
+  }
+  .graph-container {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding: 0 40px 0 30px;
+  }
+
+  .heart-beat-container {
+    width: 90%;
+  }
+
+  .meter-container {
+    display: flex;
+  }
+}

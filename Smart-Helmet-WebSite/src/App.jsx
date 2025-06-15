@@ -13,7 +13,7 @@ function App() {
       <RiderDetailsCard />
       <div className="graph-container">
         <HeartBeatLineChart />
-        <div>
+        <div className="meter-container">
           <SpeedMeter />
           <AngleMeter />
         </div>
