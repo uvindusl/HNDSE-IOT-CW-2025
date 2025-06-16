@@ -11,6 +11,11 @@ function AccidentDetailsCard() {
         <span className="accident-txt">Speed When Accident happen: </span>{" "}
         <br></br>
       </div>
+      <div className="accident-card">
+        <span className="accident-txt">Date: </span> <br></br>
+        <span className="accident-txt">Status: </span> <br></br>
+        <span className="accident-txt">time: </span> <br></br>
+      </div>
     </div>
   );
 }
