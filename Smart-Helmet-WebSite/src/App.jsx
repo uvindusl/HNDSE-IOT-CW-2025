@@ -4,6 +4,7 @@ import NavBar from "./Components/NavBar";
 import RiderDetailsCard from "./Components/RiderDetailsCard";
 import SpeedMeter from "./Components/SpeedMeter";
 import AngleMeter from "./Components/AngleMeter";
+import AccelMeter from "./Components/AccelMeter";
 import "./css/App.css";
 
 // testing prepose
@@ -64,8 +65,13 @@ function App() {
       <div className="graph-container">
         <HeartBeatLineChart />
         <div className="meter-container">
-          <SpeedMeter />
-          <AngleMeter />
+          <div className="meter-row">
+            <SpeedMeter />
+            <AccelMeter />
+          </div>
+          <div className="meter-row">
+            <AngleMeter />
+          </div>
         </div>
       </div>
       <AccidentDetailsCard />
