@@ -33,15 +33,15 @@ function App() {
   }, []);
 
   // function for get data from flask backend
-  const [activation, setActivation] = useState([]);
+  const [riderDetails, setRiderDetails] = useState([]);
 
   useEffect(() => {
     fetch("http://127.0.0.1:5000/users/data")
       .then((response) => response.json())
-      .then((activation) => setActivation(activation));
+      .then((riderDetails) => setRiderDetails(riderDetails));
   });
 
-  // console.log(activation);
+  console.log(riderDetails);
 
   return (
     <>

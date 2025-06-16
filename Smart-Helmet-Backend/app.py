@@ -12,9 +12,11 @@ cred = credentials.Certificate("key.json")
 firebase_admin.initialize_app(cred)
 db= firestore.client()
 
+riderNic =  "0384328472"
+
 @app.route('/users/data', methods=['GET'])
 def get_users():
-    users_ref = db.collection('Activation')
+    users_ref = db.collection('Riders').where('NIC', '==', riderNic)
     docs = users_ref.get()
 
     user_list = []
