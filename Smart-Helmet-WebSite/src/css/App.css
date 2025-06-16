@@ -103,6 +103,8 @@
 
 /* Accident Detail Card css */
 .accident-detail-container {
+  display: flex;
+  justify-content: space-around;
   border-radius: 40px;
   background-color: rgba(255, 254, 254, 0.212);
   border-radius: 10px solid #ffffff;
@@ -123,6 +125,8 @@
   border: 1px solid white;
   border-radius: 25px;
   padding: 10px;
+  width: 100%;
+  margin: 10px;
 }
 
 /*meter-container*/
@@ -206,6 +210,16 @@
   }
 
   .rider-card {
+    margin: 10px;
+    justify-self: center;
+    width: 90%;
+  }
+  .accident-detail-container {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .accident-card {
     margin: 10px;
     justify-self: center;
     width: 90%;
