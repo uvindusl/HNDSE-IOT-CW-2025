@@ -46,6 +46,14 @@
   padding: 10px;
 }
 
+/*Graph container*/
+.graph-container {
+  display: flex;
+  justify-content: space-evenly;
+  width: 87%;
+  margin: auto;
+}
+
 /* Heart Beat Container*/
 .heart-beat-container {
   border-radius: 40px;
@@ -62,6 +70,31 @@
   background-image: radial-gradient(transparent, rgba(0, 0, 0, 0.575));
   line-height: 35px;
   margin: 5px;
+}
+
+.heart-beat-card {
+  background-color: #ffffff8e;
+  border: 1px solid white;
+  border-radius: 25px;
+  padding: 10px;
+}
+
+.heart-rate-title {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  translate: -50%;
+}
+.heart-rate {
+  position: absolute;
+  top: 0;
+}
+
+.heart-rate-time {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding-right: 50px;
 }
 
 /* Accident Detail Card css */
@@ -106,10 +139,52 @@
   margin: 5px;
 }
 
-/*Graph container*/
-.graph-container {
-  display: flex;
-  justify-content: space-evenly;
-  width: 87%;
-  margin: auto;
+.meter-title {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%);
+  margin: 0;
+}
+
+.angle-meter-container {
+  border-radius: 40px;
+  background-color: rgba(255, 254, 254, 0.212);
+  border-radius: 10px solid #ffffff;
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  width: fit-content;
+  height: fit-content;
+  font-size: 25px;
+  border: 1px solid rgb(255, 255, 255);
+  background-image: radial-gradient(transparent, rgba(0, 0, 0, 0.575));
+  line-height: 35px;
+  margin: 5px;
+}
+
+/*responsive*/
+
+@media (max-width: 800px) {
+  * {
+    font-size: 20px;
+  }
+  .name {
+    font-size: 22px;
+  }
+  .graph-container {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding: 0 40px 0 30px;
+  }
+
+  .heart-beat-container {
+    width: 90%;
+  }
+
+  .meter-container {
+    display: flex;
+  }
 }

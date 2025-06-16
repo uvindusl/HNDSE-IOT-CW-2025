@@ -8,6 +8,8 @@ function RiderDetailsCard() {
         <br></br>
         <span className="rider-txt">Age: </span>
         <br></br>
+        <span className="rider-txt">Tel number: </span>
+        <br></br>
         <span className="rider-txt">Vehical Number: </span>
         <br></br>
         <span className="rider-txt">Vehical Colour: </span>
