@@ -25,6 +25,8 @@
 
 /* Rider Details Card Css */
 .rider-details-container {
+  display: flex;
+  justify-content: space-around;
   border-radius: 40px;
   background-color: rgba(255, 254, 254, 0.212);
   border-radius: 10px solid #ffffff;
@@ -44,6 +46,8 @@
   border: 1px solid white;
   border-radius: 25px;
   padding: 10px;
+  width: 100%;
+  margin: 10px;
 }
 
 /*Graph container*/
@@ -99,6 +103,8 @@
 
 /* Accident Detail Card css */
 .accident-detail-container {
+  display: flex;
+  justify-content: space-around;
   border-radius: 40px;
   background-color: rgba(255, 254, 254, 0.212);
   border-radius: 10px solid #ffffff;
@@ -119,8 +125,14 @@
   border: 1px solid white;
   border-radius: 25px;
   padding: 10px;
+  width: 100%;
+  margin: 10px;
 }
 
+/*meter-container*/
+.meter-row {
+  display: flex;
+}
 /* Speed Meter Css */
 .speed-meter-container {
   border-radius: 40px;
@@ -186,5 +198,30 @@
 
   .meter-container {
     display: flex;
+    justify-content: space-around;
+  }
+  .meter-row {
+    display: flex;
+    flex-direction: column;
+  }
+  .rider-details-container {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .rider-card {
+    margin: 10px;
+    justify-self: center;
+    width: 90%;
+  }
+  .accident-detail-container {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .accident-card {
+    margin: 10px;
+    justify-self: center;
+    width: 90%;
   }
 }
