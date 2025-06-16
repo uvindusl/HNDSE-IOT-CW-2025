@@ -1,7 +1,9 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, url_for, redirect, render_template_string
 from flask_cors import CORS
-import secrets
-import time
+from google.protobuf.proto import serialize
+from itsdangerous import URLSafeTimedSerializer
+import os
+import datetime
 import firebase_admin
 from firebase_admin import credentials, firestore
 
@@ -11,7 +13,9 @@ CORS(app)
 cred = credentials.Certificate("key.json")
 firebase_admin.initialize_app(cred)
 db= firestore.client()
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY' , '123')
 
+serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 riderNic =  "0384328472"
 
 @app.route('/users/data', methods=['GET'])
