@@ -125,6 +125,10 @@
   padding: 10px;
 }
 
+/*meter-container*/
+.meter-row {
+  display: flex;
+}
 /* Speed Meter Css */
 .speed-meter-container {
   border-radius: 40px;
@@ -190,6 +194,11 @@
 
   .meter-container {
     display: flex;
+    justify-content: space-around;
+  }
+  .meter-row {
+    display: flex;
+    flex-direction: column;
   }
   .rider-details-container {
     flex-direction: column;
