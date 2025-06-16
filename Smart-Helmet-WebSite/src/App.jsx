@@ -33,13 +33,27 @@ function App() {
   }, []);
 
   // function for get data from flask backend
-  const [riderDetails, setRiderDetails] = useState([]);
+  const [riderDetails, setRiderDetails] = useState(undefined);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/users/data")
-      .then((response) => response.json())
-      .then((riderDetails) => setRiderDetails(riderDetails));
-  });
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:5000/users/data");
+        if (!response.ok) {
+          throw new Error(``);
+        }
+        const data = await response.json();
+        setRiderDetails(data);
+      } catch (error) {
+        setError("Error of loading data");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
 
   console.log(riderDetails);
 
