@@ -39,7 +39,15 @@ def getAccidentDetails():
         accidentData.append(doc.to_dict())
     return jsonify(accidentData)
 
+@app.route('/accidentdatas' , methods=['GET'])
+def getAccidentDatas():
+    accidentDatas = db.collection('Accident_Data').where('NIC', '==', riderNic)
+    docs = accidentDatas.get()
 
+    accidentDatas = []
+    for doc in docs:
+        accidentDatas.append(doc.to_dict())
+    return jsonify(accidentDatas)
 
 if __name__ == '__main__':
     app.run(debug=True , port=5000)
