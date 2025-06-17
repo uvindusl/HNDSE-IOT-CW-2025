@@ -8,7 +8,7 @@ import AccelMeter from "./Components/AccelMeter";
 import "./css/App.css";
 
 // testing prepose
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
 import { useState, useEffect } from "react";
 
@@ -41,7 +41,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:5000/users/data");
+        const response = await fetch("http://127.0.0.1:5000/riders");
         if (!response.ok) {
           throw new Error(``);
         }

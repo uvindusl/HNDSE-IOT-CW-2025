@@ -14,19 +14,30 @@ cred = credentials.Certificate("key.json")
 firebase_admin.initialize_app(cred)
 db= firestore.client()
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY' , '123')
-
 serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+
+#this will be change in future it will come to backend from mobile app or firebase idk
 riderNic =  "0384328472"
 
-@app.route('/users/data', methods=['GET'])
-def get_users():
-    users_ref = db.collection('Riders').where('NIC', '==', riderNic)
-    docs = users_ref.get()
+@app.route('/riders', methods=['GET'])
+def getRiderDetails():
+    riderData = db.collection('Riders').where('NIC', '==', riderNic)
+    docs = riderData.get()
 
-    user_list = []
+    riderData = []
     for doc in docs:
-        user_list.append(doc.to_dict())
-    return jsonify(user_list)
+        riderData.append(doc.to_dict())
+    return jsonify(riderData)
+
+@app.route('/accidents', methods=['GET'])
+def getAccidentDetails():
+    accidentData = db.collection('Accidents').where('NIC', '==', riderNic)
+    docs = accidentData.get()
+
+    accidentData = []
+    for doc in docs:
+        accidentData.append(doc.to_dict())
+    return jsonify(accidentData)
 
 
 
