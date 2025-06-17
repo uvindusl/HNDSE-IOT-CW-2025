@@ -39,15 +39,15 @@ def getAccidentDetails():
         accidentData.append(doc.to_dict())
     return jsonify(accidentData)
 
-@app.route('/accidentdatas' , methods=['GET'])
-def getAccidentDatas():
-    accidentDatas = db.collection('Accident_Data').where('h_id', '==', helmetID)
-    docs = accidentDatas.get()
-
-    accidentDatas = []
-    for doc in docs:
-        accidentDatas.append(doc.to_dict())
-    return jsonify(accidentDatas)
+# @app.route('/accidentdatas' , methods=['GET'])
+# def getAccidentDatas():
+#     accidentDatas = db.collection('Accident_Data').where('h_id', '==', helmetID)
+#     docs = accidentDatas.get()
+#
+#     accidentDatas = []
+#     for doc in docs:
+#         accidentDatas.append(doc.to_dict())
+#     return jsonify(accidentDatas)
 
 @app.route('/vitals' , methods=['GET'])
 def getVitalDetails():
