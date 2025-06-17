@@ -11,12 +11,12 @@ function RiderDetailsCard() {
       try {
         const response = await fetch("http://127.0.0.1:5000/riders");
         if (!response.ok) {
-          throw new Error(``);
+          throw new Error(`Rider data fetching failed`);
         }
         const data = await response.json();
         setRiderDetails(data);
       } catch (error) {
-        setError("Error of loading data");
+        setError("Error occured when loading data");
       } finally {
         setLoading(false);
       }

@@ -1,5 +1,6 @@
 import AccidentDetailsCard from "./Components/AccidentDetailsCard";
 import HeartBeatLineChart from "./Components/HeartBeatLineChart";
+import AltitudeChart from "./Components/AltitudeChart";
 import NavBar from "./Components/NavBar";
 import RiderDetailsCard from "./Components/RiderDetailsCard";
 import SpeedMeter from "./Components/SpeedMeter";
@@ -64,6 +65,7 @@ function App() {
       <RiderDetailsCard />
       <div className="graph-container">
         <HeartBeatLineChart />
+        <AltitudeChart />
         <div className="meter-container">
           <div className="meter-row">
             <SpeedMeter />
