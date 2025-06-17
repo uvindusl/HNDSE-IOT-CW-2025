@@ -6,7 +6,7 @@ function NavBar() {
       <header className="rounded-header">
         <div className="navbar-content">
           <nav className="navbar">
-            <span className="name">Smart Helmet Dashboard</span>
+            <span className="name">GuardianX </span>
           </nav>
         </div>
       </header>
