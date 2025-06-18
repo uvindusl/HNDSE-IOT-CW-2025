@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 const settings = {
   width: 100,
   height: 100,
+  valueMin: 0,
+  valueMax: 200,
   // value: 70,
 };
 

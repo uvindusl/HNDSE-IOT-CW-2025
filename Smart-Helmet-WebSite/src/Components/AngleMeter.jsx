@@ -65,8 +65,11 @@ export default function AngleMeter() {
             <GaugeContainer
               width={100}
               height={100}
-              startAngle={-90}
-              endAngle={90}
+              startAngle={-180}
+              endAngle={180}
+              valueMin={-180}
+              valueMax={180}
+              //value={0}
               value={data.last_angle}
             >
               <GaugeReferenceArc />
