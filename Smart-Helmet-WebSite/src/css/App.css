@@ -228,8 +228,9 @@
 
 /* loading animation for loading data */
 .pl {
-  width: 6em;
-  height: 6em;
+  width: 2em;
+  height: 2em;
+  margin: auto;
 }
 
 .pl__ring {
