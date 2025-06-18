@@ -42,6 +42,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation ("androidx.viewpager2:viewpager2:1.0.0") // Use the latest stable version
+    implementation ("androidx.fragment:fragment-ktx:1.6.0")
+    implementation("androidx.cardview:cardview:1.0.0")
     implementation(platform("com.google.firebase:firebase-bom:33.15.0"))
     implementation("com.google.firebase:firebase-firestore")
 }
