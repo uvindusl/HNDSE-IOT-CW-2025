@@ -1,5 +1,6 @@
 import AccidentDetailsCard from "./Components/AccidentDetailsCard";
 import HeartBeatLineChart from "./Components/HeartBeatLineChart";
+import AltitudeChart from "./Components/AltitudeChart";
 import NavBar from "./Components/NavBar";
 import RiderDetailsCard from "./Components/RiderDetailsCard";
 import SpeedMeter from "./Components/SpeedMeter";
@@ -8,7 +9,7 @@ import AccelMeter from "./Components/AccelMeter";
 import "./css/App.css";
 
 // testing prepose
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
 import { useState, useEffect } from "react";
 
@@ -25,7 +26,7 @@ function App() {
       //set data to setData array
       setData(newData);
       //print data in console
-      console.log(datas, newData);
+      // console.log(datas, newData);
     });
   };
 
@@ -33,30 +34,30 @@ function App() {
     fetchPost();
   }, []);
 
-  // function for get data from flask backend
-  const [riderDetails, setRiderDetails] = useState(undefined);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // // function for get data from flask backend
+  // const [riderDetails, setRiderDetails] = useState(undefined);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://127.0.0.1:5000/users/data");
-        if (!response.ok) {
-          throw new Error(``);
-        }
-        const data = await response.json();
-        setRiderDetails(data);
-      } catch (error) {
-        setError("Error of loading data");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch("http://127.0.0.1:5000/riders");
+  //       if (!response.ok) {
+  //         throw new Error(``);
+  //       }
+  //       const data = await response.json();
+  //       setRiderDetails(data);
+  //     } catch (error) {
+  //       setError("Error of loading data");
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
-  console.log(riderDetails);
+  // console.log(riderDetails);
 
   return (
     <>
@@ -64,6 +65,7 @@ function App() {
       <RiderDetailsCard />
       <div className="graph-container">
         <HeartBeatLineChart />
+        <AltitudeChart />
         <div className="meter-container">
           <div className="meter-row">
             <SpeedMeter />
