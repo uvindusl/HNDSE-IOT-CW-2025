@@ -32,7 +32,7 @@ function SpeedMeter() {
     fetchData();
   }, []);
 
-  console.log(AccidentDetails);
+  // console.log(AccidentDetails);
 
   return (
     <div className="speed-meter-container">
