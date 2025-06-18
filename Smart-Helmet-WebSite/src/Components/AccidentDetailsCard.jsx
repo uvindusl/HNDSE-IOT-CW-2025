@@ -24,7 +24,7 @@ function AccidentDetailsCard() {
     fetchData();
   }, []);
 
-  console.log(AccidentDetails);
+  //console.log(AccidentDetails);
 
   if (loading) {
     return (
