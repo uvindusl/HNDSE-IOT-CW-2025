@@ -28,9 +28,9 @@ public class DBhelper{
     Map<String, Object> data = new HashMap<>();
 
     public void addData(String helmet_id) {
-        data.put("H_ID", helmet_id);
-        data.put("User_ID", "u003");
-        data.put("Activated_Day", "25-06-99");
+        data.put("h_id", helmet_id);
+        data.put("user_id", "u003");
+        data.put("activated_day", "25-06-99");
         db.collection("Activation")
                 .add(data)
                 .addOnSuccessListener(documentReference -> {

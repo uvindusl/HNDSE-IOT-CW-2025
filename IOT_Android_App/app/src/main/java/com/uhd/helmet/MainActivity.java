@@ -2,8 +2,12 @@ package com.uhd.helmet;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,9 +21,12 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Firebase;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +34,10 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     TextView t2;
+    String helmetID;
+    EditText helmetIdText;
+    Button activate;
+
 
 
     @Override
@@ -39,31 +50,43 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        DBhelper dbhelper = new DBhelper();
-        dbhelper.addData("uvindu");
+        helmetIdText = findViewById(R.id.helmetIDtxt);
+        activate = findViewById(R.id.activatebtn);
         t2 = findViewById(R.id.textView2);
 
+
+
+        //database data retriever should be implemented on the main actvity since the onComplete method cant pass data outside its context.
+
+
+
+
+
+
+
+
+
+
+    }
+    public void onPressActivate(View v){
+        helmetID = helmetIdText.getText().toString();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference docRef = db.collection("Activation").document("QGOaZFtEjDLncNu9IXoS");
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                        t2.setText(document.getData().toString());
-                    } else {
-                        Log.d(TAG, "No such document");
-                    }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
+        CollectionReference collRef = db.collection("Activation");
+        Query query = collRef.whereEqualTo("h_id", helmetID);
+        query.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+
+                QuerySnapshot querySnapshot = task.getResult();
+                if(querySnapshot != null && !querySnapshot.isEmpty()){
+                    t2.setText("data found");
+                    startActivity(new Intent(MainActivity.this, nameCollectingScreen.class));
+                }else{
+                    t2.setText("no data found");
                 }
+            }else{
+                t2.setText("error");
             }
         });
-
-
-
 
     }
 }
