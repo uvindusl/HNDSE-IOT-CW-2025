@@ -24,7 +24,7 @@ function AccidentDetailsCard() {
     fetchData();
   }, []);
 
-  //console.log(AccidentDetails);
+  console.log(AccidentDetails);
 
   if (loading) {
     return (
@@ -93,25 +93,27 @@ function AccidentDetailsCard() {
                 Accident Location: {data.location}{" "}
               </span>
               <br></br>
-              <span className="accident-txt">Accident Time: {data.time}</span>
+              <span className="accident-txt">Accident Time: {data.time} </span>
               <br></br>
               <span className="accident-txt">Date: {data.date} </span> <br></br>
               <br></br>
             </div>
             <div className="accident-card">
               <span className="accident-txt">
-                Heart Rate When Accident happen: {data.heart_rate}
+                Heart Rate When Accident happen: {data.heart_rate} bpm
               </span>
               <br></br>
               <span className="accident-txt">
-                Speed When Accident happen: {data.last_speed}
+                Speed When Accident happen: {data.last_speed} kmph
               </span>
               <br></br>
               <span className="accident-txt">
-                accelaration When Accident happen: {data.last_accel}
+                accelaration When Accident happen: {data.last_accel} ms⁻²
               </span>{" "}
               <br></br>
-              <span className="accident-txt">Deaccelaration Rate: </span>{" "}
+              <span className="accident-txt">
+                Deaccelaration Rate: {data.deaccel_rate} ms⁻²
+              </span>{" "}
               <br></br>
             </div>
           </>
