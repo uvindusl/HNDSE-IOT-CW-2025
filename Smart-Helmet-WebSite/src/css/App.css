@@ -231,6 +231,7 @@
   width: 2em;
   height: 2em;
   margin: auto;
+  display: flex;
 }
 
 .pl__ring {
