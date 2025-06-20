@@ -5,7 +5,7 @@ function RiderDetailsCard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // function for get data from flask backend
+  // function for get rider data from flask backend
   useEffect(() => {
     const fetchData = async () => {
       try {
