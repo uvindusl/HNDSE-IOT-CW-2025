@@ -60,6 +60,35 @@ accuracy.
 - Building a web infrastructure that can handle data transmitted by helmets and relay them to emergency contacts. 
 - Testing the web system. 
 - Testing the web system combined with helmet.
+
+## Product Overview
+
+As a real world, problem solving IOT project The Smart Helmet Solution consists and operates with three main components.
+
+- Smart Helmet
+- Mobile Application
+- Web Application
+
+### Smart Helmet
+
+Based on the NodeMCU(esp8266) module this smart device mainly Transmit data that collected from sensors to the firebase for store and further uses of data. Following sensors are using to gather data through out process, 
+
+- Accelerometer (mpu6050)  - Sense the speed which bike is going, acceleration, deacceleration, altitude, tilt (angle) when the accident took place.
+
+- GPS Module (neo-6m-0-001) - Transmit the current location when the accident occurred.
+
+- Heart rate sensor (gy-max30102) - Monitor rider's heart rate and update the real-time database. Also it can be used to detect whether the rider has worn the helmet or not.
+
+Arduino IDE was used to program the esp8266 with sensor's.
+
+### Mobile Application
+
+This is the user-interface which helps users to connect with the smart helmet. With the unique id attached to the helmet user can activate the helmet through the mobile app and access its features. 
+
+Withing the login process users can enter their details to their profile which can also update later. This data will be saved in the Firestore and can be fetch in to the web application when needed. 
+
+Android studio and Java were used to create this application.  
+
 ## Bibliography 
 
 1. Divyasudha N, Arulmozhivarman P, Rajkumar E.R, A. (2019) ‘Analysis of Smart 
