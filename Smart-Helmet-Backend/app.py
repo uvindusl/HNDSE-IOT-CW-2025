@@ -59,7 +59,7 @@ def accidentDetected(colSnapshot , changes , readTime):
             if 'h_id' in docData:
                 hId = docData['h_id']
                 print(f"  Extracted h_id: {hId}")
-                hId = helmetID
+                helmetID = hId
             else:
                 print(f"  Document {docId} does not contain an 'h_id' field.")
         elif change.type.name == 'MODIFIED':
