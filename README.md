@@ -81,14 +81,24 @@ Based on the NodeMCU(esp8266) module this smart device mainly Transmit data that
 
 Arduino IDE was used to program the esp8266 with sensor's.
 
+![image](https://github.com/user-attachments/assets/64262385-92b9-4293-884f-963a8169f4c7)
+
+
 ### Mobile Application
 
 This is the user-interface which helps users to connect with the smart helmet. With the unique id attached to the helmet user can activate the helmet through the mobile app and access its features. 
 
 Withing the login process users can enter their details to their profile which can also update later. This data will be saved in the Firestore and can be fetch in to the web application when needed. 
 
-Android studio and Java were used to create this application.  
+Android studio and Java with xml were used to create this application.  
 
+### Web Application
+
+when an accident occurred a link with the access to the web Application is sent to the relevant parties such as nearest police station and hot-line 1990.
+
+After accessing to the application they can monitor rider details, accident details, heart beat and any vital details. With the help of this web application they can easily track the accident location and recover the injured rider or pedestrian following a vehicular collision. 
+
+Python flask is used to implement the backend and React-js is used to create the front end.
 ## Bibliography 
 
 1. Divyasudha N, Arulmozhivarman P, Rajkumar E.R, A. (2019) ‘Analysis of Smart 
