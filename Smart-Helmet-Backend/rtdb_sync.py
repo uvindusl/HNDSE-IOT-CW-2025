@@ -1,6 +1,5 @@
 import firebase_admin
 from firebase_admin import credentials, db, firestore
-from datetime import datetime
 import threading
 import os
 import time
@@ -39,23 +38,23 @@ def rtdb_listner(event):
 
             if event.event_type == 'put' or event.event_type == 'patch' :
                 if heart_beat_value is not None:
-                    new_reading = {
-                        'value' : heart_beat_value,
-                        'timestamp' : datetime.now()
-                    }
+                    new_reading = heart_beat_value
+                    # new_reading = {
+                    #     'value' : heart_beat_value,
+                    #     'timestamp' : datetime.now()
+                    # }
 
                     doc = doc_ref.get()
 
                     if doc.exists:
                         doc_data = doc.to_dict()
-                        current_readings = doc_data.get('heartbeat_readings', [])
+                        current_readings = doc_data.get('heartbeat_readings',[])
                         current_readings.append(new_reading)
                         doc_ref.update({'heartbeat_readings': current_readings})
                         print(f"[RTDB Listener] Appended new heartbeat to '{document_id}' in '{firestore_collection_name}'.")
                     else :
                         doc_ref.set({
                             'heartbeat_readings': [new_reading],
-                            'last_updated': datetime.now(),
                             'h_id': document_id,
                         })
                         print(f"[RTDB Listener] Created new document '{document_id}' in '{firestore_collection_name}' with first heartbeat.")
