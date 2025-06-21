@@ -1,9 +1,12 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
 from itsdangerous import URLSafeTimedSerializer
+import threading
+import time
 import os
 import firebase_admin
 from firebase_admin import credentials, firestore , db
+import realTimeDataSync
 
 
 app = Flask(__name__)
@@ -60,8 +63,23 @@ def getVitalDetails():
         vitalData.append(doc.to_dict())
     return jsonify(vitalData)
 
+def startBackground():
+    if realTimeDataSync.initializing():
+        realTimeDataSync.startRealTimeDbLisner()
+    else:
+        print('Failed......')
 
+@app.before_request
+def activateListners():
+    print('Start in background')
+    listnerThread = threading.Thread(target=startBackground,daemon=True)
+    listnerThread.start()
+    print('Start in background')
 
 
 if __name__ == '__main__':
-    app.run(debug=True , port=5000)
+    os.environ.setdefault('FIREBASE_SERVICE_ACCOUNT_KEY', 'Key.json')
+    os.environ.setdefault('FIREBASE_RTDB_URL', 'https://smarthelmet-3a072-default-rtdb.firebaseio.com/')
+    os.environ.setdefault('FIREBASE_RTDB_LISTEN_PATH', '/')  # Ensure this matches the desired path for the listener
+
+    app.run(debug=True , port=5000, use_reloader=False)
