@@ -1,13 +1,11 @@
-from flask import Flask, request, jsonify, url_for, redirect, render_template_string
+from flask import Flask, jsonify
 from flask_cors import CORS
-from google.oauth2.gdch_credentials import SERVICE_ACCOUNT_TOKEN_TYPE
-from google.protobuf.proto import serialize
 from itsdangerous import URLSafeTimedSerializer
 import os
-import time
-import threading
 import firebase_admin
 from firebase_admin import credentials, firestore , db
+import accidentDetect
+import realTimeDataSync
 
 
 app = Flask(__name__)
@@ -108,4 +106,3 @@ def getData():
 
 if __name__ == '__main__':
     app.run(debug=True , port=5000)
-

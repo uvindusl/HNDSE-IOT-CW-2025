@@ -34,10 +34,8 @@ def detectChange(colSnapshot , changes , readTime):
             else:
                 print(f"  Document {docId} does not contain an 'h_id' field.")
         elif change.type.name == 'MODIFIED':
-
             pass
         elif change.type.name == 'REMOVED':
-
             pass
 
 
