@@ -34,7 +34,34 @@ realTimeDbRef = db.reference(RTDB_LISTEN_PATH)
 # FireStore Database
 firestoreDb = firestore.client()
 
-helmetID =  "h0222"
+helmetID =  None
+
+def detectChange(colSnapshot , changes , readTime):
+    global initial_load_complete
+    global helmetID
+
+    if not initial_load_complete:
+        print(f"\nInitial Firestore Collection Snapshot loaded at {readTime}...")
+        initial_load_complete = True
+        return
+
+    print(f"\nFirestore Collection Change Detected at {readTime}...")
+    for change in changes:
+        if change.type.name == 'ADDED':
+            docData = change.document.to_dict()
+            docId = change.document.id
+            print(f"New document added: {docId}")
+
+            if 'h_id' in docData:
+                hId = docData['h_id']
+                print(f"  Extracted h_id: {hId}")
+                hId = helmetID
+            else:
+                print(f"  Document {docId} does not contain an 'h_id' field.")
+        elif change.type.name == 'MODIFIED':
+            pass
+        elif change.type.name == 'REMOVED':
+            pass
 
 @app.route('/riders', methods=['GET'])
 def getRiderDetails():
@@ -122,30 +149,6 @@ def startRealTimeDbLisner():
         print(f"[RTDB Listener] Listener terminated with error: {e}")
     print("[RTDB Listener] Listener stopped unexpectedly.")
 
-def detectChange(colSnapshot , changes , readTime):
-    global initial_load_complete
-
-    if not initial_load_complete:
-        print(f"\nInitial Firestore Collection Snapshot loaded at {readTime}...")
-        initial_load_complete = True
-        return
-
-    print(f"\nFirestore Collection Change Detected at {readTime}...")
-    for change in changes:
-        if change.type.name == 'ADDED':
-            docData = change.document.to_dict()
-            docId = change.document.id
-            print(f"New document added: {docId}")
-
-            if 'h_id' in docData:
-                hIdValue = docData['h_id']
-                print(f"  Extracted h_id: {hIdValue}")
-            else:
-                print(f"  Document {docId} does not contain an 'h_id' field.")
-        elif change.type.name == 'MODIFIED':
-            pass
-        elif change.type.name == 'REMOVED':
-            pass
 
 if __name__ == '__main__':
     print("Starting Smart Helmet Backend Server...")
@@ -159,10 +162,9 @@ if __name__ == '__main__':
     listener_thread.start()
     print("[RTDB Listener] Daemon thread for listener started.")
 
+    # Start the Accident detection
     print(f"Listening for new documents in collection: '{COLLECTION_NAME}'...")
-
     colRef = firestoreDb.collection(COLLECTION_NAME)
-
     queryWatch = colRef.on_snapshot(detectChange)
 
     # Start Flask app (this will block the main thread)
