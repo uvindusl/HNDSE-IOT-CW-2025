@@ -7,7 +7,10 @@ import firebase_admin
 from firebase_admin import credentials, firestore , db
 
 app = Flask(__name__)
+
+# This is for connect backend with frontend
 CORS(app)
+
 # Configuration for firebase
 SERVICE_ACCOUNT_KEY_PATH = os.environ.get('FIREBASE_SERVICE_ACCOUNT_KEY', 'Key.json')
 REALTIME_DATABASE_URL = os.environ.get('FIREBASE_RTDB_URL', 'https://smarthelmet-3a072-default-rtdb.firebaseio.com/')
@@ -172,7 +175,7 @@ if __name__ == '__main__':
     # Start Flask app (this will block the main thread)
     print("Starting Flask application on port 5000...")
     try:
-        app.run(debug=False, port=5000)
+        app.run(debug=True, port=5000)
     except KeyboardInterrupt:
         print("\nServer stopped by user.")
     except Exception as e:
