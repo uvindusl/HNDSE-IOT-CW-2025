@@ -9,28 +9,41 @@ SERVICE_ACCOUNT_KEY_PATH = os.environ.get('FIREBASE_SERVICE_ACCOUNT_KEY', 'Key.j
 REALTIME_DATABASE_URL = os.environ.get('FIREBASE_RTDB_URL', 'https://smarthelmet-3a072-default-rtdb.firebaseio.com/')
 RTDB_LISTEN_PATH = os.environ.get('FIREBASE_RTDB_LISTEN_PATH', '/')
 
+realTimeDbRef = None
+firestoreDb = None
+
+
 # Initialize Firebase Admin SDK
-if not firebase_admin._apps:
-    try:
-        cred = credentials.Certificate(SERVICE_ACCOUNT_KEY_PATH)
-        firebase_admin.initialize_app(cred , {
+def initializing():
+
+    global realTimedbRef , firestoreDb
+
+    if not firebase_admin._apps:
+        try:
+            cred = credentials.Certificate(SERVICE_ACCOUNT_KEY_PATH)
+            firebase_admin.initialize_app(cred , {
             'databaseURL': REALTIME_DATABASE_URL
-        })
-        print('Firebase Admin SDK initialized.')
-    except Exception as e:
-        print(f"Error initializing Firebase Admin SDK: {e}")
+            })
+            print('Firebase Admin SDK initialized.')
+        except Exception as e:
+            print(f"Error initializing Firebase Admin SDK: {e}")
+            return False
 
-# Real time Database
-realTimeDbRef = db.reference(RTDB_LISTEN_PATH)
+    # Real time Database
+    realTimeDbRef = db.reference(RTDB_LISTEN_PATH)
 
-# FireStore Database
-firestoreDb = firestore.client()
+    # FireStore Database
+    firestoreDb = firestore.client()
 
 def realTimeDBListner(event):
     print(f"\n [RTDB Listener] Event Received: {event.event_type} at {event.path}")
 
     try:
         pathParts = [part for part in event.path.strip('/').split('/') if part]
+
+        if firestoreDb is None:
+            print("[RTDB Listener] Firestore DB not initialized. Skipping event processing.")
+            return
 
         if len(pathParts) == 2 and pathParts[1] == 'heart_beat':
             documentId = pathParts[0]
@@ -69,8 +82,13 @@ def realTimeDBListner(event):
         print(f"[RTDB Listener] Error processing Realtime Database event: {e}")
 
 def startRealTimeDbLisner():
-    print(f"[RTDB Listener] Starting Listener for path: {RTDB_LISTEN_PATH}...")
+    global realTimeDbRef
 
+    if realTimeDbRef is None:
+        print("[RTDB Listener] Realtime DB reference not initialized. Cannot start listener.")
+        return
+
+    print(f"[RTDB Listener] Starting Listener for path: {RTDB_LISTEN_PATH}...")
     try:
         realTimeDbRef.listen(realTimeDBListner)
     except Exception as e:
@@ -78,39 +96,39 @@ def startRealTimeDbLisner():
     print("[RTDB Listener] Listener stopped unexpectedly.")
 
 
-if __name__ == '__main__':
-    print("Running rtdb_sync.py directly for testing listener.")
-    # Initialize again if not already (important for direct run)
-    if not firebase_admin._apps:
-        try:
-            cred = credentials.Certificate(SERVICE_ACCOUNT_KEY_PATH)
-            firebase_admin.initialize_app(cred, {
-                'databaseURL': REALTIME_DATABASE_URL
-            })
-            print("Firebase Admin SDK initialized for direct run.")
-        except Exception as e:
-            print(f"Error initializing Firebase for direct run: {e}")
-            exit(1)
-
-    os.environ.setdefault('FIREBASE_RTDB_URL', 'https://smarthelmet-3a072-default-rtdb.firebaseio.com/')
-    os.environ.setdefault('FIREBASE_RTDB_LISTEN_PATH', '/')
-
-    if not os.environ.get('FIREBASE_RTDB_URL') or not os.environ.get('FIREBASE_RTDB_LISTEN_PATH'):
-        print(
-            "Please set FIREBASE_RTDB_URL and FIREBASE_RTDB_LISTEN_PATH environment variables or update hardcoded values for direct run.")
-        exit(1)
-
-    listener_thread = threading.Thread(target=startRealTimeDbLisner, daemon=True)
-    listener_thread.start()
-    print("[RTDB Listener] Daemon thread for listener started.")
-
-    try:
-        print("Press Ctrl+C to stop the listener and exit...")
-        while True:
-            time.sleep(1)
-    except KeyboardInterrupt:
-        print("\nExiting listener due to KeyboardInterrupt.")
-    except Exception as e:
-        print(f"An unexpected error occurred in the main thread: {e}")
-
-    print("Main thread exiting.")
+# if __name__ == '__main__':
+#     print("Running rtdb_sync.py directly for testing listener.")
+#     # Initialize again if not already (important for direct run)
+#     if not firebase_admin._apps:
+#         try:
+#             cred = credentials.Certificate(SERVICE_ACCOUNT_KEY_PATH)
+#             firebase_admin.initialize_app(cred, {
+#                 'databaseURL': REALTIME_DATABASE_URL
+#             })
+#             print("Firebase Admin SDK initialized for direct run.")
+#         except Exception as e:
+#             print(f"Error initializing Firebase for direct run: {e}")
+#             exit(1)
+#
+#     os.environ.setdefault('FIREBASE_RTDB_URL', 'https://smarthelmet-3a072-default-rtdb.firebaseio.com/')
+#     os.environ.setdefault('FIREBASE_RTDB_LISTEN_PATH', '/')
+#
+#     if not os.environ.get('FIREBASE_RTDB_URL') or not os.environ.get('FIREBASE_RTDB_LISTEN_PATH'):
+#         print(
+#             "Please set FIREBASE_RTDB_URL and FIREBASE_RTDB_LISTEN_PATH environment variables or update hardcoded values for direct run.")
+#         exit(1)
+#
+#     listener_thread = threading.Thread(target=startRealTimeDbLisner, daemon=True)
+#     listener_thread.start()
+#     print("[RTDB Listener] Daemon thread for listener started.")
+#
+#     try:
+#         print("Press Ctrl+C to stop the listener and exit...")
+#         while True:
+#             time.sleep(1)
+#     except KeyboardInterrupt:
+#         print("\nExiting listener due to KeyboardInterrupt.")
+#     except Exception as e:
+#         print(f"An unexpected error occurred in the main thread: {e}")
+#
+#     print("Main thread exiting.")
