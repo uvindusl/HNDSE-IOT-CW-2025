@@ -4,7 +4,8 @@ from google.oauth2.gdch_credentials import SERVICE_ACCOUNT_TOKEN_TYPE
 from google.protobuf.proto import serialize
 from itsdangerous import URLSafeTimedSerializer
 import os
-import datetime
+import time
+import threading
 import firebase_admin
 from firebase_admin import credentials, firestore , db
 
@@ -90,19 +91,20 @@ def getVitalDetails():
         vitalData.append(doc.to_dict())
     return jsonify(vitalData)
 
-# @app.route('/heartbeat', methods=['GET'])
-# def getData():
-#     try:
-#         messages = realtime_db_ref.child('h_id').get()
-#         # Realtime Database returns a dictionary, convert to list of dicts if needed for typical JSON API response
-#         if messages:
-#             # Convert the dictionary of messages to a list for easier consumption in a frontend
-#             message_list = [{"id": key, **value} for key, value in messages.items()]
-#             return jsonify(message_list), 200
-#         else:
-#             return jsonify([]), 200
-#     except Exception as e:
-#         return jsonify({"error": f"Error getting messages from Realtime Database: {e}"}), 500
+@app.route('/heartbeat', methods=['GET'])
+def getData():
+    try:
+        messages = realtime_db_ref.get()
+        # Realtime Database returns a dictionary, convert to list of dicts if needed for typical JSON API response
+        if messages:
+            # Convert the dictionary of messages to a list for easier consumption in a frontend
+            message_list = [{"id": key, **value} for key, value in messages.items()]
+            return jsonify(message_list), 200
+        else:
+            return jsonify([]), 200
+    except Exception as e:
+        return jsonify({"error": f"Error getting messages from Realtime Database: {e}"}), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True , port=5000)
