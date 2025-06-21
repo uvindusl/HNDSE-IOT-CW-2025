@@ -6,7 +6,6 @@ import os
 import firebase_admin
 from firebase_admin import credentials, firestore , db
 
-
 app = Flask(__name__)
 CORS(app)
 # Configuration for firebase
@@ -34,9 +33,10 @@ realTimeDbRef = db.reference(RTDB_LISTEN_PATH)
 # FireStore Database
 firestoreDb = firestore.client()
 
+# varible to store h_id coming from detectchange function
 helmetID =  None
 
-def detectChange(colSnapshot , changes , readTime):
+def accidentDetected(colSnapshot , changes , readTime):
     global initial_load_complete
     global helmetID
 
@@ -46,6 +46,7 @@ def detectChange(colSnapshot , changes , readTime):
         return
 
     print(f"\nFirestore Collection Change Detected at {readTime}...")
+
     for change in changes:
         if change.type.name == 'ADDED':
             docData = change.document.to_dict()
@@ -94,6 +95,7 @@ def getVitalDetails():
     return jsonify(vitalData)
 
 
+# get heart beat from Real Time Database and save it to FireStore Vital Document with healmetId
 def realTimeDBListner(event):
     print(f"\n[RTDB Listener] Event Received: {event.event_type} at {event.path}")
 
@@ -138,7 +140,7 @@ def realTimeDBListner(event):
     except Exception as e:
         print(f"[RTDB Listener] Error processing Realtime Database event: {e}")
 
-
+#S Starting the realtime listener function
 def startRealTimeDbLisner():
     print(f"[RTDB Listener] Starting Listener for path: {RTDB_LISTEN_PATH}...")
 
@@ -165,7 +167,7 @@ if __name__ == '__main__':
     # Start the Accident detection
     print(f"Listening for new documents in collection: '{COLLECTION_NAME}'...")
     colRef = firestoreDb.collection(COLLECTION_NAME)
-    queryWatch = colRef.on_snapshot(detectChange)
+    queryWatch = colRef.on_snapshot(accidentDetected)
 
     # Start Flask app (this will block the main thread)
     print("Starting Flask application on port 5000...")
