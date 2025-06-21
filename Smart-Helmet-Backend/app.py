@@ -123,35 +123,12 @@ def startRealTimeDbLisner():
     print("[RTDB Listener] Listener stopped unexpectedly.")
 
 def detectChange(colSnapshot , changes , readTime):
-    #
-    # print(f"\nFirestore Collection Change Detected at {readTime}...")
-    # for change in changes:
-    #     if change.type.name == 'ADDED':
-    #         docData = change.document.to_dict()
-    #         docId = change.document.id
-    #         print(f"New document added: {docId}")
-    #
-    #         if 'h_id' in docData:
-    #             hIdValue = docData['h_id']
-    #             print(f"  Extracted h_id: {hIdValue}")
-    #
-    #         else:
-    #             print(f"  Document {docId} does not contain an 'h_id' field.")
-    #     elif change.type.name == 'MODIFIED':
-    #         pass
-    #     elif change.type.name == 'REMOVED':
-    #         pass
-
     global initial_load_complete
 
-    # If this is the initial load, set the flag and skip processing these changes
-    # unless you specifically want to process them differently (e.g., just log their existence)
     if not initial_load_complete:
         print(f"\nInitial Firestore Collection Snapshot loaded at {readTime}...")
         initial_load_complete = True
-        # Optionally, you can add logic here to process existing documents if needed,
-        # but for detecting *new* additions, we'll skip the 'ADDED' check below for this initial pass.
-        return  # Exit the function for the initial load
+        return
 
     print(f"\nFirestore Collection Change Detected at {readTime}...")
     for change in changes:
