@@ -63,11 +63,13 @@ accuracy.
 
 ## Product Overview
 
-As a real world, problem solving IOT project The Smart Helmet Solution consists and operates with three main components.
+As a real world, problem solving IOT project The Smart Helmet Solution consists and operates with five main components.
 
 - Smart Helmet
 - Mobile Application
 - Web Application
+- Back-End
+- Database
 
 ### Smart Helmet
 
@@ -83,22 +85,43 @@ Arduino IDE was used to program the esp8266 with sensor's.
 
 ![image](https://github.com/user-attachments/assets/64262385-92b9-4293-884f-963a8169f4c7)
 
+When an accident took place helmet will transfer all necessary data related to the accident to the fire store. Afterward it will continuously transfer heart beat data to the real-time database.  
+
 
 ### Mobile Application
 
 This is the user-interface which helps users to connect with the smart helmet. With the unique id attached to the helmet user can activate the helmet through the mobile app and access its features. 
 
-Withing the login process users can enter their details to their profile which can also update later. This data will be saved in the Firestore and can be fetch in to the web application when needed. 
+Withing the login process users can enter their details to their profile which can also update later. This data will be saved in the Fire store and can be fetch in to the web application when needed. 
 
 Android studio and Java with xml were used to create this application.  
 
-### Web Application
+### Back-End
 
-when an accident occurred a link with the access to the web Application is sent to the relevant parties such as nearest police station and hot-line 1990.
+This can be identify as the core of this project. It will monitor the fire store for a change with the aid of a thread. If any changes detected (adding a helmet id) to from the fire store it will identified as an accident occurred. 
+
+when an accident occurred a link with the access to the web Application is sent via a SMS service to the relevant parties such as 119 and 1990.
+
+Python flask is used to implement the backend
+
+### Web Application
 
 After accessing to the application they can monitor rider details, accident details, heart beat and any vital details. With the help of this web application they can easily track the accident location and recover the injured rider or pedestrian following a vehicular collision. 
 
-Python flask is used to implement the backend and React-js is used to create the front end.
+React-js is used to create the web application.
+
+### Database
+
+Store all relevant data of the rider, bike and the accident. Firebase is the used database server and two databases are used to store data. 
+
+#### Realtime database
+
+Store Heartbeat in real-time since changes in heartbeat are need to monitor frequently after accident occurred.
+
+#### Fire store
+
+Store static data which does not change frequently.
+
 ## Bibliography 
 
 1. Divyasudha N, Arulmozhivarman P, Rajkumar E.R, A. (2019) ‘Analysis of Smart 
