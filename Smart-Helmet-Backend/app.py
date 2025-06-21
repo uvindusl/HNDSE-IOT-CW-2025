@@ -32,7 +32,6 @@ realTimeDbRef = db.reference(RTDB_LISTEN_PATH)
 # FireStore Database
 firestoreDb = firestore.client()
 
-#this will be change in future it will come to backend from mobile app or firebase idk
 helmetID =  "h0222"
 
 @app.route('/riders', methods=['GET'])
@@ -140,8 +139,6 @@ def detectChange(colSnapshot , changes , readTime):
             pass
         elif change.type.name == 'REMOVED':
             pass
-
-
 
 if __name__ == '__main__':
     print("Starting Smart Helmet Backend Server...")
