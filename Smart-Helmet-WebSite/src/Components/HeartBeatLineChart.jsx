@@ -24,9 +24,10 @@ function HeartBeatLineChart() {
       }
     };
     fetchData();
+    //setInterval(fetchData, 1000);
   }, []);
 
-  // console.log(HeartRate);
+  console.log(HeartRate);
   if (loading) {
     return (
       <div className="rider-details-container">
@@ -91,10 +92,10 @@ function HeartBeatLineChart() {
           <p className="heart-rate">rate</p>{" "}
           <p className="heart-rate-time">time</p>
           <LineChart
-            xAxis={[{ data: data.heart_beat.map((_, i) => i) }]}
+            xAxis={[{ data: data.heartbeat_readings.map((_, i) => i) }]}
             series={[
               {
-                data: data.heart_beat,
+                data: data.heartbeat_readings,
               },
             ]}
             height={300}
