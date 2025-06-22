@@ -7,7 +7,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/dasboard" element={<Dashboard />} />
+        {/* <Route path="/dasboard" element={<Dashboard />} /> */}
         <Route
           path="/dashboard-access/:uniqueToken"
           element={<UniqueDashboardLoader />}

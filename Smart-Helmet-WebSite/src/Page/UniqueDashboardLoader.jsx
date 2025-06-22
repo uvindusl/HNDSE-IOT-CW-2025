@@ -1,64 +1,117 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Dashboard from "./Dashboard";
+import { useEffect, useState, useRef } from "react";
 
-const REACT_FRONTEND_BASE_URL = "http://localhost:5173"; // Your React app's base URL (already defined in backend but useful to have here for context, though not directly used for the API call)
-const BACKEND_API_BASE_URL = "http://localhost:5000"; // Your Flask backend's base URL
+const BACKEND_API_BASE_URL = "http://localhost:5000";
 
 function UniqueDashboardLoader() {
-  const { uniqueToken } = useParams(); // Get the uniqueToken from the URL
-  const navigate = useNavigate(); // Hook for programmatic navigation
+  const { uniqueToken } = useParams();
+  const [accessStatus, setAccessStatus] = useState("loading"); // 'loading', 'granted', 'denied', 'expired'
   const [message, setMessage] = useState("Validating access...");
-  const [isValidating, setIsValidating] = useState(true);
+  const validationIntervalRef = useRef(null); // Ref to store the interval ID
 
   useEffect(() => {
     const validateToken = async () => {
+      if (!uniqueToken) {
+        setAccessStatus("denied");
+        setMessage(
+          "No access token found in the URL. The link may be incorrect."
+        );
+        return;
+      }
+
+      console.log(`Frontend: Attempting to validate token: ${uniqueToken}`);
       try {
         const response = await fetch(
-          `${BACKEND_API_BASE_URL}/api/validate_dashboard_access/${uniqueToken}`
+          `http://localhost:5000/api/validate_dashboard_access/${uniqueToken}`
         );
         const data = await response.json();
 
         if (response.ok) {
           if (data.status === "valid") {
-            setMessage("Access granted! Redirecting to dashboard...");
-            // Optionally, you could store some session data here if needed
-            // For now, we'll just redirect
-            setTimeout(() => {
-              navigate("/dashboard"); // Redirect to your actual dashboard route
-            }, 1500); // Give a small delay for the message to be seen
+            setAccessStatus("granted");
+            setMessage("Access granted!");
+            console.log("Frontend: Token validated. Access granted.");
           } else {
-            setMessage(data.message || "Unknown validation error.");
-            setIsValidating(false);
+            // This covers cases where backend returns 200 but status is not 'valid' (e.g., if you add more statuses)
+            setAccessStatus("denied");
+            setMessage(
+              data.message || "Access denied due to an unknown reason."
+            );
+            console.log(`Frontend: Access denied: ${data.message}`);
           }
         } else {
-          setMessage(data.message || "Failed to validate token.");
-          setIsValidating(false);
+          // Backend returned an error status (e.g., 401, 404)
+          if (response.status === 401) {
+            setAccessStatus("expired"); // Specifically handle expiration
+            setMessage(data.message || "Access link has expired.");
+            console.log(`Frontend: Access expired: ${data.message}`);
+          } else {
+            setAccessStatus("denied");
+            setMessage(data.message || "Failed to validate token.");
+            console.log(
+              `Frontend: Validation failed (status ${response.status}): ${data.message}`
+            );
+          }
         }
       } catch (error) {
         console.error("Error validating dashboard access token:", error);
-        setMessage("An error occurred while trying to validate your access.");
-        setIsValidating(false);
+        setAccessStatus("denied");
+        setMessage(
+          "An error occurred while trying to validate your access. Please try again."
+        );
       }
     };
 
-    if (uniqueToken) {
-      validateToken();
-    } else {
-      setMessage("No access token found in the URL.");
-      setIsValidating(false);
-    }
-  }, [uniqueToken, navigate]);
+    validateToken();
 
-  return (
-    <div style={{ padding: "20px", textAlign: "center" }}>
-      <h1>Dashboard Access</h1>
-      <p>{message}</p>
-      {isValidating && <p>Please wait...</p>}
-      {!isValidating && (
-        <button onClick={() => navigate("/")}>Go to Home</button>
-      )}
-    </div>
-  );
+    // Set up an interval to re-validate the token periodically
+    // This is crucial for the "link expires without redirect" functionality
+    // Adjust the interval based on your needs (e.g., every 30 seconds to 1 minute)
+    const VALIDATION_INTERVAL_MS = 30 * 1000; // Re-validate every 30 seconds
+    validationIntervalRef.current = setInterval(() => {
+      console.log("Frontend: Re-validating token due to interval.");
+      validateToken();
+    }, VALIDATION_INTERVAL_MS);
+
+    // Cleanup function: Clear the interval when the component unmounts
+    return () => {
+      if (validationIntervalRef.current) {
+        clearInterval(validationIntervalRef.current);
+      }
+    };
+  }, [uniqueToken]); // Dependency array: re-run if uniqueToken changes
+
+  if (accessStatus === "loading") {
+    return (
+      <div style={{ padding: "20px", textAlign: "center" }}>
+        <h1>Loading Dashboard...</h1>
+        <p>{message}</p>
+      </div>
+    );
+  } else if (accessStatus === "granted") {
+    // If access is granted, render the actual Dashboard component
+    return <Dashboard />;
+  } else if (accessStatus === "expired") {
+    return (
+      <div style={{ padding: "20px", textAlign: "center" }}>
+        <h1>Access Denied</h1>
+        <p style={{ color: "red", fontWeight: "bold" }}>{message}</p>
+        <p>The unique access link has expired. Please request a new one.</p>
+        {/* You could add a button here to go back to a home page or request a new link */}
+      </div>
+    );
+  } else {
+    // 'denied'
+    return (
+      <div style={{ padding: "20px", textAlign: "center" }}>
+        <h1>Access Denied</h1>
+        <p style={{ color: "red", fontWeight: "bold" }}>{message}</p>
+        <p>The link may be incorrect or invalid.</p>
+        {/* You could add a button here to go back to a home page or request a new link */}
+      </div>
+    );
+  }
 }
 
 export default UniqueDashboardLoader;

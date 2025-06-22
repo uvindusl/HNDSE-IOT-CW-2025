@@ -41,10 +41,9 @@ firestoreDb = firestore.client()
 # varible to store h_id coming from detectchange function
 helmetID =  None
 
-app.config['SERVER_NAME'] = 'localhost:5000' # This is crucial for url_for(_external=True) to work
-REACT_FRONTEND_BASE_URL = "http://localhost:5173" # Your React app's base URL
+app.config['SERVER_NAME'] = 'localhost:5000'
+REACT_FRONTEND_BASE_URL = "http://localhost:5173"
 
-# In a real application, this would be a database.
 unique_dashboard_access_tokens = {}
 
 
@@ -79,13 +78,13 @@ def accidentDetected(colSnapshot , changes , readTime):
 
 @app.route('/api/validate_dashboard_access/<unique_token>', methods=['GET'])
 def validate_dashboard_access(unique_token):
-
     print(f"Validation request for Dashboard Token: {unique_token}")
     if unique_token in unique_dashboard_access_tokens:
         token_info = unique_dashboard_access_tokens[unique_token]
 
         if datetime.now() > token_info['expires_at']:
             print(f"Dashboard token {unique_token} expired.")
+
             return jsonify({"message": "Access link has expired. Please request a new one."}), 401
 
         unique_dashboard_access_tokens[unique_token]['accessed'] = True
@@ -95,14 +94,12 @@ def validate_dashboard_access(unique_token):
         print(f"Invalid Dashboard Token: {unique_token}")
         return jsonify({"message": "Invalid dashboard access token. The link may be incorrect."}), 404
 
-
-
 def generate_dashboard_link_and_show_in_backend(purpose="manual_generation"):
     unique_token = str(uuid.uuid4())
     unique_dashboard_access_tokens[unique_token] = {
         'purpose': purpose,
         'created_at': datetime.now(),
-        'expires_at': datetime.now() + timedelta(minutes=1), # Link valid for 60 minutes
+        'expires_at': datetime.now() + timedelta(minutes=1),
         'accessed': False
     }
 
