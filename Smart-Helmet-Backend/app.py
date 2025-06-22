@@ -1,7 +1,6 @@
-from flask import Flask, jsonify , request , redirect , url_for
+from flask import Flask, jsonify
 from flask_cors import CORS
 import threading
-import time
 import os
 import firebase_admin
 from firebase_admin import credentials, firestore , db
@@ -39,24 +38,25 @@ realTimeDbRef = db.reference(RTDB_LISTEN_PATH)
 # FireStore Database
 firestoreDb = firestore.client()
 
-# varible to store h_id coming from detectchange function
+# Global Variable to store h_id coming from detect change function
 helmetID =  None
 
+# Configuration for the unique URL genaration
 app.config['SERVER_NAME'] = 'localhost:5000'
 REACT_FRONTEND_BASE_URL = "http://localhost:5173"
-
 unique_dashboard_access_tokens = {}
 
+# Notify.lk APIs
 USER_ID = "29722"
 API_KEY = "FmoNwwAeeuDzuLfgmXPv"
-
 TO_NUMBER = "94702004065"
 SENDER_ID = "NotifyDEMO"
-
 url = "https://app.notify.lk/api/v1/send"
 
-
+# Accident Detection Function
 def accidentDetected(colSnapshot , changes , readTime):
+
+    # Intents for Global Variable
     global initial_load_complete
     global helmetID
 
@@ -69,23 +69,29 @@ def accidentDetected(colSnapshot , changes , readTime):
 
     for change in changes:
         if change.type.name == 'ADDED':
+            # Convert the document snapshot to a dictionary
             docData = change.document.to_dict()
+            # get Change document Id
             docId = change.document.id
+            # printing document Id
             print(f"New document added: {docId}")
 
+            # Verifying 'h_id' is in document
             if 'h_id' in docData:
+                # assign h_id to Variable
                 hId = docData['h_id']
+                # Print h_id
                 print(f"  Extracted h_id: {hId}")
-                helmetID = hId
-                if hId == hId:
-                    print("Link Genarating Started...")
-                    generate_dashboard_link_and_show_in_backend(purpose="initial_startup_link")
+                helmetID = hId # assigning hId into global Variable
+                if hId == hId: # if h_id is there Start Generating Link
+                    print("Link Generating Started...")
+                    generateUniqueUrl(purpose="initial_startup_link") # start genarateUniqueUrl function and pass purpose parameter 'initial_startup_link'
             else:
-                print(f"  Document {docId} does not contain an 'h_id' field.")
+                print(f"Document {docId} does not contain an 'h_id' field.") # if h_id doesn't there print this
         elif change.type.name == 'MODIFIED':
-            pass
+            pass # if document modified it will pass
         elif change.type.name == 'REMOVED':
-            pass
+            pass # if document remove it also pass
 
 def massageSending(message: str):
 
@@ -130,7 +136,7 @@ def validate_dashboard_access(unique_token):
 
 
 
-def generate_dashboard_link_and_show_in_backend(purpose="manual_generation"):
+def generateUniqueUrl(purpose="manual_generation"):
     unique_token = str(uuid.uuid4())
     unique_dashboard_access_tokens[unique_token] = {
         'purpose': purpose,
@@ -150,7 +156,7 @@ def generate_dashboard_link_and_show_in_backend(purpose="manual_generation"):
     print(f"Expires: {unique_dashboard_access_tokens[unique_token]['expires_at']}")
     print(f"-------------------------------------\n")
     print("Message Sending......")
-    # massageSending(message=f"Access Website Using this Link: '{unique_full_url}'")
+    # massageSending(message=f"Accident detected you can get details by visiting this WebSite : '{unique_full_url}'")
 
     return unique_full_url
 
