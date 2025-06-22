@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".nameCollectingScreen">
+    tools:context=".nameCollectingScreen"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,7 +32,7 @@
                 android:layout_marginRight="100px"/>
 
             <EditText
-                android:id="@+id/editTextText5"
+                android:id="@+id/editText5"
                 android:labelFor="@+id/textView12"
                 android:layout_width="match_parent"
                 android:hint="Enter first name"
@@ -39,6 +40,7 @@
                 android:ems="10"
                 android:inputType="text"
                 android:textColor="@color/black"
+                android:backgroundTint="@color/black"
                 android:textSize="24sp"
                 android:layout_marginLeft="100px"
                 android:layout_marginRight="100px"/>
@@ -57,7 +59,7 @@
                 android:layout_marginRight="100px"/>
 
             <EditText
-                android:id="@+id/editTextText6"
+                android:id="@+id/editText6"
                 android:labelFor="@+id/textView15"
                 android:hint="Enter middle name"
                 android:layout_width="match_parent"
@@ -67,7 +69,89 @@
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"
+                android:backgroundTint="@color/black"/>
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alumin"
+                android:textFontWeight="1000"
+                android:paddingTop="20dp"
+                android:text="Last name"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                android:layout_marginLeft="100px"
                 android:layout_marginRight="100px"/>
+
+            <EditText
+                android:id="@+id/editText7"
+                android:labelFor="@+id/textView16"
+                android:hint="Enter last name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"
+                android:backgroundTint="@color/black"/>
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alumin"
+                android:textFontWeight="1000"
+                android:paddingTop="20dp"
+                android:text="Age"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"/>
+
+            <EditText
+                android:id="@+id/editText8"
+                android:labelFor="@+id/textView17"
+                android:hint="Enter age"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"
+                android:backgroundTint="@color/black"/>
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alumin"
+                android:textFontWeight="1000"
+                android:paddingTop="20dp"
+                android:text="NIC"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"/>
+
+            <EditText
+                android:id="@+id/editText9"
+                android:labelFor="@+id/textView18"
+                android:hint="Enter NIC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"
+                android:backgroundTint="@color/black"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -78,33 +162,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textView16"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/alumin"
-                        android:textFontWeight="1000"
-                        android:paddingTop="20dp"
-                        android:text="Last name"
-                        android:textColor="@color/black"
-                        android:textSize="25dp"
-                        android:layout_marginLeft="100px"
-                        android:layout_marginRight="100px"/>
-
-                    <EditText
-                        android:id="@+id/editTextText7"
-                        android:labelFor="@+id/textView16"
-                        android:hint="Enter last name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:textColor="@color/black"
-                        android:textSize="24sp"
-                        android:layout_marginLeft="100px"
-                        android:layout_marginRight="100px"/>
-
 
                     <LinearLayout
                         android:layout_width="match_parent"
