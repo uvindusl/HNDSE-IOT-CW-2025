@@ -14,7 +14,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Configuration for firebase
-SERVICE_ACCOUNT_KEY_PATH = os.environ.get('FIREBASE_SERVICE_ACCOUNT_KEY', 'Key.json')
+SERVICE_ACCOUNT_KEY_PATH = os.environ.get('FIREBASE_SERVICE_ACCOUNT_KEY', 'key.json')
 REALTIME_DATABASE_URL = os.environ.get('FIREBASE_RTDB_URL', 'https://smarthelmet-3a072-default-rtdb.firebaseio.com/')
 RTDB_LISTEN_PATH = os.environ.get('FIREBASE_RTDB_LISTEN_PATH', '/')
 COLLECTION_NAME = 'Accidents'
@@ -43,7 +43,7 @@ helmetID =  None
 
 # Configuration for the unique URL genaration
 app.config['SERVER_NAME'] = 'localhost:5000'
-REACT_FRONTEND_BASE_URL = "https://hndseiotcw2025.vercel.app/"
+REACT_FRONTEND_BASE_URL = "https://hndseiotcw2025.vercel.app"
 dashboardAccessTokens = {}
 
 # Notify.lk APIs
