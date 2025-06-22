@@ -1,10 +1,12 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify , request , redirect , url_for
 from flask_cors import CORS
 import threading
 import time
 import os
 import firebase_admin
 from firebase_admin import credentials, firestore , db
+import uuid
+import datetime
 
 app = Flask(__name__)
 
@@ -39,6 +41,8 @@ firestoreDb = firestore.client()
 # varible to store h_id coming from detectchange function
 helmetID =  None
 
+uniqueUrlData = {}
+
 def accidentDetected(colSnapshot , changes , readTime):
     global initial_load_complete
     global helmetID
@@ -66,6 +70,22 @@ def accidentDetected(colSnapshot , changes , readTime):
             pass
         elif change.type.name == 'REMOVED':
             pass
+
+@app.route('/generate_unique_link', methods=['POST'])
+def genarateUniqueLink():
+    data_to_associate = request.json.get('data', 'default_data')
+
+    uniqueId = str(uuid.uuid4())
+    uniqueUrlData[uniqueId] = {
+        'data': data_to_associate,
+        'created_at': datetime.now(),
+        'accessed': False
+    }
+
+    reactFrontendLink = "http://localhost:5173/"
+    uniqueUrl = f"{reactFrontendLink}/uniue-access/{uniqueId}"
+
+    return jsonify({"uniqueURL" : uniqueUrl}), 200
 
 @app.route('/riders', methods=['GET'])
 def getRiderDetails():
