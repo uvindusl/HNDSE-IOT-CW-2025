@@ -58,15 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
         //database data retriever should be implemented on the main actvity since the onComplete method cant pass data outside its context.
 
-
-
-
-
-
-
-
-
-
     }
     public void onPressActivate(View v){
         helmetID = helmetIdText.getText().toString();
