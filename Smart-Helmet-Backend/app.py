@@ -144,7 +144,7 @@ def validateDashboardAccess(uniqueToken):
 # function for Generating unique id and show it on backend
 def generateUniqueUrl(purpose="manual_generation"):
     uniqueToken = str(uuid.uuid4()) # generate universal unique identifier for url
-    dashboardAccessTokens[uniqueToken] = {
+    dashboardAccessTokens[uniqueToken] = { # Save generated token details
         'purpose': purpose,
         'created_at': datetime.now(),
         'expires_at': datetime.now() + timedelta(minutes=60),
@@ -154,7 +154,7 @@ def generateUniqueUrl(purpose="manual_generation"):
     with app.test_request_context(base_url=REACT_FRONTEND_BASE_URL):
         uniqueFullUrl = f"{REACT_FRONTEND_BASE_URL}/dashboard-access/{uniqueToken}"
 
-    print(f"\n--- GENERATED UNIQUE DASHBOARD LINK ---")
+    print(f"\n--- GENERATED UNIQUE DASHBOARD LINK ---") # printing generated link details
     print(f"Purpose: {purpose}")
     print(f"Link: {uniqueFullUrl}")
     print(f"Token: {uniqueToken}")
@@ -163,7 +163,7 @@ def generateUniqueUrl(purpose="manual_generation"):
 
     return uniqueFullUrl
 
-
+# Get methods for the get data from firebase
 @app.route('/riders', methods=['GET'])
 def getRiderDetails():
     riderData = firestoreDb.collection('Riders').where('h_id', '==', helmetID)
@@ -195,12 +195,12 @@ def getVitalDetails():
     return jsonify(vitalData)
 
 
-# get heart beat from Real Time Database and save it to FireStore Vital Document with healmetId
+# get heart beat from Real Time Database and save it to FireStore Vital Document with helmet Id
 def realTimeDBListner(event):
     print(f"\n[RTDB Listener] Event Received: {event.event_type} at {event.path}")
 
     try:
-        pathParts = [part for part in event.path.strip('/').split('/') if part]
+        pathParts = [part for part in event.path.strip('/').split('/') if part] # remove spaces and get data as array using split function
 
         if len(pathParts) == 2 and pathParts[1] == 'heart_beat':
             documentId = pathParts[0]
@@ -240,7 +240,7 @@ def realTimeDBListner(event):
     except Exception as e:
         print(f"[RTDB Listener] Error processing Realtime Database event: {e}")
 
-#S Starting the realtime listener function
+# Starting the realtime listener function
 def startRealTimeDbLisner():
     print(f"[RTDB Listener] Starting Listener for path: {RTDB_LISTEN_PATH}...")
 
@@ -268,9 +268,6 @@ if __name__ == '__main__':
     print(f"Listening for new documents in collection: '{COLLECTION_NAME}'...")
     colRef = firestoreDb.collection(COLLECTION_NAME)
     queryWatch = colRef.on_snapshot(accidentDetected)
-
-    # print("Starting Flask application...")
-    # generate_dashboard_link_and_show_in_backend(purpose="initial_startup_link")
 
     # Start Flask app (this will block the main thread)
     print("Starting Flask application on port 5000...")
