@@ -1,10 +1,12 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
 import threading
-import time
 import os
 import firebase_admin
 from firebase_admin import credentials, firestore , db
+import uuid
+from datetime import datetime , timedelta
+import requests
 
 app = Flask(__name__)
 
@@ -36,10 +38,25 @@ realTimeDbRef = db.reference(RTDB_LISTEN_PATH)
 # FireStore Database
 firestoreDb = firestore.client()
 
-# varible to store h_id coming from detectchange function
+# Global Variable to store h_id coming from detect change function
 helmetID =  None
 
+# Configuration for the unique URL genaration
+app.config['SERVER_NAME'] = 'localhost:5000'
+REACT_FRONTEND_BASE_URL = "https://hndseiotcw2025.vercel.app/"
+dashboardAccessTokens = {}
+
+# Notify.lk APIs
+USER_ID = "29722"
+API_KEY = "FmoNwwAeeuDzuLfgmXPv"
+TO_NUMBER = "94702004065"
+SENDER_ID = "NotifyDEMO"
+url = "https://app.notify.lk/api/v1/send"
+
+# Accident Detection Function
 def accidentDetected(colSnapshot , changes , readTime):
+
+    # Intents for Global Variable
     global initial_load_complete
     global helmetID
 
@@ -52,21 +69,101 @@ def accidentDetected(colSnapshot , changes , readTime):
 
     for change in changes:
         if change.type.name == 'ADDED':
+            # Convert the document snapshot to a dictionary
             docData = change.document.to_dict()
+            # get Change document Id
             docId = change.document.id
+            # printing document Id
             print(f"New document added: {docId}")
 
+            # Verifying 'h_id' is in document
             if 'h_id' in docData:
+                # assign h_id to Variable
                 hId = docData['h_id']
+                # Print h_id
                 print(f"  Extracted h_id: {hId}")
-                hId = helmetID
-            else:
-                print(f"  Document {docId} does not contain an 'h_id' field.")
-        elif change.type.name == 'MODIFIED':
-            pass
-        elif change.type.name == 'REMOVED':
-            pass
+                helmetID = hId # assigning hId into global Variable
+                if hId == hId: # if h_id is there Start Generating Link
+                    print("Link Generating Started...")
+                    generateUniqueUrl(purpose="initial_startup_link") # start generateUniqueUrl function and pass purpose parameter 'initial_startup_link'
 
+                    print("---Message Sending---\n")
+                    # massageSending(message=f"Accident detected you can get details by visiting this WebSite : '{uniqueFullUrl}'")
+            else:
+                print(f"Document {docId} does not contain an 'h_id' field.") # if h_id doesn't there print this
+        elif change.type.name == 'MODIFIED':
+            pass # if document modified it will pass
+        elif change.type.name == 'REMOVED':
+            pass # if document remove it also pass
+
+# massage Sending Function that get parameter message
+def massageSending(message: str):
+
+    # array to store params in url
+    params = {
+        "user_id": USER_ID,
+        "api_key": API_KEY,
+        "sender_id": SENDER_ID,
+        "to": TO_NUMBER,
+        "message": message
+    }
+
+    try:
+        response = requests.get(url, params=params) # Sending request to Notify.lk
+
+        if response.status_code == 200: # if message successfully send print message with response text
+            print("SMS sent successfully!")
+            print("Response:", response.text)
+        else:
+            print(f"Failed to send SMS. Status code: {response.status_code}") # if there is any array print this
+            print("Response:", response.text)
+
+    except requests.exceptions.RequestException as e: # Exception handling
+        print(f"An error occurred: {e}")
+
+# function to send token data and send status code
+@app.route('/validateDashboardAccess/<uniqueToken>', methods=['GET'])
+def validateDashboardAccess(uniqueToken):
+    print(f"Validation request for Dashboard Token: {uniqueToken}") # validating Token
+    if uniqueToken in dashboardAccessTokens:
+        tokenInfo = dashboardAccessTokens[uniqueToken]
+
+        if datetime.now() > tokenInfo['expires_at']: # check is token expire or not
+            print(f"Dashboard token {uniqueToken} expired.")
+
+            return jsonify({"message": "Access link has expired. Please request a new one."}), 401
+
+        dashboardAccessTokens[uniqueToken]['accessed'] = True
+        print(f"Dashboard token {uniqueToken} validated successfully.")
+        return jsonify({"status": "valid", "message": "Access granted."}), 200
+    else:
+        print(f"Invalid Dashboard Token: {uniqueToken}")
+        return jsonify({"message": "Invalid dashboard access token. The link may be incorrect."}), 404
+
+
+# function for Generating unique id and show it on backend
+def generateUniqueUrl(purpose="manual_generation"):
+    uniqueToken = str(uuid.uuid4()) # generate universal unique identifier for url
+    dashboardAccessTokens[uniqueToken] = { # Save generated token details
+        'purpose': purpose,
+        'created_at': datetime.now(),
+        'expires_at': datetime.now() + timedelta(minutes=60),
+        'accessed': False
+    }
+
+    with app.test_request_context(base_url=REACT_FRONTEND_BASE_URL):
+        uniqueFullUrl = f"{REACT_FRONTEND_BASE_URL}/dashboard-access/{uniqueToken}"
+
+    print(f"\n--- GENERATED UNIQUE DASHBOARD LINK ---") # printing generated link details
+    print(f"Purpose: {purpose}")
+    print(f"Link: {uniqueFullUrl}")
+    print(f"Token: {uniqueToken}")
+    print(f"Expires: {dashboardAccessTokens[uniqueToken]['expires_at']}")
+    print(f"-------------------------------------\n")
+
+    return uniqueFullUrl
+
+# Get methods for the get data from firebase
 @app.route('/riders', methods=['GET'])
 def getRiderDetails():
     riderData = firestoreDb.collection('Riders').where('h_id', '==', helmetID)
@@ -98,12 +195,12 @@ def getVitalDetails():
     return jsonify(vitalData)
 
 
-# get heart beat from Real Time Database and save it to FireStore Vital Document with healmetId
+# get heart beat from Real Time Database and save it to FireStore Vital Document with helmet Id
 def realTimeDBListner(event):
     print(f"\n[RTDB Listener] Event Received: {event.event_type} at {event.path}")
 
     try:
-        pathParts = [part for part in event.path.strip('/').split('/') if part]
+        pathParts = [part for part in event.path.strip('/').split('/') if part] # remove spaces and get data as array using split function
 
         if len(pathParts) == 2 and pathParts[1] == 'heart_beat':
             documentId = pathParts[0]
@@ -143,7 +240,7 @@ def realTimeDBListner(event):
     except Exception as e:
         print(f"[RTDB Listener] Error processing Realtime Database event: {e}")
 
-#S Starting the realtime listener function
+# Starting the realtime listener function
 def startRealTimeDbLisner():
     print(f"[RTDB Listener] Starting Listener for path: {RTDB_LISTEN_PATH}...")
 
@@ -175,7 +272,7 @@ if __name__ == '__main__':
     # Start Flask app (this will block the main thread)
     print("Starting Flask application on port 5000...")
     try:
-        app.run(debug=True, port=5000)
+        app.run(debug=False, port=5000)
     except KeyboardInterrupt:
         print("\nServer stopped by user.")
     except Exception as e:
