@@ -2,8 +2,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import { useEffect, useState, useRef } from "react";
 
-const BACKEND_API_BASE_URL = "http://localhost:5000";
-
 function UniqueDashboardLoader() {
   const { uniqueToken } = useParams();
   const [accessStatus, setAccessStatus] = useState("loading");
@@ -23,7 +21,7 @@ function UniqueDashboardLoader() {
       console.log(`Frontend: Attempting to validate token: ${uniqueToken}`);
       try {
         const response = await fetch(
-          `http://localhost:5000/api/validate_dashboard_access/${uniqueToken}`
+          `http://localhost:5000/validateDashboardAccess/${uniqueToken}`
         );
         const data = await response.json();
 
