@@ -94,6 +94,8 @@ def validate_dashboard_access(unique_token):
         print(f"Invalid Dashboard Token: {unique_token}")
         return jsonify({"message": "Invalid dashboard access token. The link may be incorrect."}), 404
 
+
+
 def generate_dashboard_link_and_show_in_backend(purpose="manual_generation"):
     unique_token = str(uuid.uuid4())
     unique_dashboard_access_tokens[unique_token] = {
@@ -102,7 +104,6 @@ def generate_dashboard_link_and_show_in_backend(purpose="manual_generation"):
         'expires_at': datetime.now() + timedelta(minutes=1),
         'accessed': False
     }
-
 
     with app.test_request_context(base_url=REACT_FRONTEND_BASE_URL):
 
@@ -116,6 +117,8 @@ def generate_dashboard_link_and_show_in_backend(purpose="manual_generation"):
     print(f"-------------------------------------\n")
 
     return unique_full_url
+
+
 @app.route('/riders', methods=['GET'])
 def getRiderDetails():
     riderData = firestoreDb.collection('Riders').where('h_id', '==', helmetID)

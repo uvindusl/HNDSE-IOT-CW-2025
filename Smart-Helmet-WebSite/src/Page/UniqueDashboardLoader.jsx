@@ -6,9 +6,9 @@ const BACKEND_API_BASE_URL = "http://localhost:5000";
 
 function UniqueDashboardLoader() {
   const { uniqueToken } = useParams();
-  const [accessStatus, setAccessStatus] = useState("loading"); // 'loading', 'granted', 'denied', 'expired'
+  const [accessStatus, setAccessStatus] = useState("loading");
   const [message, setMessage] = useState("Validating access...");
-  const validationIntervalRef = useRef(null); // Ref to store the interval ID
+  const validationIntervalRef = useRef(null);
 
   useEffect(() => {
     const validateToken = async () => {
@@ -33,7 +33,6 @@ function UniqueDashboardLoader() {
             setMessage("Access granted!");
             console.log("Frontend: Token validated. Access granted.");
           } else {
-            // This covers cases where backend returns 200 but status is not 'valid' (e.g., if you add more statuses)
             setAccessStatus("denied");
             setMessage(
               data.message || "Access denied due to an unknown reason."
@@ -41,9 +40,8 @@ function UniqueDashboardLoader() {
             console.log(`Frontend: Access denied: ${data.message}`);
           }
         } else {
-          // Backend returned an error status (e.g., 401, 404)
           if (response.status === 401) {
-            setAccessStatus("expired"); // Specifically handle expiration
+            setAccessStatus("expired");
             setMessage(data.message || "Access link has expired.");
             console.log(`Frontend: Access expired: ${data.message}`);
           } else {
@@ -65,22 +63,18 @@ function UniqueDashboardLoader() {
 
     validateToken();
 
-    // Set up an interval to re-validate the token periodically
-    // This is crucial for the "link expires without redirect" functionality
-    // Adjust the interval based on your needs (e.g., every 30 seconds to 1 minute)
     const VALIDATION_INTERVAL_MS = 30 * 1000; // Re-validate every 30 seconds
     validationIntervalRef.current = setInterval(() => {
       console.log("Frontend: Re-validating token due to interval.");
       validateToken();
     }, VALIDATION_INTERVAL_MS);
 
-    // Cleanup function: Clear the interval when the component unmounts
     return () => {
       if (validationIntervalRef.current) {
         clearInterval(validationIntervalRef.current);
       }
     };
-  }, [uniqueToken]); // Dependency array: re-run if uniqueToken changes
+  }, [uniqueToken]);
 
   if (accessStatus === "loading") {
     return (
@@ -90,7 +84,6 @@ function UniqueDashboardLoader() {
       </div>
     );
   } else if (accessStatus === "granted") {
-    // If access is granted, render the actual Dashboard component
     return <Dashboard />;
   } else if (accessStatus === "expired") {
     return (
@@ -98,7 +91,6 @@ function UniqueDashboardLoader() {
         <h1>Access Denied</h1>
         <p style={{ color: "red", fontWeight: "bold" }}>{message}</p>
         <p>The unique access link has expired. Please request a new one.</p>
-        {/* You could add a button here to go back to a home page or request a new link */}
       </div>
     );
   } else {
@@ -108,7 +100,6 @@ function UniqueDashboardLoader() {
         <h1>Access Denied</h1>
         <p style={{ color: "red", fontWeight: "bold" }}>{message}</p>
         <p>The link may be incorrect or invalid.</p>
-        {/* You could add a button here to go back to a home page or request a new link */}
       </div>
     );
   }
