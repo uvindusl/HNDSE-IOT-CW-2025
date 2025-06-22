@@ -25,7 +25,7 @@ function Dashboard() {
           </div>
         </div>
       </div>
-      <AccidentDetailsCard />
+      {/* <AccidentDetailsCard /> */}
     </>
   );
 }

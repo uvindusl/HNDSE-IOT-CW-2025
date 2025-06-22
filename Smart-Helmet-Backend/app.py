@@ -6,7 +6,7 @@ import os
 import firebase_admin
 from firebase_admin import credentials, firestore , db
 import uuid
-import datetime
+from datetime import datetime , timedelta
 
 app = Flask(__name__)
 
@@ -41,7 +41,12 @@ firestoreDb = firestore.client()
 # varible to store h_id coming from detectchange function
 helmetID =  None
 
-uniqueUrlData = {}
+app.config['SERVER_NAME'] = 'localhost:5000' # This is crucial for url_for(_external=True) to work
+REACT_FRONTEND_BASE_URL = "http://localhost:5173" # Your React app's base URL
+
+# In a real application, this would be a database.
+unique_dashboard_access_tokens = {}
+
 
 def accidentDetected(colSnapshot , changes , readTime):
     global initial_load_complete
@@ -71,22 +76,49 @@ def accidentDetected(colSnapshot , changes , readTime):
         elif change.type.name == 'REMOVED':
             pass
 
-@app.route('/generate_unique_link', methods=['POST'])
-def genarateUniqueLink():
-    data_to_associate = request.json.get('data', 'default_data')
 
-    uniqueId = str(uuid.uuid4())
-    uniqueUrlData[uniqueId] = {
-        'data': data_to_associate,
+@app.route('/api/validate_dashboard_access/<unique_token>', methods=['GET'])
+def validate_dashboard_access(unique_token):
+
+    print(f"Validation request for Dashboard Token: {unique_token}")
+    if unique_token in unique_dashboard_access_tokens:
+        token_info = unique_dashboard_access_tokens[unique_token]
+
+        if datetime.now() > token_info['expires_at']:
+            print(f"Dashboard token {unique_token} expired.")
+            return jsonify({"message": "Access link has expired. Please request a new one."}), 401
+
+        unique_dashboard_access_tokens[unique_token]['accessed'] = True
+        print(f"Dashboard token {unique_token} validated successfully.")
+        return jsonify({"status": "valid", "message": "Access granted."}), 200
+    else:
+        print(f"Invalid Dashboard Token: {unique_token}")
+        return jsonify({"message": "Invalid dashboard access token. The link may be incorrect."}), 404
+
+
+
+def generate_dashboard_link_and_show_in_backend(purpose="manual_generation"):
+    unique_token = str(uuid.uuid4())
+    unique_dashboard_access_tokens[unique_token] = {
+        'purpose': purpose,
         'created_at': datetime.now(),
+        'expires_at': datetime.now() + timedelta(minutes=1), # Link valid for 60 minutes
         'accessed': False
     }
 
-    reactFrontendLink = "http://localhost:5173/"
-    uniqueUrl = f"{reactFrontendLink}/uniue-access/{uniqueId}"
 
-    return jsonify({"uniqueURL" : uniqueUrl}), 200
+    with app.test_request_context(base_url=REACT_FRONTEND_BASE_URL):
 
+        unique_full_url = f"{REACT_FRONTEND_BASE_URL}/dashboard-access/{unique_token}"
+
+    print(f"\n--- GENERATED UNIQUE DASHBOARD LINK ---")
+    print(f"Purpose: {purpose}")
+    print(f"Link: {unique_full_url}")
+    print(f"Token: {unique_token}")
+    print(f"Expires: {unique_dashboard_access_tokens[unique_token]['expires_at']}")
+    print(f"-------------------------------------\n")
+
+    return unique_full_url
 @app.route('/riders', methods=['GET'])
 def getRiderDetails():
     riderData = firestoreDb.collection('Riders').where('h_id', '==', helmetID)
@@ -191,6 +223,9 @@ if __name__ == '__main__':
     print(f"Listening for new documents in collection: '{COLLECTION_NAME}'...")
     colRef = firestoreDb.collection(COLLECTION_NAME)
     queryWatch = colRef.on_snapshot(accidentDetected)
+
+    print("Starting Flask application...")
+    generate_dashboard_link_and_show_in_backend(purpose="initial_startup_link")
 
     # Start Flask app (this will block the main thread)
     print("Starting Flask application on port 5000...")
