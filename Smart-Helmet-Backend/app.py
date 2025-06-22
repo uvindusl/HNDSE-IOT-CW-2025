@@ -7,6 +7,7 @@ import firebase_admin
 from firebase_admin import credentials, firestore , db
 import uuid
 from datetime import datetime , timedelta
+import requests
 
 app = Flask(__name__)
 
@@ -46,6 +47,14 @@ REACT_FRONTEND_BASE_URL = "http://localhost:5173"
 
 unique_dashboard_access_tokens = {}
 
+USER_ID = "29722"
+API_KEY = "FmoNwwAeeuDzuLfgmXPv"
+
+TO_NUMBER = "94702004065"
+SENDER_ID = "NotifyDEMO"
+
+url = "https://app.notify.lk/api/v1/send"
+
 
 def accidentDetected(colSnapshot , changes , readTime):
     global initial_load_complete
@@ -68,6 +77,9 @@ def accidentDetected(colSnapshot , changes , readTime):
                 hId = docData['h_id']
                 print(f"  Extracted h_id: {hId}")
                 helmetID = hId
+                if hId == hId:
+                    print("Link Genarating Started...")
+                    generate_dashboard_link_and_show_in_backend(purpose="initial_startup_link")
             else:
                 print(f"  Document {docId} does not contain an 'h_id' field.")
         elif change.type.name == 'MODIFIED':
@@ -75,6 +87,28 @@ def accidentDetected(colSnapshot , changes , readTime):
         elif change.type.name == 'REMOVED':
             pass
 
+def massageSending(message: str):
+
+    params = {
+        "user_id": USER_ID,
+        "api_key": API_KEY,
+        "sender_id": SENDER_ID,
+        "to": TO_NUMBER,
+        "message": message
+    }
+
+    try:
+        response = requests.get(url, params=params)
+
+        if response.status_code == 200:
+            print("SMS sent successfully!")
+            print("Response:", response.text)
+        else:
+            print(f"Failed to send SMS. Status code: {response.status_code}")
+            print("Response:", response.text)
+
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
 
 @app.route('/api/validate_dashboard_access/<unique_token>', methods=['GET'])
 def validate_dashboard_access(unique_token):
@@ -101,7 +135,7 @@ def generate_dashboard_link_and_show_in_backend(purpose="manual_generation"):
     unique_dashboard_access_tokens[unique_token] = {
         'purpose': purpose,
         'created_at': datetime.now(),
-        'expires_at': datetime.now() + timedelta(minutes=1),
+        'expires_at': datetime.now() + timedelta(minutes=60),
         'accessed': False
     }
 
@@ -115,6 +149,8 @@ def generate_dashboard_link_and_show_in_backend(purpose="manual_generation"):
     print(f"Token: {unique_token}")
     print(f"Expires: {unique_dashboard_access_tokens[unique_token]['expires_at']}")
     print(f"-------------------------------------\n")
+    print("Message Sending......")
+    # massageSending(message=f"Access Website Using this Link: '{unique_full_url}'")
 
     return unique_full_url
 
@@ -224,13 +260,13 @@ if __name__ == '__main__':
     colRef = firestoreDb.collection(COLLECTION_NAME)
     queryWatch = colRef.on_snapshot(accidentDetected)
 
-    print("Starting Flask application...")
-    generate_dashboard_link_and_show_in_backend(purpose="initial_startup_link")
+    # print("Starting Flask application...")
+    # generate_dashboard_link_and_show_in_backend(purpose="initial_startup_link")
 
     # Start Flask app (this will block the main thread)
     print("Starting Flask application on port 5000...")
     try:
-        app.run(debug=True, port=5000)
+        app.run(debug=False, port=5000)
     except KeyboardInterrupt:
         print("\nServer stopped by user.")
     except Exception as e:

@@ -14,7 +14,7 @@ function Dashboard() {
       <RiderDetailsCard />
       <div className="graph-container">
         <HeartBeatLineChart />
-        <AltitudeChart />
+        {/* <AltitudeChart /> */}
         <div className="meter-container">
           <div className="meter-row">
             <SpeedMeter />
