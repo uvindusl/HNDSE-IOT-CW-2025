@@ -7,6 +7,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<h1>test!</h1>} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route
           path="/dashboard-access/:uniqueToken"

@@ -43,7 +43,7 @@ helmetID =  None
 
 # Configuration for the unique URL genaration
 app.config['SERVER_NAME'] = 'localhost:5000'
-REACT_FRONTEND_BASE_URL = "http://localhost:5173"
+REACT_FRONTEND_BASE_URL = "https://hndseiotcw2025.vercel.app/"
 dashboardAccessTokens = {}
 
 # Notify.lk APIs
