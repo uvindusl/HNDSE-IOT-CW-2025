@@ -1,6 +1,8 @@
 package com.uhd.helmet;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,4 +23,6 @@ public class info_collecting_screen_1 extends AppCompatActivity {
             return insets;
         });
     }
+
+
 }

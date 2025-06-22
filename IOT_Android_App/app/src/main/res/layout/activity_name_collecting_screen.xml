@@ -137,6 +137,7 @@
                             android:fontFamily="monospace"
                             android:text="Next"
                             android:textColor="@color/white"
+                            android:onClick="onPressActivate"
                             android:textSize="16dp" />
 
                         <TextView
