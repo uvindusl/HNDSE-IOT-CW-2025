@@ -5,131 +5,202 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".info_collecting_screen_1">
+    tools:context=".nameCollectingScreen"
+    android:background="@color/back">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/jeremy_bishop_zhbokpbchh8_unsplash"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="328dp"
-                android:layout_height="622dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="64dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="64dp"
-                app:cardBackgroundColor="#41E6EBF2"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alumin"
+                android:textFontWeight="1000"
+                android:text="Rider Details"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:layout_marginTop="100px"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"/>
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alumin"
+                android:textFontWeight="1000"
+                android:text="Age"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                android:layout_marginTop="10px"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"/>
+
+            <EditText
+                android:id="@+id/editText5"
+                android:labelFor="@+id/textView12"
+                android:layout_width="match_parent"
+                android:hint="Enter age"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/black"
+                android:textSize="24sp"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"/>
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alumin"
+                android:textFontWeight="1000"
+                android:paddingTop="20dp"
+                android:text="Gender"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"/>
+
+            <EditText
+                android:id="@+id/editText6"
+                android:labelFor="@+id/textView15"
+                android:hint="Enter gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"
+                android:backgroundTint="@color/black"/>
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alumin"
+                android:textFontWeight="1000"
+                android:paddingTop="20dp"
+                android:text="Occupation"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"/>
+
+            <EditText
+                android:id="@+id/editText7"
+                android:labelFor="@+id/textView16"
+                android:hint="Enter occupation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"
+                android:backgroundTint="@color/black"/>
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alumin"
+                android:textFontWeight="1000"
+                android:paddingTop="20dp"
+                android:text="Working place"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"/>
+
+            <EditText
+                android:id="@+id/editText8"
+                android:labelFor="@+id/textView17"
+                android:hint="Enter working place"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"
+                android:backgroundTint="@color/black"/>
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alumin"
+                android:textFontWeight="1000"
+                android:paddingTop="20dp"
+                android:text="Working place tel"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"/>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/pic">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/editText9"
+                        android:labelFor="@+id/textView18"
+                        android:hint="Enter place tel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        android:layout_marginLeft="100px"
+                        android:layout_marginRight="100px"
+                        android:backgroundTint="@color/black"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="10dp">
-
-                        <TextView
-                            android:id="@+id/textView3"
-                            android:layout_width="match_parent"
-                            android:layout_height="58dp"
-                            android:fontFamily="monospace"
-                            android:paddingTop="10dp"
-                            android:text="NIC/ Passport number"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="25dp" />
-
-                        <EditText
-                            android:id="@+id/nictxt"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-
-                            android:fontFamily="monospace"
-                            android:inputType="text"
-                            android:paddingBottom="10dp"
-                            android:text="1979####"
-                            android:textAlignment="center"
-
-                            android:textColor="@color/black"
-                            android:textSize="23dp" />
-
-                        <TextView
-                            android:id="@+id/textView6"
-                            android:layout_width="match_parent"
-                            android:layout_height="59dp"
-                            android:fontFamily="monospace"
-                            android:paddingTop="20dp"
-                            android:text="Address"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="25dp" />
-
-                        <EditText
-                            android:id="@+id/addresstxt"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:inputType="text"
-                            android:paddingTop="10dp"
-                            android:text=""
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="23dp" />
-
-                        <TextView
-                            android:id="@+id/textView7"
-                            android:layout_width="match_parent"
-                            android:layout_height="54dp"
-                            android:paddingTop="20dp"
-                            android:text="Age"
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-
-                            android:textSize="23dp" />
-
-                        <EditText
-                            android:id="@+id/agetxt"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:ems="10"
-                            android:inputType="text"
-                            android:text=""
-                            android:textAlignment="center"
-                            android:textColor="@color/black"
-                            android:textSize="23dp" />
+                        android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/button3"
-                            android:layout_width="236dp"
-                            android:layout_height="66dp"
-                            android:layout_marginLeft="35dp"
-                            android:layout_marginTop="190dp"
+                            android:id="@+id/button4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:backgroundTint="@color/black"
+                            android:fontFamily="@font/alumin"
+                            android:textFontWeight="1000"
                             android:text="Next"
-                            android:textAlignment="center"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:onClick="onPressActivate"
+                            android:textSize="24sp"
+                            android:layout_marginLeft="150px"
+                            android:layout_marginRight="150px"/>
 
                     </LinearLayout>
                 </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
+            </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

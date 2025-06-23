@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".nameCollectingScreen"
-    android:background="@color/white">
+    android:background="@color/back">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,6 +19,19 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/textView19"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alumin"
+                android:textFontWeight="1000"
+                android:text="Rider Details"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:layout_marginTop="100px"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"/>
+
+            <TextView
                 android:id="@+id/textView12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -27,7 +40,7 @@
                 android:text="First name"
                 android:textColor="@color/black"
                 android:textSize="25dp"
-                android:layout_marginTop="100px"
+                android:layout_marginTop="10px"
                 android:layout_marginLeft="100px"
                 android:layout_marginRight="100px"/>
 
@@ -106,7 +119,7 @@
                 android:fontFamily="@font/alumin"
                 android:textFontWeight="1000"
                 android:paddingTop="20dp"
-                android:text="Age"
+                android:text="Address"
                 android:textColor="@color/black"
                 android:textSize="25dp"
                 android:layout_marginLeft="100px"
@@ -115,7 +128,7 @@
             <EditText
                 android:id="@+id/editText8"
                 android:labelFor="@+id/textView17"
-                android:hint="Enter age"
+                android:hint="Enter address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -139,19 +152,7 @@
                 android:layout_marginLeft="100px"
                 android:layout_marginRight="100px"/>
 
-            <EditText
-                android:id="@+id/editText9"
-                android:labelFor="@+id/textView18"
-                android:hint="Enter NIC"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="text"
-                android:textColor="@color/black"
-                android:textSize="24sp"
-                android:layout_marginLeft="100px"
-                android:layout_marginRight="100px"
-                android:backgroundTint="@color/black"/>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -162,6 +163,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/editText9"
+                        android:labelFor="@+id/textView18"
+                        android:hint="Enter NIC"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        android:layout_marginLeft="100px"
+                        android:layout_marginRight="100px"
+                        android:backgroundTint="@color/black"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
