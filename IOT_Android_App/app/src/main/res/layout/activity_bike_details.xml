@@ -5,6 +5,202 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BikeDetails">
+    tools:context=".nameCollectingScreen"
+    android:background="@color/back">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alumin"
+                android:textFontWeight="1000"
+                android:text="Bike Details"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:layout_marginTop="100px"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"/>
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alumin"
+                android:textFontWeight="1000"
+                android:text="Color"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                android:layout_marginTop="10px"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"/>
+
+            <EditText
+                android:id="@+id/editText5"
+                android:labelFor="@+id/textView12"
+                android:layout_width="match_parent"
+                android:hint="Enter color"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/black"
+                android:textSize="24sp"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"/>
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alumin"
+                android:textFontWeight="1000"
+                android:paddingTop="20dp"
+                android:text="Model"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"/>
+
+            <EditText
+                android:id="@+id/editText6"
+                android:labelFor="@+id/textView15"
+                android:hint="Enter Model"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"
+                android:backgroundTint="@color/black"/>
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alumin"
+                android:textFontWeight="1000"
+                android:paddingTop="20dp"
+                android:text="Number plate"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"/>
+
+            <EditText
+                android:id="@+id/editText7"
+                android:labelFor="@+id/textView16"
+                android:hint="Enter number plate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"
+                android:backgroundTint="@color/black"/>
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alumin"
+                android:textFontWeight="1000"
+                android:paddingTop="20dp"
+                android:text="Insuarnce company"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"/>
+
+            <EditText
+                android:id="@+id/editText8"
+                android:labelFor="@+id/textView17"
+                android:hint="Enter insuarance company"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"
+                android:backgroundTint="@color/black"/>
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alumin"
+                android:textFontWeight="1000"
+                android:paddingTop="20dp"
+                android:text="Insuarnce tel"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="100px"/>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/pic">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/editText9"
+                        android:labelFor="@+id/textView18"
+                        android:hint="Enter insuarance tel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        android:layout_marginLeft="100px"
+                        android:layout_marginRight="100px"
+                        android:backgroundTint="@color/black"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/button4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/black"
+                            android:fontFamily="@font/alumin"
+                            android:textFontWeight="1000"
+                            android:text="Next"
+                            android:textColor="@color/white"
+                            android:onClick="onPressActivate"
+                            android:textSize="24sp"
+                            android:layout_marginLeft="150px"
+                            android:layout_marginRight="150px"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
