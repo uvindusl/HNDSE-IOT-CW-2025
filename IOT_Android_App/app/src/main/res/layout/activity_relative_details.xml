@@ -139,18 +139,18 @@
                 android:layout_marginRight="100px"
                 android:backgroundTint="@color/black"/>
 
-            <TextView
-                android:id="@+id/textView18"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/alumin"
-                android:textFontWeight="1000"
-                android:paddingTop="20dp"
-                android:text=""
-                android:textColor="@color/black"
-                android:textSize="25dp"
-                android:layout_marginLeft="100px"
-                android:layout_marginRight="100px"/>
+<!--            <TextView-->
+<!--                android:id="@+id/textView18"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:fontFamily="@font/alumin"-->
+<!--                android:textFontWeight="1000"-->
+<!--                android:paddingTop="20dp"-->
+<!--                android:text="abc"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="25dp"-->
+<!--                android:layout_marginLeft="100px"-->
+<!--                android:layout_marginRight="100px"/>-->
 
 
 
@@ -164,19 +164,19 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/editText9"
-                        android:labelFor="@+id/textView18"
-                        android:hint=""
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:textColor="@color/black"
-                        android:textSize="24sp"
-                        android:layout_marginLeft="100px"
-                        android:layout_marginRight="100px"
-                        android:backgroundTint="@color/black"/>
+<!--                    <EditText-->
+<!--                        android:id="@+id/editText9"-->
+<!--                        android:labelFor="@+id/textView18"-->
+<!--                        android:hint="abc"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:ems="10"-->
+<!--                        android:inputType="text"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="24sp"-->
+<!--                        android:layout_marginLeft="100px"-->
+<!--                        android:layout_marginRight="100px"-->
+<!--                        android:backgroundTint="@color/black"/>-->
 
                     <LinearLayout
                         android:layout_width="match_parent"
