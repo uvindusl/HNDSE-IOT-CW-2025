@@ -24,5 +24,8 @@ public class info_collecting_screen_1 extends AppCompatActivity {
         });
     }
 
+    public void onPressActivate(View v){
+        startActivity(new Intent(info_collecting_screen_1.this, BikeDetails.class));
+    }
 
 }
