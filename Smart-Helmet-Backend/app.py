@@ -86,8 +86,6 @@ def accidentDetected(colSnapshot , changes , readTime):
                     print("Link Generating Started...")
                     generateUniqueUrl(purpose="initial_startup_link") # start generateUniqueUrl function and pass purpose parameter 'initial_startup_link'
 
-                    print("---Message Sending---\n")
-                    # massageSending(message=f"Accident detected you can get details by visiting this WebSite : '{uniqueFullUrl}'")
             else:
                 print(f"Document {docId} does not contain an 'h_id' field.") # if h_id doesn't there print this
         elif change.type.name == 'MODIFIED':
@@ -159,6 +157,9 @@ def generateUniqueUrl(purpose="manual_generation"):
     print(f"Token: {uniqueToken}")
     print(f"Expires: {dashboardAccessTokens[uniqueToken]['expires_at']}")
     print(f"-------------------------------------\n")
+
+    # print("---Message Sending---\n")
+    # massageSending(message=f"Accident detected you can get details by visiting this WebSite : '{uniqueFullUrl}'")
 
     return uniqueFullUrl
 
@@ -272,7 +273,7 @@ if __name__ == '__main__':
     port = int(os.environ.get("PORT", 8080))
     print(f"Starting Flask application on port {port}...")
     try:
-        app.run(port=8080 , host="0.0.0.0")
+        app.run(port=port , host="0.0.0.0")
     except KeyboardInterrupt:
         print("\nServer stopped by user.")
     except Exception as e:
