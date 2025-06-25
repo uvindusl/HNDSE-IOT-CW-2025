@@ -14,7 +14,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Configuration for firebase
-SERVICE_ACCOUNT_KEY_PATH = os.environ.get('FIREBASE_SERVICE_ACCOUNT_KEY', 'Key.json')
+SERVICE_ACCOUNT_KEY_PATH = os.environ.get('FIREBASE_SERVICE_ACCOUNT_KEY', 'key.json')
 REALTIME_DATABASE_URL = os.environ.get('FIREBASE_RTDB_URL', 'https://smarthelmet-3a072-default-rtdb.firebaseio.com/')
 RTDB_LISTEN_PATH = os.environ.get('FIREBASE_RTDB_LISTEN_PATH', '/')
 COLLECTION_NAME = 'Accidents'
@@ -42,8 +42,7 @@ firestoreDb = firestore.client()
 helmetID =  None
 
 # Configuration for the unique URL genaration
-app.config['SERVER_NAME'] = 'localhost:5000'
-REACT_FRONTEND_BASE_URL = "https://hndseiotcw2025.vercel.app/"
+REACT_FRONTEND_BASE_URL = "https://hndseiotcw2025.vercel.app"
 dashboardAccessTokens = {}
 
 # Notify.lk APIs
@@ -270,9 +269,10 @@ if __name__ == '__main__':
     queryWatch = colRef.on_snapshot(accidentDetected)
 
     # Start Flask app (this will block the main thread)
-    print("Starting Flask application on port 5000...")
+    port = int(os.environ.get("PORT", 8080))
+    print(f"Starting Flask application on port {port}...")
     try:
-        app.run(debug=False, port=5000)
+        app.run(port=8080 , host="0.0.0.0")
     except KeyboardInterrupt:
         print("\nServer stopped by user.")
     except Exception as e:

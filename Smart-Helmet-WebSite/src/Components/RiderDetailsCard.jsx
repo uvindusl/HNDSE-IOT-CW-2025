@@ -9,7 +9,9 @@ function RiderDetailsCard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:5000/riders");
+        const response = await fetch(
+          "https://smarthelmetimg-547348114966.asia-southeast1.run.app/riders"
+        );
         if (!response.ok) {
           throw new Error(`Rider data fetching failed`);
         }
@@ -23,6 +25,8 @@ function RiderDetailsCard() {
     };
     fetchData();
   }, []);
+
+  //console.log(riderDetails);
 
   if (loading) {
     return (
@@ -129,7 +133,15 @@ function RiderDetailsCard() {
               </span>
               <br></br>
               <span className="rider-txt">
+                Relative Name: {data.relative_name}
+              </span>
+              <br></br>
+              <span className="rider-txt">
                 Relative Tel: {data.relative_tel}
+              </span>
+              <br></br>
+              <span className="rider-txt">
+                Relative Name 2: {data.relative_name_2}
               </span>
               <br></br>
               <span className="rider-txt">
