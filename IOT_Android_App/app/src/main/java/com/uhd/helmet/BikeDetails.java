@@ -10,13 +10,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class nameCollectingScreen extends AppCompatActivity {
+public class BikeDetails extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_name_collecting_screen);
+        setContentView(R.layout.activity_bike_details);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -25,10 +25,10 @@ public class nameCollectingScreen extends AppCompatActivity {
     }
 
     public void onPressActivate(View v){
-        startActivity(new Intent(nameCollectingScreen.this, info_collecting_screen_1.class));
+        startActivity(new Intent(BikeDetails.this, RelativeDetails.class));
     }
 
     public void back(View v){
-        startActivity(new Intent(nameCollectingScreen.this, MainActivity.class));
+        startActivity(new Intent(BikeDetails.this, info_collecting_screen_1.class));
     }
 }

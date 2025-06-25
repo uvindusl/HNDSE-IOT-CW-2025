@@ -27,7 +27,7 @@ function HeartBeatLineChart() {
     //setInterval(fetchData, 1000);
   }, []);
 
-  console.log(HeartRate);
+  //console.log(HeartRate);
   if (loading) {
     return (
       <div className="rider-details-container">

@@ -49,14 +49,13 @@
                     android:onClick="back"/>
 
             </LinearLayout>
-
             <TextView
                 android:id="@+id/textView12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/alumin"
                 android:textFontWeight="1000"
-                android:text="First name"
+                android:text="Age"
                 android:textColor="@color/black"
                 android:textSize="25dp"
                 android:layout_marginTop="10px"
@@ -67,7 +66,7 @@
                 android:id="@+id/editText5"
                 android:labelFor="@+id/textView12"
                 android:layout_width="match_parent"
-                android:hint="Enter first name"
+                android:hint="Enter age"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="text"
@@ -84,25 +83,64 @@
                 android:fontFamily="@font/alumin"
                 android:textFontWeight="1000"
                 android:paddingTop="20dp"
-                android:text="Middle name"
+                android:text="Gender"
                 android:textColor="@color/black"
                 android:textSize="25dp"
                 android:layout_marginLeft="100px"
                 android:layout_marginRight="100px"/>
 
-            <EditText
-                android:id="@+id/editText6"
-                android:labelFor="@+id/textView15"
-                android:hint="Enter middle name"
-                android:layout_width="match_parent"
+            <RadioGroup
+                android:id="@+id/idRadioGroup"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="text"
-                android:textColor="@color/black"
-                android:textSize="24sp"
+                android:layout_centerInParent="true"
+                android:gravity="center"
                 android:layout_marginLeft="100px"
-                android:layout_marginRight="100px"
-                android:backgroundTint="@color/black"/>
+              >
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <RadioButton
+                        android:id="@+id/idBtnJavaRadio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="4dp"
+                        android:text="Male"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/alumin"
+                        android:textFontWeight="1000"/>
+
+                    <RadioButton
+                        android:id="@+id/idBtnKotlinRadio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="4dp"
+                        android:text="Female"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:layout_marginLeft="20px"
+                        android:fontFamily="@font/alumin"
+                        android:textFontWeight="1000"/>
+
+                    <RadioButton
+                        android:id="@+id/idBtnFlutterRadio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="4dp"
+                        android:text="Other"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:layout_marginLeft="20px"
+                        android:fontFamily="@font/alumin"
+                        android:textFontWeight="1000"/>
+                </LinearLayout>
+
+            </RadioGroup>
 
             <TextView
                 android:id="@+id/textView16"
@@ -111,7 +149,7 @@
                 android:fontFamily="@font/alumin"
                 android:textFontWeight="1000"
                 android:paddingTop="20dp"
-                android:text="Last name"
+                android:text="Occupation"
                 android:textColor="@color/black"
                 android:textSize="25dp"
                 android:layout_marginLeft="100px"
@@ -120,7 +158,7 @@
             <EditText
                 android:id="@+id/editText7"
                 android:labelFor="@+id/textView16"
-                android:hint="Enter last name"
+                android:hint="Enter occupation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -138,7 +176,7 @@
                 android:fontFamily="@font/alumin"
                 android:textFontWeight="1000"
                 android:paddingTop="20dp"
-                android:text="Address"
+                android:text="Working place"
                 android:textColor="@color/black"
                 android:textSize="25dp"
                 android:layout_marginLeft="100px"
@@ -147,7 +185,7 @@
             <EditText
                 android:id="@+id/editText8"
                 android:labelFor="@+id/textView17"
-                android:hint="Enter address"
+                android:hint="Enter working place"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -165,7 +203,7 @@
                 android:fontFamily="@font/alumin"
                 android:textFontWeight="1000"
                 android:paddingTop="20dp"
-                android:text="NIC"
+                android:text="Working place tel"
                 android:textColor="@color/black"
                 android:textSize="25dp"
                 android:layout_marginLeft="100px"
@@ -186,7 +224,7 @@
                     <EditText
                         android:id="@+id/editText9"
                         android:labelFor="@+id/textView18"
-                        android:hint="Enter NIC"
+                        android:hint="Enter place tel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
