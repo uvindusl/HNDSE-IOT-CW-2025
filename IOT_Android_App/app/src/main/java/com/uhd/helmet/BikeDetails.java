@@ -27,4 +27,8 @@ public class BikeDetails extends AppCompatActivity {
     public void onPressActivate(View v){
         startActivity(new Intent(BikeDetails.this, RelativeDetails.class));
     }
+
+    public void back(View v){
+        startActivity(new Intent(BikeDetails.this, info_collecting_screen_1.class));
+    }
 }

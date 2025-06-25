@@ -1,6 +1,8 @@
 package com.uhd.helmet;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,5 +22,9 @@ public class RelativeDetails extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    public void back(View v){
+        startActivity(new Intent(RelativeDetails.this, BikeDetails.class));
     }
 }

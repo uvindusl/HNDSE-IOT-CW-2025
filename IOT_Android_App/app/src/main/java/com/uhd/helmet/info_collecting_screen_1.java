@@ -28,4 +28,8 @@ public class info_collecting_screen_1 extends AppCompatActivity {
         startActivity(new Intent(info_collecting_screen_1.this, BikeDetails.class));
     }
 
+    public void back(View v){
+        startActivity(new Intent(info_collecting_screen_1.this, nameCollectingScreen.class));
+    }
+
 }
