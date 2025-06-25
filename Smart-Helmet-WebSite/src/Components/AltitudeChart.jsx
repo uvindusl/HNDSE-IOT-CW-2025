@@ -11,7 +11,9 @@ function AltitudeChart() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:5000/accidents");
+        const response = await fetch(
+          "https://smarthelmetimg-547348114966.asia-southeast1.run.app/accidents"
+        );
         if (!response.ok) {
           throw new Error("Altitude data getting failed");
         }

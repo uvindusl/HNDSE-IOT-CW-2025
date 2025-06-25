@@ -11,7 +11,9 @@ function HeartBeatLineChart() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:5000/vitals");
+        const response = await fetch(
+          "https://smarthelmetimg-547348114966.asia-southeast1.run.app/vitals"
+        );
         if (!response.ok) {
           throw new Error(`Heart rate data getting failed`);
         }
