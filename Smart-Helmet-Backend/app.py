@@ -7,11 +7,14 @@ from firebase_admin import credentials, firestore , db
 import uuid
 from datetime import datetime , timedelta
 import requests
+from dotenv import load_dotenv
+import logging
 
 app = Flask(__name__)
 
 # This is for connect backend with frontend
 CORS(app)
+load_dotenv()
 
 # Configuration for firebase
 SERVICE_ACCOUNT_KEY_PATH = os.environ.get('FIREBASE_SERVICE_ACCOUNT_KEY', 'key.json')
@@ -41,16 +44,20 @@ firestoreDb = firestore.client()
 # Global Variable to store h_id coming from detect change function
 helmetID =  None
 
+# Configure basic logging (can be more advanced)
+logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+logger = logging.getLogger(__name__)
+
 # Configuration for the unique URL genaration
 REACT_FRONTEND_BASE_URL = "https://hndseiotcw2025.vercel.app"
 dashboardAccessTokens = {}
 
 # Notify.lk APIs
-USER_ID = "29722"
-API_KEY = "FmoNwwAeeuDzuLfgmXPv"
+USER_ID = os.getenv('USER_ID')
+API_KEY = os.getenv('API_KEY')
 TO_NUMBER = "94702004065"
 SENDER_ID = "NotifyDEMO"
-url = "https://app.notify.lk/api/v1/send"
+url = os.getenv('URL')
 
 # Accident Detection Function
 def accidentDetected(colSnapshot , changes , readTime):
@@ -157,6 +164,13 @@ def generateUniqueUrl(purpose="manual_generation"):
     print(f"Token: {uniqueToken}")
     print(f"Expires: {dashboardAccessTokens[uniqueToken]['expires_at']}")
     print(f"-------------------------------------\n")
+
+    logger.info("--- GENERATED UNIQUE DASHBOARD LINK ---")
+    logger.info(f"Purpose: {purpose}")
+    logger.info(f"Link: {uniqueFullUrl}")
+    logger.info(f"Token: {uniqueToken}")
+    logger.info(f"Expires: {dashboardAccessTokens[uniqueToken]['expires_at']}")
+    logger.info("-------------------------------------")
 
     # print("---Message Sending---\n")
     # massageSending(message=f"Accident detected you can get details by visiting this WebSite : '{uniqueFullUrl}'")
