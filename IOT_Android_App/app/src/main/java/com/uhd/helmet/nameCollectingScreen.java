@@ -1,16 +1,46 @@
 package com.uhd.helmet;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class nameCollectingScreen extends AppCompatActivity {
+
+    String firstName;
+    String middleName;
+    String lastName;
+    String address;
+    String nic;
+    EditText firstNametxt;
+    EditText middleNametxt;
+    EditText lastNametxt;
+
+    EditText addresstxt;
+    EditText nictxt;
+
+
+
+    // Access a Cloud Firestore instance from your Activity
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +55,47 @@ public class nameCollectingScreen extends AppCompatActivity {
     }
 
     public void onPressActivate(View v){
-        startActivity(new Intent(nameCollectingScreen.this, info_collecting_screen_1.class));
-    }
+        //        startActivity(new Intent(nameCollectingScreen.this, info_collecting_screen_1.class));
+        try {
+
+            firstNametxt = findViewById(R.id.editText5);
+            middleNametxt = findViewById(R.id.editText6);
+            lastNametxt = findViewById(R.id.editText7);
+            addresstxt = findViewById(R.id.editText8);
+            nictxt = findViewById(R.id.editText9);
+
+
+            firstName = firstNametxt.getText().toString();
+            middleName = middleNametxt.getText().toString();
+            lastName = lastNametxt.getText().toString();
+            address = lastNametxt.getText().toString();
+            nic = lastNametxt.getText().toString();
+
+            Map<String, Object> rider = new HashMap<>();
+            rider.put("first_name", firstName);
+            rider.put("middle_name", middleName);
+            rider.put("last_name", lastName);
+            rider.put("address",address);
+            rider.put("NIC",nic);
+
+            db.collection("Riders")
+                    .add(rider)
+                    .addOnSuccessListener(documentReference -> {
+                        // Success callback
+                        System.out.println("Document added with ID: " + documentReference.getId());
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("failure", "Error writing document", e);
+                        }
+                    });
+
+        } catch (Exception e) {
+            Log.d("catch", "Error writing document", e);
+        }
+
+        }
 
     public void back(View v){
         startActivity(new Intent(nameCollectingScreen.this, MainActivity.class));
