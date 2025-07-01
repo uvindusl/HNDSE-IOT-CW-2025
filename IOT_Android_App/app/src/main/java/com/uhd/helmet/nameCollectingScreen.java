@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,19 +65,26 @@ public class nameCollectingScreen extends AppCompatActivity {
             addresstxt = findViewById(R.id.editText8);
             nictxt = findViewById(R.id.editText9);
 
-
             firstName = firstNametxt.getText().toString();
             middleName = middleNametxt.getText().toString();
             lastName = lastNametxt.getText().toString();
             address = lastNametxt.getText().toString();
             nic = lastNametxt.getText().toString();
 
+            Rider R1 = new Rider();
+
+            R1.setFirstName(firstName);
+            R1.setMiddleName(middleName);
+            R1.setLastName(lastName);
+            R1.setAddress(address);
+            R1.setNic(nic);
+
             Map<String, Object> rider = new HashMap<>();
-            rider.put("first_name", firstName);
-            rider.put("middle_name", middleName);
-            rider.put("last_name", lastName);
-            rider.put("address",address);
-            rider.put("NIC",nic);
+            rider.put("first_name", R1.getFirstName());
+            rider.put("middle_name", R1.getMiddleName());
+            rider.put("last_name", R1.getLastName());
+            rider.put("address",R1.getAddress());
+            rider.put("NIC",R1.getNic());
 
             db.collection("Riders")
                     .add(rider)
