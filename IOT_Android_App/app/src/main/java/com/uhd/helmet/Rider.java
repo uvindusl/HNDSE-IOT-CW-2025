@@ -2,6 +2,8 @@ package com.uhd.helmet;
 
 import android.widget.EditText;
 
+import java.io.Serializable;
+
 public class Rider {
 
     private String firstName;

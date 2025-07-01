@@ -41,7 +41,7 @@ public class nameCollectingScreen extends AppCompatActivity {
 
 
     // Access a Cloud Firestore instance from your Activity
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+//    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class nameCollectingScreen extends AppCompatActivity {
     }
 
     public void onPressActivate(View v){
-        //        startActivity(new Intent(nameCollectingScreen.this, info_collecting_screen_1.class));
+
         try {
 
             firstNametxt = findViewById(R.id.editText5);
@@ -79,31 +79,33 @@ public class nameCollectingScreen extends AppCompatActivity {
             R1.setAddress(address);
             R1.setNic(nic);
 
-            Map<String, Object> rider = new HashMap<>();
-            rider.put("first_name", R1.getFirstName());
-            rider.put("middle_name", R1.getMiddleName());
-            rider.put("last_name", R1.getLastName());
-            rider.put("address",R1.getAddress());
-            rider.put("NIC",R1.getNic());
+//            Map<String, Object> rider = new HashMap<>();
+//            rider.put("first_name", R1.getFirstName());
+//            rider.put("middle_name", R1.getMiddleName());
+//            rider.put("last_name", R1.getLastName());
+//            rider.put("address",R1.getAddress());
+//            rider.put("NIC",R1.getNic());
 
-            db.collection("Riders")
-                    .add(rider)
-                    .addOnSuccessListener(documentReference -> {
-                        // Success callback
-                        System.out.println("Document added with ID: " + documentReference.getId());
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.d("failure", "Error writing document", e);
-                        }
-                    });
+//            db.collection("Riders")
+//                    .add(rider)
+//                    .addOnSuccessListener(documentReference -> {
+//                        // Success callback
+//                        System.out.println("Document added with ID: " + documentReference.getId());
+//                    })
+//                    .addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            Log.d("failure", "Error writing document", e);
+//                        }
+//                    });
 
         } catch (Exception e) {
             Log.d("catch", "Error writing document", e);
         }
 
-        }
+        //directing to next page
+        startActivity(new Intent(nameCollectingScreen.this, info_collecting_screen_1.class));
+    }
 
     public void back(View v){
         startActivity(new Intent(nameCollectingScreen.this, MainActivity.class));

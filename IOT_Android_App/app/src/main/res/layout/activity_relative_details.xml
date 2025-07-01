@@ -207,7 +207,7 @@
                             android:backgroundTint="@color/black"
                             android:fontFamily="@font/alumin"
                             android:textFontWeight="1000"
-                            android:text="Next"
+                            android:text="Save"
                             android:textColor="@color/white"
                             android:onClick="onPressActivate"
                             android:textSize="24sp"
