@@ -7,14 +7,17 @@ from firebase_admin import credentials, firestore , db
 import uuid
 from datetime import datetime , timedelta
 import requests
+from dotenv import load_dotenv
+import logging
 
 app = Flask(__name__)
 
 # This is for connect backend with frontend
 CORS(app)
+load_dotenv()
 
 # Configuration for firebase
-SERVICE_ACCOUNT_KEY_PATH = os.environ.get('FIREBASE_SERVICE_ACCOUNT_KEY', 'Key.json')
+SERVICE_ACCOUNT_KEY_PATH = os.environ.get('FIREBASE_SERVICE_ACCOUNT_KEY', 'key.json')
 REALTIME_DATABASE_URL = os.environ.get('FIREBASE_RTDB_URL', 'https://smarthelmet-3a072-default-rtdb.firebaseio.com/')
 RTDB_LISTEN_PATH = os.environ.get('FIREBASE_RTDB_LISTEN_PATH', '/')
 COLLECTION_NAME = 'Accidents'
@@ -41,17 +44,20 @@ firestoreDb = firestore.client()
 # Global Variable to store h_id coming from detect change function
 helmetID =  None
 
+# Configure basic logging (can be more advanced)
+logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+logger = logging.getLogger(__name__)
+
 # Configuration for the unique URL genaration
-app.config['SERVER_NAME'] = 'localhost:5000'
-REACT_FRONTEND_BASE_URL = "https://hndseiotcw2025.vercel.app/"
+REACT_FRONTEND_BASE_URL = "https://hndseiotcw2025.vercel.app"
 dashboardAccessTokens = {}
 
 # Notify.lk APIs
-USER_ID = "29722"
-API_KEY = "FmoNwwAeeuDzuLfgmXPv"
+USER_ID = os.getenv('USER_ID')
+API_KEY = os.getenv('API_KEY')
 TO_NUMBER = "94702004065"
 SENDER_ID = "NotifyDEMO"
-url = "https://app.notify.lk/api/v1/send"
+url = os.getenv('URL')
 
 # Accident Detection Function
 def accidentDetected(colSnapshot , changes , readTime):
@@ -87,8 +93,6 @@ def accidentDetected(colSnapshot , changes , readTime):
                     print("Link Generating Started...")
                     generateUniqueUrl(purpose="initial_startup_link") # start generateUniqueUrl function and pass purpose parameter 'initial_startup_link'
 
-                    print("---Message Sending---\n")
-                    # massageSending(message=f"Accident detected you can get details by visiting this WebSite : '{uniqueFullUrl}'")
             else:
                 print(f"Document {docId} does not contain an 'h_id' field.") # if h_id doesn't there print this
         elif change.type.name == 'MODIFIED':
@@ -160,6 +164,16 @@ def generateUniqueUrl(purpose="manual_generation"):
     print(f"Token: {uniqueToken}")
     print(f"Expires: {dashboardAccessTokens[uniqueToken]['expires_at']}")
     print(f"-------------------------------------\n")
+
+    logger.info("--- GENERATED UNIQUE DASHBOARD LINK ---")
+    logger.info(f"Purpose: {purpose}")
+    logger.info(f"Link: {uniqueFullUrl}")
+    logger.info(f"Token: {uniqueToken}")
+    logger.info(f"Expires: {dashboardAccessTokens[uniqueToken]['expires_at']}")
+    logger.info("-------------------------------------")
+
+    # print("---Message Sending---\n")
+    # massageSending(message=f"Accident detected you can get details by visiting this WebSite : '{uniqueFullUrl}'")
 
     return uniqueFullUrl
 
@@ -270,9 +284,10 @@ if __name__ == '__main__':
     queryWatch = colRef.on_snapshot(accidentDetected)
 
     # Start Flask app (this will block the main thread)
-    print("Starting Flask application on port 5000...")
+    port = int(os.environ.get("PORT", 8080))
+    print(f"Starting Flask application on port {port}...")
     try:
-        app.run(debug=False, port=5000)
+        app.run(port=port , host="0.0.0.0")
     except KeyboardInterrupt:
         print("\nServer stopped by user.")
     except Exception as e:

@@ -27,13 +27,12 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/alumin"
                     android:textFontWeight="1000"
-                    android:text="Rider Details"
+                    android:text="Relative Details"
                     android:textColor="@color/black"
                     android:textSize="30dp"
                     android:layout_marginTop="100px"
                     android:layout_marginLeft="100px"
                     android:layout_marginRight="100px"/>
-
                 <Button
                     android:id="@+id/btnbk"
                     android:layout_width="wrap_content"
@@ -43,20 +42,19 @@
                     android:textColor="@color/white"
                     android:textSize="30dp"
                     android:layout_marginTop="100px"
-                    android:layout_marginLeft="300px"
+                    android:layout_marginLeft="200px"
                     android:backgroundTint="@color/black"
                     android:text="&lt;"
                     android:onClick="back"/>
 
             </LinearLayout>
-
             <TextView
                 android:id="@+id/textView12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/alumin"
                 android:textFontWeight="1000"
-                android:text="First name"
+                android:text="Relative name"
                 android:textColor="@color/black"
                 android:textSize="25dp"
                 android:layout_marginTop="10px"
@@ -67,7 +65,7 @@
                 android:id="@+id/editText5"
                 android:labelFor="@+id/textView12"
                 android:layout_width="match_parent"
-                android:hint="Enter first name"
+                android:hint="Enter relative name"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="text"
@@ -84,7 +82,7 @@
                 android:fontFamily="@font/alumin"
                 android:textFontWeight="1000"
                 android:paddingTop="20dp"
-                android:text="Middle name"
+                android:text="Relative tel"
                 android:textColor="@color/black"
                 android:textSize="25dp"
                 android:layout_marginLeft="100px"
@@ -93,7 +91,7 @@
             <EditText
                 android:id="@+id/editText6"
                 android:labelFor="@+id/textView15"
-                android:hint="Enter middle name"
+                android:hint="Enter relative tel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -111,7 +109,7 @@
                 android:fontFamily="@font/alumin"
                 android:textFontWeight="1000"
                 android:paddingTop="20dp"
-                android:text="Last name"
+                android:text="2nd relative name"
                 android:textColor="@color/black"
                 android:textSize="25dp"
                 android:layout_marginLeft="100px"
@@ -120,7 +118,7 @@
             <EditText
                 android:id="@+id/editText7"
                 android:labelFor="@+id/textView16"
-                android:hint="Enter last name"
+                android:hint="Enter 2nd relative name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -138,7 +136,7 @@
                 android:fontFamily="@font/alumin"
                 android:textFontWeight="1000"
                 android:paddingTop="20dp"
-                android:text="Address"
+                android:text="2nd Relative tel"
                 android:textColor="@color/black"
                 android:textSize="25dp"
                 android:layout_marginLeft="100px"
@@ -147,7 +145,7 @@
             <EditText
                 android:id="@+id/editText8"
                 android:labelFor="@+id/textView17"
-                android:hint="Enter address"
+                android:hint="Enter 2nd relative tel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -158,18 +156,18 @@
                 android:layout_marginRight="100px"
                 android:backgroundTint="@color/black"/>
 
-            <TextView
-                android:id="@+id/textView18"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/alumin"
-                android:textFontWeight="1000"
-                android:paddingTop="20dp"
-                android:text="NIC"
-                android:textColor="@color/black"
-                android:textSize="25dp"
-                android:layout_marginLeft="100px"
-                android:layout_marginRight="100px"/>
+<!--            <TextView-->
+<!--                android:id="@+id/textView18"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:fontFamily="@font/alumin"-->
+<!--                android:textFontWeight="1000"-->
+<!--                android:paddingTop="20dp"-->
+<!--                android:text="abc"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="25dp"-->
+<!--                android:layout_marginLeft="100px"-->
+<!--                android:layout_marginRight="100px"/>-->
 
 
 
@@ -183,19 +181,19 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/editText9"
-                        android:labelFor="@+id/textView18"
-                        android:hint="Enter NIC"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:textColor="@color/black"
-                        android:textSize="24sp"
-                        android:layout_marginLeft="100px"
-                        android:layout_marginRight="100px"
-                        android:backgroundTint="@color/black"/>
+<!--                    <EditText-->
+<!--                        android:id="@+id/editText9"-->
+<!--                        android:labelFor="@+id/textView18"-->
+<!--                        android:hint="abc"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:ems="10"-->
+<!--                        android:inputType="text"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="24sp"-->
+<!--                        android:layout_marginLeft="100px"-->
+<!--                        android:layout_marginRight="100px"-->
+<!--                        android:backgroundTint="@color/black"/>-->
 
                     <LinearLayout
                         android:layout_width="match_parent"

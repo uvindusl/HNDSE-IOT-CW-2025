@@ -27,4 +27,8 @@ public class nameCollectingScreen extends AppCompatActivity {
     public void onPressActivate(View v){
         startActivity(new Intent(nameCollectingScreen.this, info_collecting_screen_1.class));
     }
+
+    public void back(View v){
+        startActivity(new Intent(nameCollectingScreen.this, MainActivity.class));
+    }
 }
