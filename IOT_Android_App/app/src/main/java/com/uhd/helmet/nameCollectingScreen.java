@@ -2,6 +2,7 @@ package com.uhd.helmet;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -71,13 +72,35 @@ public class nameCollectingScreen extends AppCompatActivity {
             address = lastNametxt.getText().toString();
             nic = lastNametxt.getText().toString();
 
-            Rider R1 = new Rider();
+            Intent myIntent = new Intent(this, RelativeDetails.class);
+            myIntent.putExtra("firstName",firstName);
+            myIntent.putExtra("middleName",middleName);
+            myIntent.putExtra("lastName",lastName);
+            myIntent.putExtra("address",address);
+            myIntent.putExtra("nic",nic);
 
-            R1.setFirstName(firstName);
-            R1.setMiddleName(middleName);
-            R1.setLastName(lastName);
-            R1.setAddress(address);
-            R1.setNic(nic);
+//            Intent myIntent = new Intent(Intent.ACTION_SEND);
+//            myIntent.setType("text/plain");
+//            myIntent.putExtra(Intent.EXTRA_TEXT,firstName);
+//            myIntent.putExtra(Intent.EXTRA_SUBJECT,firstName);
+
+           // Intent intentChooser = Intent.createChooser(myIntent,"Passing data from nameCollectingScreen");
+
+            try{
+                startActivity(myIntent);
+            }catch (ActivityNotFoundException e){
+                Log.d("passName","data passing failed",e);
+            }
+
+//            Rider R1 = new Rider();
+
+//            R1.setFirstName(firstName);
+//            R1.setMiddleName(middleName);
+//            R1.setLastName(lastName);
+//            R1.setAddress(address);
+//            R1.setNic(nic);
+
+
 
 //            Map<String, Object> rider = new HashMap<>();
 //            rider.put("first_name", R1.getFirstName());
@@ -104,10 +127,11 @@ public class nameCollectingScreen extends AppCompatActivity {
         }
 
         //directing to next page
-        startActivity(new Intent(nameCollectingScreen.this, info_collecting_screen_1.class));
+       // startActivity(new Intent(nameCollectingScreen.this, info_collecting_screen_1.class));
     }
 
     public void back(View v){
-        startActivity(new Intent(nameCollectingScreen.this, MainActivity.class));
+       // startActivity(new Intent(nameCollectingScreen.this, MainActivity.class));
+        startActivity(new Intent(nameCollectingScreen.this, info_collecting_screen_1.class));
     }
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -42,14 +43,31 @@ public class RelativeDetails extends AppCompatActivity {
     public void onPressActivate(View v){
         try{
 
-            Rider R1 = new Rider();
+            Intent intent = getIntent();
+            String firstName = intent.getStringExtra("firstName");
+            String middleName = intent.getStringExtra("middleName");
+            String lastName = intent.getStringExtra("lastName");
+            String address = intent.getStringExtra("address");
+            String nic = intent.getStringExtra("nic");
+
+//            TextView reciveTextView = findViewById(R.id.textView19);
+//            // reciveTextView.setText(passMsg + String.valueOf(thisYear));
+//
+//            reciveTextView.setText(passMsg);
 
             Map<String, Object> rider = new HashMap<>();
-            rider.put("first_name", R1.getFirstName());
-            rider.put("middle_name", R1.getMiddleName());
-            rider.put("last_name", R1.getLastName());
-            rider.put("address",R1.getAddress());
-            rider.put("NIC",R1.getNic());
+            rider.put("first_name", firstName);
+            rider.put("middle_name", middleName);
+            rider.put("last_name", lastName);
+            rider.put("address",address);
+            rider.put("NIC",nic);
+
+//            Map<String, Object> rider = new HashMap<>();
+//            rider.put("first_name", R1.getFirstName());
+//            rider.put("middle_name", R1.getMiddleName());
+//            rider.put("last_name", R1.getLastName());
+//            rider.put("address",R1.getAddress());
+//            rider.put("NIC",R1.getNic());
 
             db.collection("Riders")
             .add(rider)
