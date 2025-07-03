@@ -1,8 +1,10 @@
 package com.uhd.helmet;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -45,33 +47,63 @@ public class info_collecting_screen_1 extends AppCompatActivity {
     }
 
     public void onPressActivate(View v){
-        //assigning inputs by id
-        agetxt = findViewById(R.id.editText5);
-        gendergroup = findViewById(R.id.idRadioGroup);
-        occupationtxt = findViewById(R.id.editText7);
-        workingPlacetxt = findViewById(R.id.editText8);
-        workingPlaceTeltxt = findViewById(R.id.editText9);
+        try {
+            //assigning inputs by id
+            agetxt = findViewById(R.id.editText5);
+            gendergroup = findViewById(R.id.idRadioGroup);
+            occupationtxt = findViewById(R.id.editText7);
+            workingPlacetxt = findViewById(R.id.editText8);
+            workingPlaceTeltxt = findViewById(R.id.editText9);
 
-        //get values from input
-        age = Integer.parseInt(agetxt.getText().toString());
-        //Set listener on RadioGroup
-        gendergroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                //Find the selected RadioButton  by ID
-                RadioButton radioButton = group.findViewById(checkedId);
+            //get values from input
+            age = Integer.parseInt(agetxt.getText().toString());
+            //Set listener on RadioGroup
+            gendergroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    //Find the selected RadioButton  by ID
+                    RadioButton radioButton = group.findViewById(checkedId);
 
-                //Set selected text to textView
-                if(radioButton != null){
-                    gender = radioButton.getText().toString();
+                    //Set selected text to textView
+                    if(radioButton != null){
+                        gender = radioButton.getText().toString();
+                    }
                 }
-            }
-        });
-        occupation = occupationtxt.getText().toString();
-        workingPlace = workingPlacetxt.getText().toString();
-        workingPlaceTel = Integer.parseInt(workingPlaceTeltxt.getText().toString());
+            });
+            occupation = occupationtxt.getText().toString();
+            workingPlace = workingPlacetxt.getText().toString();
+            workingPlaceTel = Integer.parseInt(workingPlaceTeltxt.getText().toString());
 
-        startActivity(new Intent(info_collecting_screen_1.this, BikeDetails.class));
+            //receiving geta from previous page
+            Intent intent = getIntent();
+            String firstName = intent.getStringExtra("firstNameToInfo");
+            String middleName = intent.getStringExtra("middleNameToInfo");
+            String lastName = intent.getStringExtra("lastNameToInfo");
+            String address = intent.getStringExtra("addressToInfo");
+            String nic = intent.getStringExtra("nicToInfo");
+
+            //pass values to next page
+            Intent myIntent = new Intent(this, BikeDetails.class);
+            myIntent.putExtra("firstNameToBike",firstName);
+            myIntent.putExtra("middleNameToBike",middleName);
+            myIntent.putExtra("lastNameToBike",lastName);
+            myIntent.putExtra("addressToBike",address);
+            myIntent.putExtra("nicToBike",nic);
+            myIntent.putExtra("ageToBike",age);
+            myIntent.putExtra("genderToBike",gender);
+            myIntent.putExtra("occupationToBike",occupation);
+            myIntent.putExtra("workingPlaceToBike",workingPlace);
+            myIntent.putExtra("workingPlaceTelToBike",workingPlaceTel);
+
+            try{
+                startActivity(myIntent);
+            }catch (ActivityNotFoundException e){
+                Log.d("passName","data passing failed",e);
+            }
+        }catch (Exception e) {
+            Log.d("catch", "Error writing document", e);
+        }
+
     }
 
     public void back(View v){

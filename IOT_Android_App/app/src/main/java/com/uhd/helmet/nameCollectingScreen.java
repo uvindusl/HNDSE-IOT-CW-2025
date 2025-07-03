@@ -59,7 +59,7 @@ public class nameCollectingScreen extends AppCompatActivity {
     public void onPressActivate(View v){
 
         try {
-            //assing edit texts by id
+            //assigning edit texts by id
             firstNametxt = findViewById(R.id.editText5);
             middleNametxt = findViewById(R.id.editText6);
             lastNametxt = findViewById(R.id.editText7);
@@ -75,11 +75,11 @@ public class nameCollectingScreen extends AppCompatActivity {
 
             //pass values to next page
             Intent myIntent = new Intent(this, info_collecting_screen_1.class);
-            myIntent.putExtra("firstName",firstName);
-            myIntent.putExtra("middleName",middleName);
-            myIntent.putExtra("lastName",lastName);
-            myIntent.putExtra("address",address);
-            myIntent.putExtra("nic",nic);
+            myIntent.putExtra("firstNameToInfo",firstName);
+            myIntent.putExtra("middleNameToInfo",middleName);
+            myIntent.putExtra("lastNameToInfo",lastName);
+            myIntent.putExtra("addressToInfo",address);
+            myIntent.putExtra("nicToInfo",nic);
 
             try{
                 startActivity(myIntent);
