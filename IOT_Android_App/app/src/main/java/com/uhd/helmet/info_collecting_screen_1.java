@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,37 +45,41 @@ public class info_collecting_screen_1 extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        //assigning radio group by id
+        gendergroup = findViewById(R.id.idRadioGroup);
+        //Set listener on RadioGroup
+        gendergroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                //Find the selected RadioButton  by ID
+
+                RadioButton radioButton = group.findViewById(checkedId);
+                //RadioButton radioButton = findViewById(checkedId);
+
+                //Set selected text to textView
+                if(radioButton != null){
+                    gender = radioButton.getText().toString();
+                }
+            }
+        });
     }
 
     public void onPressActivate(View v){
         try {
             //assigning inputs by id
             agetxt = findViewById(R.id.editText5);
-            gendergroup = findViewById(R.id.idRadioGroup);
             occupationtxt = findViewById(R.id.editText7);
             workingPlacetxt = findViewById(R.id.editText8);
             workingPlaceTeltxt = findViewById(R.id.editText9);
 
             //get values from input
             age = agetxt.getText().toString();
-            //Set listener on RadioGroup
-            gendergroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    //Find the selected RadioButton  by ID
-                    RadioButton radioButton = group.findViewById(checkedId);
-
-                    //Set selected text to textView
-                    if(radioButton != null){
-                        gender = radioButton.getText().toString();
-                    }
-                }
-            });
             occupation = occupationtxt.getText().toString();
             workingPlace = workingPlacetxt.getText().toString();
             workingPlaceTel = workingPlaceTeltxt.getText().toString();
 
-            //receiving geta from previous page
+            //receiving data from previous page
             Intent intent = getIntent();
             String firstName = intent.getStringExtra("firstNameToInfo");
             String middleName = intent.getStringExtra("middleNameToInfo");

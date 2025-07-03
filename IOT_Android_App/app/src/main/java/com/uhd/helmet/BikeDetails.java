@@ -58,7 +58,7 @@ public class BikeDetails extends AppCompatActivity {
             insuranceCompany = insuranceCompanytxt.getText().toString();
             insuranceTel = insuranceTeltxt.getText().toString();
 
-            //receiving geta from previous page
+            //receiving gata from previous page
             Intent intent = getIntent();
             String firstName = intent.getStringExtra("firstNameToBike");
             String middleName = intent.getStringExtra("middleNameToBike");

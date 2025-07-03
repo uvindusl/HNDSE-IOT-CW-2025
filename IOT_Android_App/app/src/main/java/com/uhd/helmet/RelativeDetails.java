@@ -65,7 +65,7 @@ public class RelativeDetails extends AppCompatActivity {
             relative2Name = relative2Nametxt.getText().toString();
             relative2el = relative2eltxt.getText().toString();
 
-            //receiving geta from previous page
+            //receiving data from previous page
             Intent intent = getIntent();
             String firstName = intent.getStringExtra("firstNameToRelative");
             String middleName = intent.getStringExtra("middleNameToRelative");
