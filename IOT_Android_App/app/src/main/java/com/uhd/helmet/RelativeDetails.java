@@ -65,13 +65,23 @@ public class RelativeDetails extends AppCompatActivity {
             relative2Name = relative2Nametxt.getText().toString();
             relative2el = Integer.parseInt(relative2eltxt.getText().toString());
 
-            //recieving geta from previos page
+            //receiving geta from previous page
             Intent intent = getIntent();
-            String firstName = intent.getStringExtra("firstName");
-            String middleName = intent.getStringExtra("middleName");
-            String lastName = intent.getStringExtra("lastName");
-            String address = intent.getStringExtra("address");
-            String nic = intent.getStringExtra("nic");
+            String firstName = intent.getStringExtra("firstNameToRelative");
+            String middleName = intent.getStringExtra("middleNameToRelative");
+            String lastName = intent.getStringExtra("lastNameToRelative");
+            String address = intent.getStringExtra("addressToRelative");
+            String nic = intent.getStringExtra("nicToRelative");
+            String age = intent.getStringExtra("ageToRelative");
+            String gender = intent.getStringExtra("genderToRelative");
+            String occupation = intent.getStringExtra("occupationToRelative");
+            String workingPlace = intent.getStringExtra("workingPlaceToRelative");
+            String workingPlaceTel = intent.getStringExtra("workingPlaceTelToRelative");
+            String color = intent.getStringExtra("colorToRelative");
+            String model = intent.getStringExtra("modelToRelative");
+            String numberPlate = intent.getStringExtra("numberPlateToRelative");
+            String insuranceCompany = intent.getStringExtra("insuranceCompanyToRelative");
+            String insuranceTel = intent.getStringExtra("insuranceTelToRelative");
 
             //put data to a hashmap
             Map<String, Object> rider = new HashMap<>();
@@ -80,6 +90,16 @@ public class RelativeDetails extends AppCompatActivity {
             rider.put("last_name", lastName);
             rider.put("address",address);
             rider.put("NIC",nic);
+            rider.put("age", age);
+            rider.put("Gender", gender);
+            rider.put("occupation", occupation);
+            rider.put("working_place",workingPlace);
+            rider.put("working_place_tel",workingPlaceTel);
+            rider.put("bike_color", color);
+            rider.put("bike_model", model);
+            rider.put("number_plate",numberPlate);
+            rider.put("insuarance_company",insuranceCompany);
+            rider.put("insuarance_tel",insuranceTel);
 
             //pass data to firebase
             db.collection("Riders")
