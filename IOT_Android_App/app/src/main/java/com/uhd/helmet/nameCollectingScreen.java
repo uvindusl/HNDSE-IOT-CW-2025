@@ -59,79 +59,40 @@ public class nameCollectingScreen extends AppCompatActivity {
     public void onPressActivate(View v){
 
         try {
-
+            //assing edit texts by id
             firstNametxt = findViewById(R.id.editText5);
             middleNametxt = findViewById(R.id.editText6);
             lastNametxt = findViewById(R.id.editText7);
             addresstxt = findViewById(R.id.editText8);
             nictxt = findViewById(R.id.editText9);
 
+            //get values from input
             firstName = firstNametxt.getText().toString();
             middleName = middleNametxt.getText().toString();
             lastName = lastNametxt.getText().toString();
             address = lastNametxt.getText().toString();
             nic = lastNametxt.getText().toString();
 
-            Intent myIntent = new Intent(this, RelativeDetails.class);
+            //pass values to next page
+            Intent myIntent = new Intent(this, info_collecting_screen_1.class);
             myIntent.putExtra("firstName",firstName);
             myIntent.putExtra("middleName",middleName);
             myIntent.putExtra("lastName",lastName);
             myIntent.putExtra("address",address);
             myIntent.putExtra("nic",nic);
 
-//            Intent myIntent = new Intent(Intent.ACTION_SEND);
-//            myIntent.setType("text/plain");
-//            myIntent.putExtra(Intent.EXTRA_TEXT,firstName);
-//            myIntent.putExtra(Intent.EXTRA_SUBJECT,firstName);
-
-           // Intent intentChooser = Intent.createChooser(myIntent,"Passing data from nameCollectingScreen");
-
             try{
                 startActivity(myIntent);
             }catch (ActivityNotFoundException e){
                 Log.d("passName","data passing failed",e);
             }
-
-//            Rider R1 = new Rider();
-
-//            R1.setFirstName(firstName);
-//            R1.setMiddleName(middleName);
-//            R1.setLastName(lastName);
-//            R1.setAddress(address);
-//            R1.setNic(nic);
-
-
-
-//            Map<String, Object> rider = new HashMap<>();
-//            rider.put("first_name", R1.getFirstName());
-//            rider.put("middle_name", R1.getMiddleName());
-//            rider.put("last_name", R1.getLastName());
-//            rider.put("address",R1.getAddress());
-//            rider.put("NIC",R1.getNic());
-
-//            db.collection("Riders")
-//                    .add(rider)
-//                    .addOnSuccessListener(documentReference -> {
-//                        // Success callback
-//                        System.out.println("Document added with ID: " + documentReference.getId());
-//                    })
-//                    .addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Log.d("failure", "Error writing document", e);
-//                        }
-//                    });
-
         } catch (Exception e) {
             Log.d("catch", "Error writing document", e);
         }
-
-        //directing to next page
-       // startActivity(new Intent(nameCollectingScreen.this, info_collecting_screen_1.class));
     }
 
     public void back(View v){
-       // startActivity(new Intent(nameCollectingScreen.this, MainActivity.class));
-        startActivity(new Intent(nameCollectingScreen.this, info_collecting_screen_1.class));
+        startActivity(new Intent(nameCollectingScreen.this, MainActivity.class));
+
     }
 }
