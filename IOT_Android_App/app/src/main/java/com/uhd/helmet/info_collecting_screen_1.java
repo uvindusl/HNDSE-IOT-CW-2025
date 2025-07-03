@@ -45,8 +45,7 @@ public class info_collecting_screen_1 extends AppCompatActivity {
     }
 
     public void onPressActivate(View v){
-
-        //assing inputs by id
+        //assigning inputs by id
         agetxt = findViewById(R.id.editText5);
         gendergroup = findViewById(R.id.idRadioGroup);
         occupationtxt = findViewById(R.id.editText7);
@@ -55,7 +54,7 @@ public class info_collecting_screen_1 extends AppCompatActivity {
 
         //get values from input
         age = Integer.parseInt(agetxt.getText().toString());
-        //Set listner on RadioGroup
+        //Set listener on RadioGroup
         gendergroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -71,6 +70,8 @@ public class info_collecting_screen_1 extends AppCompatActivity {
         occupation = occupationtxt.getText().toString();
         workingPlace = workingPlacetxt.getText().toString();
         workingPlaceTel = Integer.parseInt(workingPlaceTeltxt.getText().toString());
+
+        startActivity(new Intent(info_collecting_screen_1.this, BikeDetails.class));
     }
 
     public void back(View v){
