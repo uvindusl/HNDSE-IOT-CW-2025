@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -24,6 +25,16 @@ public class RelativeDetails extends AppCompatActivity {
     // Access a Cloud Firestore instance from your Activity
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    String relativeName;
+    int relativeTel;
+    String relative2Name;
+    int relative2el;
+
+    EditText relativeNametxt;
+    EditText relativeTeltxt;
+    EditText relative2Nametxt;
+    EditText relative2eltxt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +53,19 @@ public class RelativeDetails extends AppCompatActivity {
 
     public void onPressActivate(View v){
         try{
+            //assigning input by id
+            relativeNametxt = findViewById(R.id.editText5);
+            relativeTeltxt = findViewById(R.id.editText6);
+            relative2Nametxt = findViewById(R.id.editText7);
+            relative2eltxt = findViewById(R.id.editText8);
 
+            //get values from input
+            relativeName = relativeNametxt.getText().toString();
+            relativeTel = Integer.parseInt(relativeTeltxt.getText().toString());
+            relative2Name = relative2Nametxt.getText().toString();
+            relative2el = Integer.parseInt(relative2eltxt.getText().toString());
+
+            //recieving geta from previos page
             Intent intent = getIntent();
             String firstName = intent.getStringExtra("firstName");
             String middleName = intent.getStringExtra("middleName");
@@ -50,11 +73,7 @@ public class RelativeDetails extends AppCompatActivity {
             String address = intent.getStringExtra("address");
             String nic = intent.getStringExtra("nic");
 
-//            TextView reciveTextView = findViewById(R.id.textView19);
-//            // reciveTextView.setText(passMsg + String.valueOf(thisYear));
-//
-//            reciveTextView.setText(passMsg);
-
+            //put data to a hashmap
             Map<String, Object> rider = new HashMap<>();
             rider.put("first_name", firstName);
             rider.put("middle_name", middleName);
@@ -62,13 +81,7 @@ public class RelativeDetails extends AppCompatActivity {
             rider.put("address",address);
             rider.put("NIC",nic);
 
-//            Map<String, Object> rider = new HashMap<>();
-//            rider.put("first_name", R1.getFirstName());
-//            rider.put("middle_name", R1.getMiddleName());
-//            rider.put("last_name", R1.getLastName());
-//            rider.put("address",R1.getAddress());
-//            rider.put("NIC",R1.getNic());
-
+            //pass data to firebase
             db.collection("Riders")
             .add(rider)
             .addOnSuccessListener(documentReference -> {
