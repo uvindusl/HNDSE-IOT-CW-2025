@@ -18,13 +18,13 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class info_collecting_screen_1 extends AppCompatActivity {
 
-    int age;
+    String age;
     String gender;
 
     String occupation;
     String workingPlace;
 
-    int workingPlaceTel;
+    String workingPlaceTel;
 
     EditText agetxt;
 
@@ -56,7 +56,7 @@ public class info_collecting_screen_1 extends AppCompatActivity {
             workingPlaceTeltxt = findViewById(R.id.editText9);
 
             //get values from input
-            age = Integer.parseInt(agetxt.getText().toString());
+            age = agetxt.getText().toString();
             //Set listener on RadioGroup
             gendergroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                 @Override
@@ -72,7 +72,7 @@ public class info_collecting_screen_1 extends AppCompatActivity {
             });
             occupation = occupationtxt.getText().toString();
             workingPlace = workingPlacetxt.getText().toString();
-            workingPlaceTel = Integer.parseInt(workingPlaceTeltxt.getText().toString());
+            workingPlaceTel = workingPlaceTeltxt.getText().toString();
 
             //receiving geta from previous page
             Intent intent = getIntent();

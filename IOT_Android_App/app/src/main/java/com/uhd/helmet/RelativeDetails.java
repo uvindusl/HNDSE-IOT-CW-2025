@@ -26,9 +26,9 @@ public class RelativeDetails extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     String relativeName;
-    int relativeTel;
+    String relativeTel;
     String relative2Name;
-    int relative2el;
+    String relative2el;
 
     EditText relativeNametxt;
     EditText relativeTeltxt;
@@ -61,9 +61,9 @@ public class RelativeDetails extends AppCompatActivity {
 
             //get values from input
             relativeName = relativeNametxt.getText().toString();
-            relativeTel = Integer.parseInt(relativeTeltxt.getText().toString());
+            relativeTel = relativeTeltxt.getText().toString();
             relative2Name = relative2Nametxt.getText().toString();
-            relative2el = Integer.parseInt(relative2eltxt.getText().toString());
+            relative2el = relative2eltxt.getText().toString();
 
             //receiving geta from previous page
             Intent intent = getIntent();

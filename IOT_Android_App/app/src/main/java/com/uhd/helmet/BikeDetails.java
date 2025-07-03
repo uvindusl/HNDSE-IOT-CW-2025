@@ -19,7 +19,7 @@ public class BikeDetails extends AppCompatActivity {
     String model;
     String numberPlate;
     String insuranceCompany;
-    int insuranceTel;
+    String insuranceTel;
 
     EditText colortxt;
     EditText modeltxt;
@@ -56,7 +56,7 @@ public class BikeDetails extends AppCompatActivity {
             model = modeltxt.getText().toString();
             numberPlate = numberPlatetxt.getText().toString();
             insuranceCompany = insuranceCompanytxt.getText().toString();
-            insuranceTel = Integer.parseInt(insuranceTeltxt.getText().toString());
+            insuranceTel = insuranceTeltxt.getText().toString();
 
             //receiving geta from previous page
             Intent intent = getIntent();
