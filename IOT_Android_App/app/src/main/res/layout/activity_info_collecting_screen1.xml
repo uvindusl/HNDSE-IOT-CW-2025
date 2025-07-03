@@ -96,13 +96,10 @@
                 android:layout_centerInParent="true"
                 android:gravity="center"
                 android:layout_marginLeft="100px"
+                android:orientation="horizontal"
               >
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    >
                     <RadioButton
-                        android:id="@+id/idBtnJavaRadio"
+                        android:id="@+id/idBtnMaleRadio"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="4dp"
@@ -114,7 +111,7 @@
                         android:textFontWeight="1000"/>
 
                     <RadioButton
-                        android:id="@+id/idBtnKotlinRadio"
+                        android:id="@+id/idBtnFemaleRadio"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="4dp"
@@ -127,7 +124,7 @@
                         android:textFontWeight="1000"/>
 
                     <RadioButton
-                        android:id="@+id/idBtnFlutterRadio"
+                        android:id="@+id/idBtnOtherRadio"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="4dp"
@@ -138,7 +135,7 @@
                         android:layout_marginLeft="20px"
                         android:fontFamily="@font/alumin"
                         android:textFontWeight="1000"/>
-                </LinearLayout>
+
 
             </RadioGroup>
 

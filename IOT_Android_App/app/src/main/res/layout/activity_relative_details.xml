@@ -21,18 +21,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/textView19"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="100px"
+                    android:layout_marginTop="100px"
+                    android:layout_marginRight="100px"
                     android:fontFamily="@font/alumin"
-                    android:textFontWeight="1000"
                     android:text="Relative Details"
                     android:textColor="@color/black"
-                    android:textSize="30dp"
-                    android:layout_marginTop="100px"
-                    android:layout_marginLeft="100px"
-                    android:layout_marginRight="100px"/>
+                    android:textFontWeight="1000"
+                    android:textSize="30dp" />
+
                 <Button
                     android:id="@+id/btnbk"
                     android:layout_width="wrap_content"
@@ -207,7 +209,7 @@
                             android:backgroundTint="@color/black"
                             android:fontFamily="@font/alumin"
                             android:textFontWeight="1000"
-                            android:text="Next"
+                            android:text="Save"
                             android:textColor="@color/white"
                             android:onClick="onPressActivate"
                             android:textSize="24sp"
