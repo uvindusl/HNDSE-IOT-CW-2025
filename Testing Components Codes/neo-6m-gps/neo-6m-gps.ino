@@ -9,8 +9,8 @@
 #include <TinyGPS++.h>
 
 // Define the RX and TX pins for Software Serial 2
-#define RX D2
-#define TX D1
+#define RX D3
+#define TX D4
 
 #define GPS_BAUD 9600
 
@@ -23,6 +23,8 @@ SoftwareSerial gpsSerial(RX, TX);
 void setup() {
   // Serial Monitor
   Serial.begin(115200);
+  Serial.println("Before starting Software Serial started at 9600 baud rate");
+  delay(1000);
   
   // Start Serial 2 with the defined RX and TX pins and a baud rate of 9600
   gpsSerial.begin(GPS_BAUD);
