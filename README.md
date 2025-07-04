@@ -91,15 +91,12 @@ Based on the NodeMCU(esp8266) module this smart device mainly Transmit data that
   
 ![462549598-7706755b-322d-434e-ac2d-7cb76e92e74b](https://github.com/user-attachments/assets/fec5144e-e366-442a-ba9f-98a2c0d6a71c)
 
-
-Arduino IDE and C++ was used to program the esp8266 with sensor's.
-
 The following circuit diagram is a prototype of this smart helmet project. 
 ![image](https://github.com/user-attachments/assets/ce0018a1-b872-4286-baf5-227704bb7704)
 
 
 When an accident took place helmet will transfer all necessary data related to the accident to the fire store. Afterward it will continuously transfer heart beat data to the real-time database.  
-
+Arduino IDE and C++ was used to program the esp8266 with sensor's.
 
 ### Mobile Application
 
@@ -114,7 +111,7 @@ Android studio and Java with xml were used to create this application.
 
 ### Back-End
 
-This can be identify as the core of this project. It will monitor the fire store for a change with the aid of a thread. If any changes detected (adding a helmet id) to from the fire store it will identified as an accident occurred. 
+This can be identify as the core of this project. It will monitor the fire store for a change with the aid of a thread. If any changes detected (adding a helmet id) from the fire store it will identified as an accident occurred. 
 
 when an accident occurred a link with the access to the web Application is sent via a SMS service to the relevant parties such as 119 and 1990.
 
