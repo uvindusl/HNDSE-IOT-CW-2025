@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -135,6 +136,7 @@ public class RelativeDetails extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Log.d(TAG, "DocumentSnapshot successfully updated!");
+                            Toast.makeText(RelativeDetails.this, "Activation Success", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -143,6 +145,9 @@ public class RelativeDetails extends AppCompatActivity {
                             Log.w(TAG,"Error updating document", e);
                         }
                     });
+
+            //Redirecting to first page
+            startActivity(new Intent(RelativeDetails.this, MainActivity.class));
 
         } catch (Exception e) {
             Log.d("catch", "Error writing document", e);
