@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }else{
                     t2.setText("no data found");
+                    Toast.makeText(this, "no data found", Toast.LENGTH_SHORT).show();
                 }
             }else{
                 t2.setText("error");
