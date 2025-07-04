@@ -26,7 +26,7 @@ function HeartBeatLineChart() {
       }
     };
     fetchData();
-    setInterval(fetchData, 1000);
+    // setInterval(fetchData, 1000);
   }, []);
 
   //console.log(HeartRate);
