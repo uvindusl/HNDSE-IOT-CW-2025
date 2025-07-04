@@ -95,7 +95,7 @@ The following circuit diagram is a prototype of this smart helmet project.
 ![image](https://github.com/user-attachments/assets/ce0018a1-b872-4286-baf5-227704bb7704)
 
 
-When an accident took place helmet will transfer all necessary data related to the accident to the fire store. Afterward it will continuously transfer heart beat data to the real-time database.  
+When an accident took place helmet will transfer all necessary data related to the accident to the fire store. Afterward it will continuously transfer heart beat data to the backend.  
 Arduino IDE and C++ was used to program the esp8266 with sensor's.
 
 ### Mobile Application
@@ -113,7 +113,9 @@ Android studio and Java with xml were used to create this application.
 
 This can be identify as the core of this project. It will monitor the fire store for a change with the aid of a thread. If any changes detected (adding a helmet id) from the fire store it will identified as an accident occurred. 
 
-when an accident occurred a link with the access to the web Application is sent via a SMS service to the relevant parties such as 119 and 1990.
+when an accident occurred a link with the access to the web Application is sent via a SMS service to the relevant parties such as 119 and 1990. 
+
+Also it will send heart rate data to the realtime database. 
 
 Python flask is used to implement the backend
 
