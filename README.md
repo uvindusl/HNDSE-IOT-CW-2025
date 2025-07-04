@@ -90,10 +90,10 @@ When an accident took place helmet will transfer all necessary data related to t
 
 ### Mobile Application
 
-![a](https://github.com/user-attachments/assets/85a9eb82-db1f-4e9b-b835-51ee8662d70a)
-
 
 This is the user-interface which helps users to connect with the smart helmet. With the unique id attached to the helmet user can activate the helmet through the mobile app and access its features. 
+
+![a](https://github.com/user-attachments/assets/85a9eb82-db1f-4e9b-b835-51ee8662d70a)
 
 Withing the login process users can enter their details to their profile which can also update later. This data will be saved in the Fire store and can be fetch in to the web application when needed. 
 
