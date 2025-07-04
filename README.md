@@ -111,6 +111,8 @@ Python flask is used to implement the backend
 
 After accessing to the application they can monitor rider details, accident details, heart beat and any vital details. With the help of this web application they can easily track the accident location and recover the injured rider or pedestrian following a vehicular collision. 
 
+![image](https://github.com/user-attachments/assets/fb90070d-56c9-4db1-8dee-63a70ff33957)
+
 React-js is used to create the web application.
 
 ### Database
