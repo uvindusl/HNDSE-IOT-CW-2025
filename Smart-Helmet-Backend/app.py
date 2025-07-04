@@ -172,8 +172,8 @@ def generateUniqueUrl(purpose="manual_generation"):
     logger.info(f"Expires: {dashboardAccessTokens[uniqueToken]['expires_at']}")
     logger.info("-------------------------------------")
 
-    print("---Message Sending---\n")
-    massageSending(message=f"Accident detected you can get details by visiting this WebSite : '{uniqueFullUrl}'")
+    # print("---Message Sending---\n")
+    # massageSending(message=f"Accident detected you can get details by visiting this WebSite : '{uniqueFullUrl}'")
 
     return uniqueFullUrl
 
