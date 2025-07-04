@@ -112,7 +112,7 @@ public class RelativeDetails extends AppCompatActivity {
             rider.put("insuarance_company",insuranceCompany);
             rider.put("insuarance_tel",insuranceTel);
 
-            //pass data to firebase
+            //pass rider data to firebase
             db.collection("Riders")
             .add(rider)
             .addOnSuccessListener(documentReference -> {
@@ -126,16 +126,9 @@ public class RelativeDetails extends AppCompatActivity {
                 }
             });
 
-//            Map<String, Object> active = new HashMap<>();
-//            active.put("activated_day",currentDate);
-//            db.collection("Activation")
-//            .add(active)
-//            .addOnSuccessListener(documentReference -> {
-//                //Success call
-//            })
-
-            DocumentReference activationRef = db.collection("Activation").document("ivKWZIfLhzYDXns2fPM6");
-
+            //update the activated date
+            assert helmetID != null;
+            DocumentReference activationRef = db.collection("Activation").document(helmetID);
             activationRef
                     .update("activated_day",currentDate)
                     .addOnSuccessListener(new OnSuccessListener<Void>(){
