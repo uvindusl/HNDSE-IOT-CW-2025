@@ -54,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
         activate = findViewById(R.id.activatebtn);
         t2 = findViewById(R.id.textView2);
 
-
-
         //database data retriever should be implemented on the main actvity since the onComplete method cant pass data outside its context.
 
     }

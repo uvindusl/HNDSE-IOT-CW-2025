@@ -1,22 +1,28 @@
 package com.uhd.helmet;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +40,7 @@ public class RelativeDetails extends AppCompatActivity {
     EditText relativeTeltxt;
     EditText relative2Nametxt;
     EditText relative2eltxt;
+    LocalDate currentDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +58,7 @@ public class RelativeDetails extends AppCompatActivity {
         startActivity(new Intent(RelativeDetails.this, BikeDetails.class));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void onPressActivate(View v){
         try{
             //assigning input by id
@@ -64,6 +72,7 @@ public class RelativeDetails extends AppCompatActivity {
             relativeTel = relativeTeltxt.getText().toString();
             relative2Name = relative2Nametxt.getText().toString();
             relative2el = relative2eltxt.getText().toString();
+            currentDate = LocalDate.now();
 
             //receiving data from previous page
             Intent intent = getIntent();
@@ -114,6 +123,31 @@ public class RelativeDetails extends AppCompatActivity {
                     Log.d("failure", "Error writing document", e);
                 }
             });
+
+//            Map<String, Object> active = new HashMap<>();
+//            active.put("activated_day",currentDate);
+//            db.collection("Activation")
+//            .add(active)
+//            .addOnSuccessListener(documentReference -> {
+//                //Success call
+//            })
+
+            DocumentReference activationRef = db.collection("Activation").document("ivKWZIfLhzYDXns2fPM6");
+
+            activationRef
+                    .update("activated_day",currentDate)
+                    .addOnSuccessListener(new OnSuccessListener<Void>(){
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "DocumentSnapshot successfully updated!");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG,"Error updating document", e);
+                        }
+                    });
 
         } catch (Exception e) {
             Log.d("catch", "Error writing document", e);
