@@ -81,6 +81,7 @@ public class info_collecting_screen_1 extends AppCompatActivity {
 
             //receiving data from previous page
             Intent intent = getIntent();
+            String helmetID = intent.getStringExtra("helmetIDToInfo");
             String firstName = intent.getStringExtra("firstNameToInfo");
             String middleName = intent.getStringExtra("middleNameToInfo");
             String lastName = intent.getStringExtra("lastNameToInfo");
@@ -89,6 +90,7 @@ public class info_collecting_screen_1 extends AppCompatActivity {
 
             //pass values to next page
             Intent myIntent = new Intent(this, BikeDetails.class);
+            myIntent.putExtra("helmetIDToBike",helmetID);
             myIntent.putExtra("firstNameToBike",firstName);
             myIntent.putExtra("middleNameToBike",middleName);
             myIntent.putExtra("lastNameToBike",lastName);

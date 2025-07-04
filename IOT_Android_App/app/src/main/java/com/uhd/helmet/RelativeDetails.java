@@ -76,6 +76,7 @@ public class RelativeDetails extends AppCompatActivity {
 
             //receiving data from previous page
             Intent intent = getIntent();
+            String helmetID = intent.getStringExtra("helmetIDToRelative");
             String firstName = intent.getStringExtra("firstNameToRelative");
             String middleName = intent.getStringExtra("middleNameToRelative");
             String lastName = intent.getStringExtra("lastNameToRelative");
@@ -94,6 +95,7 @@ public class RelativeDetails extends AppCompatActivity {
 
             //put data to a hashmap
             Map<String, Object> rider = new HashMap<>();
+            rider.put("h_id", helmetID);
             rider.put("first_name", firstName);
             rider.put("middle_name", middleName);
             rider.put("last_name", lastName);

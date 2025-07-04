@@ -2,6 +2,7 @@ package com.uhd.helmet;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -68,7 +69,14 @@ public class MainActivity extends AppCompatActivity {
                 QuerySnapshot querySnapshot = task.getResult();
                 if(querySnapshot != null && !querySnapshot.isEmpty()){
                     t2.setText("data found");
-                    startActivity(new Intent(MainActivity.this, nameCollectingScreen.class));
+                    //pass values to next page
+                    Intent myIntent = new Intent(this, nameCollectingScreen.class);
+                    myIntent.putExtra("helmetIDToNameCollecting",helmetID);
+                    try{
+                        startActivity(myIntent);
+                    }catch (ActivityNotFoundException e){
+                        Log.d("passName","data passing failed",e);
+                    }
                 }else{
                     t2.setText("no data found");
                 }

@@ -73,8 +73,13 @@ public class nameCollectingScreen extends AppCompatActivity {
             address = lastNametxt.getText().toString();
             nic = lastNametxt.getText().toString();
 
+            //receiving data from previous page
+            Intent intent = getIntent();
+            String helmetID = intent.getStringExtra("helmetIDToNameCollecting");
+
             //pass values to next page
             Intent myIntent = new Intent(this, info_collecting_screen_1.class);
+            myIntent.putExtra("helmetIDToInfo",helmetID);
             myIntent.putExtra("firstNameToInfo",firstName);
             myIntent.putExtra("middleNameToInfo",middleName);
             myIntent.putExtra("lastNameToInfo",lastName);

@@ -60,6 +60,7 @@ public class BikeDetails extends AppCompatActivity {
 
             //receiving gata from previous page
             Intent intent = getIntent();
+            String helmetID = intent.getStringExtra("helmetIDToBike");
             String firstName = intent.getStringExtra("firstNameToBike");
             String middleName = intent.getStringExtra("middleNameToBike");
             String lastName = intent.getStringExtra("lastNameToBike");
@@ -73,6 +74,7 @@ public class BikeDetails extends AppCompatActivity {
 
             //pass values to next page
             Intent myIntent = new Intent(this, RelativeDetails.class);
+            myIntent.putExtra("helmetIDToRelative",helmetID);
             myIntent.putExtra("firstNameToRelative",firstName);
             myIntent.putExtra("middleNameToRelative",middleName);
             myIntent.putExtra("lastNameToRelative",lastName);
