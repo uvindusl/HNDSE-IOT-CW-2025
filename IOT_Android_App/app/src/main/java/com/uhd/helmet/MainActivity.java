@@ -60,7 +60,10 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onPressActivate(View v){
         helmetID = helmetIdText.getText().toString();
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        //check whether the helmet id exists
         CollectionReference collRef = db.collection("Activation");
         Query query = collRef.whereEqualTo("h_id", helmetID);
         query.get().addOnCompleteListener(task -> {
@@ -69,13 +72,22 @@ public class MainActivity extends AppCompatActivity {
                 QuerySnapshot querySnapshot = task.getResult();
                 if(querySnapshot != null && !querySnapshot.isEmpty()){
                     t2.setText("data found");
-                    //pass values to next page
-                    Intent myIntent = new Intent(this, nameCollectingScreen.class);
-                    myIntent.putExtra("helmetIDToNameCollecting",helmetID);
-                    try{
-                        startActivity(myIntent);
-                    }catch (ActivityNotFoundException e){
-                        Log.d("passName","data passing failed",e);
+
+                    //check whether the helmet is activated
+                    DocumentSnapshot doc = querySnapshot.getDocuments().get(0);
+                    if (doc.contains("activated_day") && doc.get("activated_day") != null) {
+                        t2.setText("Already Activated");
+                        Toast.makeText(this, "Already Activated", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Helmet is not activated, proceed
+                        //pass values to next page
+                        Intent myIntent = new Intent(this, nameCollectingScreen.class);
+                        myIntent.putExtra("helmetIDToNameCollecting", helmetID);
+                        try {
+                            startActivity(myIntent);
+                        } catch (ActivityNotFoundException e) {
+                            Log.d("passName", "data passing failed", e);
+                        }
                     }
                 }else{
                     t2.setText("no data found");
