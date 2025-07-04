@@ -10,6 +10,7 @@
 #include <Wire.h>
 #include <SoftwareSerial.h>
 #include <TinyGPS++.h>
+#include <string.h>
 
 #define RX D3
 #define TX D4
@@ -43,7 +44,15 @@ const char* firebaseApiKey = "AIzaSyDoWdEbBC0NaQP6yR7M_0QsJvjxjcRisbA";
 const char* signInEndpoint = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=";
 
 const char* userEmail = "mkdgangadara@gmail.com";
-const char* userPassword = "password123";  
+const char* userPassword = "password123";
+// below are the credentials of firestore database.
+const char* host = "firestore.googleapis.com";
+const char* apiKey = "AIzaSyDoWdEbBC0NaQP6yR7M_0QsJvjxjcRisbA";
+const char* projectId = "inclass-f6c41";
+const char* collection = "test";
+
+//this is the firebase auth id key that can be used across the code
+char AIDcharArray[4000];
 
 void setup() {
   // put your setup code here, to run once:
@@ -278,10 +287,10 @@ void sendRequestToFirebase(){
     int httpResponseCode = http.POST(requestBody);
 
     if (httpResponseCode > 0) {
-      Serial.print("HTTP Response code: ");
-      Serial.println(httpResponseCode);
+      //Serial.print("HTTP Response code: ");
+      //Serial.println(httpResponseCode);
       String response = http.getString(); // Get the response payload (JSON containing token/user info)
-      Serial.println("Response from server:");
+      //Serial.println("Response from server:");
       Serial.println(response);
 
       
@@ -295,13 +304,18 @@ void sendRequestToFirebase(){
       }
 
       const char* idToken = responseDoc["idToken"];
-      const char* refreshToken = responseDoc["refreshToken"];
-      const char* expiresIn = responseDoc["expiresIn"]; 
+      size_t len = strlen(idToken);
+      
+      strcpy(AIDcharArray, idToken); 
+      
+      //below codes were used for testing purposes and commented because they arent doing any task in this code
+      //const char* refreshToken = responseDoc["refreshToken"];
+      //const char* expiresIn = responseDoc["expiresIn"]; 
 
       if (idToken) {
         Serial.println("idToken: " + String(idToken));
-        Serial.println("refreshToken: " + String(refreshToken));
-        Serial.println("expiresIn (seconds): " + String(expiresIn));
+        //Serial.println("refreshToken: " + String(refreshToken));
+        //Serial.println("expiresIn (seconds): " + String(expiresIn));
       } else {
         Serial.println("Failed to get idToken from response (check credentials/Firebase rules)");
       }
@@ -318,9 +332,11 @@ void sendRequestToFirebase(){
     Serial.println("WiFi not connected. Attempting to reconnect...");
     WiFi.begin(ssid, password);
   }
-
+  Serial.print("Converted id = ");
+  Serial.println(AIDcharArray);
   delay(1000);
+  
 }
 void sendAccidentData(){
-  
+
 }
