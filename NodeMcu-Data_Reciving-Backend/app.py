@@ -19,10 +19,11 @@ if not firebase_admin._apps:
             'databaseURL': REALTIME_DATABASE_URL
         })
         logger.info('Firebase Admin SDK initialized successfully.')
-        exit(1)
     except Exception as e:
         logger.error(f"Error initializing Firebase Admin SDK: {e}")
         exit(1)
+else:
+    logger.info('Firebase Admin SDK already initialized.')
 
 
 @app.route('/nodemcu', methods=['POST'])
