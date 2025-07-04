@@ -95,7 +95,8 @@ Based on the NodeMCU(esp8266) module this smart device mainly Transmit data that
 Arduino IDE and C++ was used to program the esp8266 with sensor's.
 
 The following circuit diagram is a prototype of this smart helmet project. 
-![image](https://github.com/user-attachments/assets/64262385-92b9-4293-884f-963a8169f4c7)
+![image](https://github.com/user-attachments/assets/ce0018a1-b872-4286-baf5-227704bb7704)
+
 
 When an accident took place helmet will transfer all necessary data related to the accident to the fire store. Afterward it will continuously transfer heart beat data to the real-time database.  
 
