@@ -43,11 +43,13 @@ def receive_data_from_nodemcu():
         return jsonify({"status": "error", "message": "'value' (heart beat) is required."}), 400
 
     try:
-        helmet_readings_ref = db.reference(helmetId)
+        # helmet_readings_ref = db.reference(helmetId)
+        #
+        # new_record_ref = helmet_readings_ref.set({
+        #     'heart_beat': heartBeat,
+        # })
 
-        new_record_ref = helmet_readings_ref.set({
-            'heart_beat': heartBeat,
-        })
+        db.reference(f"{helmetId}/heart_beat").set(heartBeat)
 
         logger.info(f"Heart beat {heartBeat} saved for helmet ID: {helmetId}.")
 
