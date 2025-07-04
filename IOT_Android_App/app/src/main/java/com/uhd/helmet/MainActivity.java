@@ -90,8 +90,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 }else{
-                    t2.setText("no data found");
-                    Toast.makeText(this, "no data found", Toast.LENGTH_SHORT).show();
+                    t2.setText("Invalid helmet id");
+                    Toast.makeText(this, "Invalid helmet id", Toast.LENGTH_SHORT).show();
                 }
             }else{
                 t2.setText("error");
