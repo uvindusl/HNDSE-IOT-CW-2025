@@ -64,8 +64,8 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  checkHeartBeat();
-  delay(20);
+  //checkHeartBeat();
+  //delay(20);
 
   accelo();
   delay(30);
@@ -125,7 +125,7 @@ void checkHeartBeat(){
 }
 void accelo(){
   int i = 0;
-  while(i < 40){
+  while(i < 40000){
   sensors_event_t a, g, temp;
   mpu.getEvent(&a, &g, &temp);
   

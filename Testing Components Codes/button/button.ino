@@ -13,11 +13,11 @@ void loop() {
 
   if(state == LOW){
     Serial.println("Button pressed");
-    digitalWrite(D2, HIGH);
+    
     
   }else{
     Serial.println("Button not pressed");
-    digitalWrite(D2, LOW);
+    
   }
   delay(100);
 

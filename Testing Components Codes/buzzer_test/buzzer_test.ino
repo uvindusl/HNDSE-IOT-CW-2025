@@ -1,4 +1,4 @@
-const int activeBuzzerPin = D2; // Connect your active buzzer to D1 (or your chosen pin)
+const int activeBuzzerPin = D7; // Connect your active buzzer to D1 (or your chosen pin)
 
 void setup() {
   pinMode(activeBuzzerPin, OUTPUT); // Set the buzzer pin as an output
