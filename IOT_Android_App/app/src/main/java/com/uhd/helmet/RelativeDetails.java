@@ -1,22 +1,28 @@
 package com.uhd.helmet;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +40,7 @@ public class RelativeDetails extends AppCompatActivity {
     EditText relativeTeltxt;
     EditText relative2Nametxt;
     EditText relative2eltxt;
+    LocalDate currentDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +58,7 @@ public class RelativeDetails extends AppCompatActivity {
         startActivity(new Intent(RelativeDetails.this, BikeDetails.class));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void onPressActivate(View v){
         try{
             //assigning input by id
@@ -64,9 +72,11 @@ public class RelativeDetails extends AppCompatActivity {
             relativeTel = relativeTeltxt.getText().toString();
             relative2Name = relative2Nametxt.getText().toString();
             relative2el = relative2eltxt.getText().toString();
+            currentDate = LocalDate.now();
 
             //receiving data from previous page
             Intent intent = getIntent();
+            String helmetID = intent.getStringExtra("helmetIDToRelative");
             String firstName = intent.getStringExtra("firstNameToRelative");
             String middleName = intent.getStringExtra("middleNameToRelative");
             String lastName = intent.getStringExtra("lastNameToRelative");
@@ -85,6 +95,7 @@ public class RelativeDetails extends AppCompatActivity {
 
             //put data to a hashmap
             Map<String, Object> rider = new HashMap<>();
+            rider.put("h_id", helmetID);
             rider.put("first_name", firstName);
             rider.put("middle_name", middleName);
             rider.put("last_name", lastName);
@@ -101,7 +112,7 @@ public class RelativeDetails extends AppCompatActivity {
             rider.put("insuarance_company",insuranceCompany);
             rider.put("insuarance_tel",insuranceTel);
 
-            //pass data to firebase
+            //pass rider data to firebase
             db.collection("Riders")
             .add(rider)
             .addOnSuccessListener(documentReference -> {
@@ -114,6 +125,24 @@ public class RelativeDetails extends AppCompatActivity {
                     Log.d("failure", "Error writing document", e);
                 }
             });
+
+            //update the activated date
+            assert helmetID != null;
+            DocumentReference activationRef = db.collection("Activation").document(helmetID);
+            activationRef
+                    .update("activated_day",currentDate)
+                    .addOnSuccessListener(new OnSuccessListener<Void>(){
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "DocumentSnapshot successfully updated!");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG,"Error updating document", e);
+                        }
+                    });
 
         } catch (Exception e) {
             Log.d("catch", "Error writing document", e);
