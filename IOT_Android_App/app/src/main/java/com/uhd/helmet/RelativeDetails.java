@@ -114,11 +114,12 @@ public class RelativeDetails extends AppCompatActivity {
             rider.put("insuarance_tel",insuranceTel);
 
             //pass rider data to firebase
-            db.collection("Riders")
-            .add(rider)
+            assert helmetID != null;
+            db.collection("Riders").document("rider_"+helmetID)
+            .set(rider)
             .addOnSuccessListener(documentReference -> {
                 // Success callback
-                System.out.println("Document added with ID: " + documentReference.getId());
+                System.out.println("Document added with ID: ");
             })
             .addOnFailureListener(new OnFailureListener() {
                 @Override
