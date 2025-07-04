@@ -12,13 +12,16 @@
 #include <TinyGPS++.h>
 #include <string.h>
 #include <Arduino.h>
-#include <FirebaseClient.h>
+
+
+
 
 #define RX D3
 #define TX D4
 
 
 #define GPS_BAUD 9600
+
 
 TinyGPSPlus gps;
 SoftwareSerial gpsSerial(RX, TX);
@@ -43,26 +46,38 @@ const int activeBuzzerPin = D7;
 const char* ssid = "DiniRed";
 const char* password = "123456789";
 
-const char* firebaseApiKey = "AIzaSyDoWdEbBC0NaQP6yR7M_0QsJvjxjcRisbA";
+const char* firebaseApiKey = "AIzaSyCKrkvxUIzFW3J1c7DX7nmV-1RjduxuJkk";
 const char* signInEndpoint = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=";
 
 const char* userEmail = "mkdgangadara@gmail.com";
-const char* userPassword = "password123";
+const char* userPassword = "mkd123456";
 // below are the credentials of firestore database.
 const char* host = "firestore.googleapis.com";
-const char* apiKey = "AIzaSyDoWdEbBC0NaQP6yR7M_0QsJvjxjcRisbA";
-const char* projectId = "inclass-f6c41";
-const char* collection = "test";
-
+const char* apiKey = "AIzaSyCKrkvxUIzFW3J1c7DX7nmV-1RjduxuJkk";
+const char* projectId = "smarthelmet-3a072";
+const char* collection = "Accidents";
+int bstate = 1;
 //this is the firebase auth id key that can be used across the code
-char AIDcharArray[4000];
+char AIDcharArray[3200];
+
+WiFiClientSecure client;
+
+const char* serverHost = "192.168.178.42"; 
+const int serverPort = 8080;                             
+const char* serverPath = "/nodemcu";
+//String jsonPayload = "{\"temperature\": 25.5, \"humidity\": 60, \"device_id\": \"nodemcu_001\"}"; 
 
 
-
+float lat;
+float longt;
+float speed;
+String date;
+String actime;
 
 void setup() {
   // put your setup code here, to run once:
   pinMode(activeBuzzerPin, OUTPUT);
+  pinMode(D5, INPUT_PULLUP);
   Serial.begin(115200);
   Serial.println("Initializing MAX30102 heart rate sensor");
 
@@ -112,8 +127,10 @@ void setup() {
   beep(150); delay(300); 
   client.setInsecure();
   connectToWIFI();
+  beep(50); delay(50);
+  beep(150); delay(300); 
   sendRequestToFirebase();
-  
+  //sendHB();
 
 
 
@@ -123,16 +140,41 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   
-  //checkHeartBeat();
-  //getGPS();
-  //sendAccidentData();
-  sendHeartBeat();
+  accelo();
+  if(maxacc > 5.00){
+    Serial.println("Accident");
+    Serial.println("max acc = ");
+    Serial.println(maxacc);
+    
+    for(int z = 0; z < 10; z++){
+      bstate = digitalRead(D5);
+      if(bstate == LOW){
+        break;
+      }else{
+        beep(200); delay(100);
+        beep(200); delay(100);
+        beep(200); delay(500);
+      }
+    }
+    if(bstate == HIGH){
+      getGPS();
+      delay(100);
+      sendAccidentData();
+      
+    }
+
+  }
+  
+  maxacc = 0;
+  minacc = 0;
+
+  delay(1000);
 
 }
 
 void checkHeartBeat(){
   int i = 0;
-  while(i < 10000){
+  while(i < 100){
     long irValue = particleSensor.getIR();
 
   if(checkForBeat(irValue) == true){
@@ -175,7 +217,7 @@ void checkHeartBeat(){
 }
 void accelo(){
   int i = 0;
-  while(i < 40000){
+  while(i < 40){
   sensors_event_t a, g, temp;
   mpu.getEvent(&a, &g, &temp);
   
@@ -214,7 +256,7 @@ void accelo(){
   Serial.println(" C");
 
   Serial.println("");
-  delay(50); // Adjust delay as needed
+  delay(150); // Adjust delay as needed
   i++;
   }
 
@@ -237,10 +279,13 @@ void getGPS(){
     if (gps.location.isUpdated()) {
       Serial.print("LAT: ");
       Serial.println(gps.location.lat(), 6);
+      lat = gps.location.lat();
       Serial.print("LONG: "); 
       Serial.println(gps.location.lng(), 6);
+      longt = gps.location.lng();
       Serial.print("SPEED (km/h) = "); 
-      Serial.println(gps.speed.kmph()); 
+      Serial.println(gps.speed.kmph());
+      speed = gps.speed.kmph(); 
       Serial.print("ALT (min)= "); 
       Serial.println(gps.altitude.meters());
       Serial.print("HDOP = "); 
@@ -249,7 +294,14 @@ void getGPS(){
       Serial.println(gps.satellites.value()); 
       Serial.print("Time in UTC: ");
       Serial.println(String(gps.date.year()) + "/" + String(gps.date.month()) + "/" + String(gps.date.day()) + "," + String(gps.time.hour()) + ":" + String(gps.time.minute()) + ":" + String(gps.time.second()));
+      date = String(gps.date.year()) + "/" + String(gps.date.month()) + "/" + String(gps.date.day());
+      actime = String(gps.time.hour()) + "/" + String(gps.time.minute());
+
       Serial.println("");
+      Serial.println("these are the converted values");
+      Serial.println(date);
+      Serial.println(actime);
+      Serial.println(speed);
     }else{
       //Serial.println("no data recieved");
     }
@@ -353,23 +405,38 @@ void sendRequestToFirebase(){
 }
 void sendAccidentData(){
   String url = "/v1/projects/" + String(projectId) + "/databases/(default)/documents/" + String(collection);
-  String payload = R"(
-    {
-      "fields": {
-        "temperature": { "doubleValue": 2599.6 },
-        "ane_pancho": { "doubleValue": 200000.00 }
-      }
-    }
-  )";
+  StaticJsonDocument<512> doc;
+  JsonObject fields = doc.createNestedObject("fields");
+
+  fields["h_id"]["stringValue"] = "h0222";
+  fields["lat"]["doubleValue"] = lat;
+  fields["long"]["doubleValue"] = longt;
+  fields["date"]["stringValue"] = date;
+  fields["time"]["stringValue"] = actime;
+  fields["last_speed"]["doubleValue"] = speed;
+  fields["deaccel_rate"]["doubleValue"] = maxacc;
+  fields["last_accel"]["doubleValue"] = maxacc;
+  fields["last_angle"]["doubleValue"] = 90;
+  fields["status"]["doubleValue"] = 1;
+
+  String requestBody;
+  serializeJson(doc, requestBody);
+
+  Serial.print("Generated Firestore JSON: ");
+  Serial.println(requestBody);
+
+  
+
+  
   if (client.connect(host, 443)) {
     client.println("POST " + url + " HTTP/1.1");
     client.println("Host: " + String(host));
     client.println("Authorization: Bearer " + String(AIDcharArray));
     client.println("Content-Type: application/json");
     client.print("Content-Length: ");
-    client.println(payload.length());
+    client.println(requestBody.length());
     client.println();
-    client.println(payload);
+    client.println(requestBody);
   } else {
     Serial.println("Connection failed");
     return;
@@ -385,5 +452,60 @@ void sendAccidentData(){
   String response = client.readString();
   Serial.println("Response: " + response);
 }
+
+/*void sendHB(){
+  if (WiFi.status() == WL_CONNECTED) {
+    WiFiClient client; // Use WiFiClient for HTTP (unencrypted)
+    HTTPClient http;   // Declare an object of class HTTPClient
+
+    // Construct the full URL
+    String serverUrl = "http://" + String(serverHost) + ":" + String(serverPort) + String(serverPath);
+
+    Serial.print("[HTTP] begin... ");
+    Serial.println(serverUrl);
+
+    // Begin HTTP connection
+    http.begin(client, serverUrl); // Specify the URL and connect
+
+    // Set HTTP header for content type
+    http.addHeader("Content-Type", "application/json");
+
+    Serial.print("[HTTP] POSTing JSON... ");
+    Serial.println(jsonPayload);
+
+    // Send the POST request with the JSON payload
+    int httpResponseCode = http.POST(jsonPayload);
+
+    // httpResponseCode will be negative on error
+    if (httpResponseCode > 0) {
+      Serial.print("[HTTP] POST request successful, HTTP response code: ");
+      Serial.println(httpResponseCode);
+
+      // Get the response payload
+      String responsePayload = http.getString();
+      Serial.print("Response payload: ");
+      Serial.println(responsePayload);
+    } else {
+      Serial.print("[HTTP] POST request failed, error: ");
+      Serial.println(httpResponseCode);
+      Serial.println(http.errorToString(httpResponseCode).c_str());
+    }
+
+    http.end(); // Free resources
+  } else {
+    Serial.println("WiFi Disconnected. Reconnecting...");
+    WiFi.begin(ssid, password); // Try to reconnect
+    while (WiFi.status() != WL_CONNECTED) {
+      delay(500);
+      Serial.print(".");
+    }
+    Serial.println("\nWiFi Reconnected.");
+  }
+
+  
+  delay(5000);
+}
+*/
+
 
 
