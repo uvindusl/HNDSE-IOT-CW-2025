@@ -21,7 +21,7 @@ function UniqueDashboardLoader() {
       console.log(`Frontend: Attempting to validate token: ${uniqueToken}`);
       try {
         const response = await fetch(
-          `http://localhost:5000/validateDashboardAccess/${uniqueToken}`
+          `https://smarthelmetimg-547348114966.asia-southeast1.run.app/validateDashboardAccess/${uniqueToken}`
         );
         const data = await response.json();
 
