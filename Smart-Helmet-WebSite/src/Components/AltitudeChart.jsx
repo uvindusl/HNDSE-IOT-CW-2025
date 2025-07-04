@@ -3,7 +3,7 @@ import { LineChart } from "@mui/x-charts/LineChart";
 import { useState, useEffect } from "react";
 
 function AltitudeChart() {
-  const [Altitude, setAltitude] = useState(null);
+  const [Altitude, setAltitude] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -26,6 +26,7 @@ function AltitudeChart() {
       }
     };
     fetchData();
+    setInterval(fetchData, 1000);
   }, []);
 
   //console.log(Altitude);
