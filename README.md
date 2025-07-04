@@ -75,14 +75,26 @@ As a real world, problem solving IOT project The Smart Helmet Solution consists 
 
 Based on the NodeMCU(esp8266) module this smart device mainly Transmit data that collected from sensors to the firebase for store and further uses of data. Following sensors are using to gather data through out process, 
 
+![esp8266](https://github.com/user-attachments/assets/4af4ca1f-7f86-4937-851a-b4c007449a5d)
+
+
 - Accelerometer (mpu6050)  - Sense the speed which bike is going, acceleration, deacceleration, altitude, tilt (angle) when the accident took place.
+  
+ ![WhatsApp Image 2025-07-04 at 20 36 31_a56eb1d8](https://github.com/user-attachments/assets/92969ae9-32ed-4496-ae27-98510ba2c195)
+
 
 - GPS Module (neo-6m-0-001) - Transmit the current location when the accident occurred.
+![WhatsApp Image 2025-07-04 at 20 37 49_fde36517](https://github.com/user-attachments/assets/5d5cfcc2-86c3-4f3f-a99c-63a48f640e9e)
+
 
 - Heart rate sensor (gy-max30102) - Monitor rider's heart rate and update the real-time database. Also it can be used to detect whether the rider has worn the helmet or not.
+  
+![462549598-7706755b-322d-434e-ac2d-7cb76e92e74b](https://github.com/user-attachments/assets/fec5144e-e366-442a-ba9f-98a2c0d6a71c)
 
-Arduino IDE was used to program the esp8266 with sensor's.
 
+Arduino IDE and C++ was used to program the esp8266 with sensor's.
+
+The following circuit diagram is a prototype of this smart helmet project. 
 ![image](https://github.com/user-attachments/assets/64262385-92b9-4293-884f-963a8169f4c7)
 
 When an accident took place helmet will transfer all necessary data related to the accident to the fire store. Afterward it will continuously transfer heart beat data to the real-time database.  
