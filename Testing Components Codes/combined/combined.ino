@@ -11,9 +11,12 @@
 #include <SoftwareSerial.h>
 #include <TinyGPS++.h>
 #include <string.h>
+#include <Arduino.h>
+#include <FirebaseClient.h>
 
 #define RX D3
 #define TX D4
+
 
 #define GPS_BAUD 9600
 
@@ -53,6 +56,9 @@ const char* collection = "test";
 
 //this is the firebase auth id key that can be used across the code
 char AIDcharArray[4000];
+
+
+
 
 void setup() {
   // put your setup code here, to run once:
@@ -104,9 +110,11 @@ void setup() {
   beep(50); delay(50);
   beep(50); delay(50);
   beep(150); delay(300); 
-
+  client.setInsecure();
   connectToWIFI();
   sendRequestToFirebase();
+  
+
 
 
 
@@ -114,10 +122,14 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  checkHeartBeat();
+  
+  //checkHeartBeat();
   //getGPS();
+  //sendAccidentData();
+  sendHeartBeat();
 
 }
+
 void checkHeartBeat(){
   int i = 0;
   while(i < 10000){
@@ -334,9 +346,44 @@ void sendRequestToFirebase(){
   }
   Serial.print("Converted id = ");
   Serial.println(AIDcharArray);
+  Serial.print("String key = ");
+  Serial.println(String(AIDcharArray));
   delay(1000);
   
 }
 void sendAccidentData(){
+  String url = "/v1/projects/" + String(projectId) + "/databases/(default)/documents/" + String(collection);
+  String payload = R"(
+    {
+      "fields": {
+        "temperature": { "doubleValue": 2599.6 },
+        "ane_pancho": { "doubleValue": 200000.00 }
+      }
+    }
+  )";
+  if (client.connect(host, 443)) {
+    client.println("POST " + url + " HTTP/1.1");
+    client.println("Host: " + String(host));
+    client.println("Authorization: Bearer " + String(AIDcharArray));
+    client.println("Content-Type: application/json");
+    client.print("Content-Length: ");
+    client.println(payload.length());
+    client.println();
+    client.println(payload);
+  } else {
+    Serial.println("Connection failed");
+    return;
+  }
 
+  // Read response
+  while (client.connected()) {
+    String line = client.readStringUntil('\n');
+    Serial.println(line);
+    if (line == "\r") break;
+  }
+
+  String response = client.readString();
+  Serial.println("Response: " + response);
 }
+
+
