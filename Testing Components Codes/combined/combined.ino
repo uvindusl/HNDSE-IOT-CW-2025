@@ -62,11 +62,10 @@ char AIDcharArray[3200];
 
 WiFiClientSecure client;
 
-const char* serverHost = "192.168.178.42"; 
-const int serverPort = 8080;                             
-const char* serverPath = "/nodemcu";
-//String jsonPayload = "{\"temperature\": 25.5, \"humidity\": 60, \"device_id\": \"nodemcu_001\"}"; 
-
+const char* serverUrl = "https://nodemcuimg-88924602304.europe-west1.run.app";
+const char* serverhost = "nodemcuimg-88924602304.europe-west1.run.app";
+const int httpsPort = 443;
+const char* path = "/nodemcu";
 
 float lat;
 float longt;
@@ -130,7 +129,7 @@ void setup() {
   beep(50); delay(50);
   beep(150); delay(300); 
   sendRequestToFirebase();
-  //sendHB();
+  
 
 
 
@@ -160,6 +159,7 @@ void loop() {
       getGPS();
       delay(100);
       sendAccidentData();
+      sendHB();
       
     }
 
@@ -453,13 +453,14 @@ void sendAccidentData(){
   Serial.println("Response: " + response);
 }
 
-/*void sendHB(){
+void sendHB(){
   if (WiFi.status() == WL_CONNECTED) {
     WiFiClient client; // Use WiFiClient for HTTP (unencrypted)
     HTTPClient http;   // Declare an object of class HTTPClient
 
     // Construct the full URL
-    String serverUrl = "http://" + String(serverHost) + ":" + String(serverPort) + String(serverPath);
+    String serverUrl = "https://" + String(serverhost) + ":" + String(httpsPort) + String(path);
+    String jsonPayload = "{\"hid\":\"h0222\",\"heartbeat\":" + String(95) + "}";
 
     Serial.print("[HTTP] begin... ");
     Serial.println(serverUrl);
@@ -505,7 +506,6 @@ void sendAccidentData(){
   
   delay(5000);
 }
-*/
 
 
 
