@@ -92,7 +92,8 @@ function AccidentDetailsCard() {
           <>
             <div className="accident-card">
               <span className="accident-txt">
-                Accident Location: {data.location}{" "}
+                Accident Location: https://www.google.com/maps/place/{data.lat},
+                {data.long}{" "}
               </span>
               <br></br>
               <span className="accident-txt">Accident Time: {data.time} </span>

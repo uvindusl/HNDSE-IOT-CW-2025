@@ -2,6 +2,7 @@ package com.uhd.helmet;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -54,14 +55,15 @@ public class MainActivity extends AppCompatActivity {
         activate = findViewById(R.id.activatebtn);
         t2 = findViewById(R.id.textView2);
 
-
-
         //database data retriever should be implemented on the main actvity since the onComplete method cant pass data outside its context.
 
     }
     public void onPressActivate(View v){
         helmetID = helmetIdText.getText().toString();
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        //check whether the helmet id exists
         CollectionReference collRef = db.collection("Activation");
         Query query = collRef.whereEqualTo("h_id", helmetID);
         query.get().addOnCompleteListener(task -> {
@@ -70,9 +72,26 @@ public class MainActivity extends AppCompatActivity {
                 QuerySnapshot querySnapshot = task.getResult();
                 if(querySnapshot != null && !querySnapshot.isEmpty()){
                     t2.setText("data found");
-                    startActivity(new Intent(MainActivity.this, nameCollectingScreen.class));
+
+                    //check whether the helmet is activated
+                    DocumentSnapshot doc = querySnapshot.getDocuments().get(0);
+                    if (doc.contains("activated_day") && doc.get("activated_day") != null) {
+                        t2.setText("Already Activated");
+                        Toast.makeText(this, "Already Activated", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Helmet is not activated, proceed
+                        //pass values to next page
+                        Intent myIntent = new Intent(this, nameCollectingScreen.class);
+                        myIntent.putExtra("helmetIDToNameCollecting", helmetID);
+                        try {
+                            startActivity(myIntent);
+                        } catch (ActivityNotFoundException e) {
+                            Log.d("passName", "data passing failed", e);
+                        }
+                    }
                 }else{
-                    t2.setText("no data found");
+                    t2.setText("Invalid helmet id");
+                    Toast.makeText(this, "Invalid helmet id", Toast.LENGTH_SHORT).show();
                 }
             }else{
                 t2.setText("error");

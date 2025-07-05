@@ -75,22 +75,35 @@ As a real world, problem solving IOT project The Smart Helmet Solution consists 
 
 Based on the NodeMCU(esp8266) module this smart device mainly Transmit data that collected from sensors to the firebase for store and further uses of data. Following sensors are using to gather data through out process, 
 
+![esp8266](https://github.com/user-attachments/assets/4af4ca1f-7f86-4937-851a-b4c007449a5d)
+
+
 - Accelerometer (mpu6050)  - Sense the speed which bike is going, acceleration, deacceleration, altitude, tilt (angle) when the accident took place.
+  
+ ![WhatsApp Image 2025-07-04 at 20 36 31_a56eb1d8](https://github.com/user-attachments/assets/92969ae9-32ed-4496-ae27-98510ba2c195)
+
 
 - GPS Module (neo-6m-0-001) - Transmit the current location when the accident occurred.
+![WhatsApp Image 2025-07-04 at 20 37 49_fde36517](https://github.com/user-attachments/assets/5d5cfcc2-86c3-4f3f-a99c-63a48f640e9e)
+
 
 - Heart rate sensor (gy-max30102) - Monitor rider's heart rate and update the real-time database. Also it can be used to detect whether the rider has worn the helmet or not.
+  
+![462549598-7706755b-322d-434e-ac2d-7cb76e92e74b](https://github.com/user-attachments/assets/fec5144e-e366-442a-ba9f-98a2c0d6a71c)
 
-Arduino IDE was used to program the esp8266 with sensor's.
+The following circuit diagram is a prototype of this smart helmet project. 
+![image](https://github.com/user-attachments/assets/ce0018a1-b872-4286-baf5-227704bb7704)
 
-![image](https://github.com/user-attachments/assets/64262385-92b9-4293-884f-963a8169f4c7)
 
-When an accident took place helmet will transfer all necessary data related to the accident to the fire store. Afterward it will continuously transfer heart beat data to the real-time database.  
-
+When an accident took place helmet will transfer all necessary data related to the accident to the fire store. Afterward it will continuously transfer heart beat data to the backend.  
+Arduino IDE and C++ was used to program the esp8266 with sensor's.
 
 ### Mobile Application
 
+
 This is the user-interface which helps users to connect with the smart helmet. With the unique id attached to the helmet user can activate the helmet through the mobile app and access its features. 
+
+![a](https://github.com/user-attachments/assets/85a9eb82-db1f-4e9b-b835-51ee8662d70a)
 
 Withing the login process users can enter their details to their profile which can also update later. This data will be saved in the Fire store and can be fetch in to the web application when needed. 
 
@@ -98,15 +111,19 @@ Android studio and Java with xml were used to create this application.
 
 ### Back-End
 
-This can be identify as the core of this project. It will monitor the fire store for a change with the aid of a thread. If any changes detected (adding a helmet id) to from the fire store it will identified as an accident occurred. 
+This can be identify as the core of this project. It will monitor the fire store for a change with the aid of a thread. If any changes detected (adding a helmet id) from the fire store it will identified as an accident occurred. 
 
-when an accident occurred a link with the access to the web Application is sent via a SMS service to the relevant parties such as 119 and 1990.
+when an accident occurred a link with the access to the web Application is sent via a SMS service to the relevant parties such as 119 and 1990. 
+
+Also it will send heart rate data to the realtime database. 
 
 Python flask is used to implement the backend
 
 ### Web Application
 
 After accessing to the application they can monitor rider details, accident details, heart beat and any vital details. With the help of this web application they can easily track the accident location and recover the injured rider or pedestrian following a vehicular collision. 
+
+![image](https://github.com/user-attachments/assets/fb90070d-56c9-4db1-8dee-63a70ff33957)
 
 React-js is used to create the web application.
 
