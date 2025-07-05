@@ -151,7 +151,7 @@ def generateUniqueUrl(purpose="manual_generation"):
     dashboardAccessTokens[uniqueToken] = { # Save generated token details
         'purpose': purpose,
         'created_at': datetime.now(),
-        'expires_at': datetime.now() + timedelta(minutes=60),
+        'expires_at': datetime.now() + timedelta(minutes=7),
         'accessed': False
     }
 
@@ -172,8 +172,8 @@ def generateUniqueUrl(purpose="manual_generation"):
     logger.info(f"Expires: {dashboardAccessTokens[uniqueToken]['expires_at']}")
     logger.info("-------------------------------------")
 
-    # print("---Message Sending---\n")
-    # massageSending(message=f"Accident detected you can get details by visiting this WebSite : '{uniqueFullUrl}'")
+    print("---Message Sending---\n")
+    massageSending(message=f"Accident detected you can get details by visiting this WebSite : '{uniqueFullUrl}'")
 
     return uniqueFullUrl
 
