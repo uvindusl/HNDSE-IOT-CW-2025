@@ -26,6 +26,7 @@ function AltitudeChart() {
       }
     };
     fetchData();
+    // setInterval(fetchData, 1000);
   }, []);
 
   //console.log(Altitude);
