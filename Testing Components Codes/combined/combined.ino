@@ -46,16 +46,8 @@ const int activeBuzzerPin = D7;
 const char* ssid = "DiniRed";
 const char* password = "123456789";
 
-const char* firebaseApiKey = "AIzaSyCKrkvxUIzFW3J1c7DX7nmV-1RjduxuJkk";
-const char* signInEndpoint = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=";
 
-const char* userEmail = "mkdgangadara@gmail.com";
-const char* userPassword = "mkd123456";
 // below are the credentials of firestore database.
-const char* host = "firestore.googleapis.com";
-const char* apiKey = "AIzaSyCKrkvxUIzFW3J1c7DX7nmV-1RjduxuJkk";
-const char* projectId = "smarthelmet-3a072";
-const char* collection = "Accidents";
 int bstate = 1;
 //this is the firebase auth id key that can be used across the code
 char AIDcharArray[3200];

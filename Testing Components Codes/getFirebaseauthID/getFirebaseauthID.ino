@@ -14,10 +14,8 @@ const char* ssid = "DiniRed";         // Replace with your WiFi SSID
 const char* password = "123456789"; // Replace with your WiFi password
 
 
-const char* firebaseApiKey = "AIzaSyDoWdEbBC0NaQP6yR7M_0QsJvjxjcRisbA"; // Replace with YOUR Firebase Web API Key
+// Replace with YOUR Firebase Web API Key
 
-
-const char* signInEndpoint = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=";
 
 
 const char* userEmail = "mkdgangadara@gmail.com"; // Replace with your Firebase test email
